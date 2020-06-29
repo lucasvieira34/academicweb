@@ -1,0 +1,17 @@
+#tabela {
+	padding-top: 30px;
+}
+
+.row-centered {
+	text-align: center;
+}
+
+.col-centered {
+	display: inline-block;
+	float: none;
+	text-align: center;
+}
+
+.input-field .prefix.active {
+	color: #fd7e14;
+}

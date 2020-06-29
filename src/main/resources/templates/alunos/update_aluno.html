@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Alteração de Aluno</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="/materialize/css/materialize.min.css" media="screen,projection" />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/novo_aluno.css"/>
+
+    <nav>
+        <div class="nav-wrapper orange darken-3">
+            <a href="#!" class="brand-logo">Logo</a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="sass.html"><i class="material-icons left">search</i>Link with Left Icon</a></li>
+                <li><a href="badges.html"><i class="material-icons right">view_module</i>Olá, username</a></li>
+                <li><a href="/logout"><i class="material-icons right">exit_to_app</i>Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+</head>
+
+<body>
+    <div class="container">
+        <div id="tabela">
+            <div class="row">
+                <form class="col s12" th:object="${aluno}" th:action="@{/editarAluno}" method="POST">
+                    <h2>Alteração de Aluno</h2>
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">assignment_ind</i>
+                            <input th:value="${aluno.id_aluno}" type="text" name="id_aluno" class="valid" readonly>
+                            <label>ID</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">fiber_pin</i>
+                            <input th:value="${aluno.matricula}" type="text" name="matricula" class="valid" readonly>
+                            <label for="matricula">Matrícula</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <i class="material-icons prefix">account_circle</i>
+                            <input th:value="${aluno.nome}" type="text" name="nome" class="valid" readonly>
+                            <label>Nome</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <input th:value="${aluno.sobrenome}" type="text" name="sobrenome" class="valid" readonly>
+                            <label>Sobrenome</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <i class="material-icons prefix">star</i>
+                            <input value="X" type="text" name="a1" class="validate">
+                            <label>A1</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <input value="X" type="text" name="a2" class="validate">
+                            <label>A2</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <i class="material-icons prefix">unfold_more</i>
+                            <input value="X" type="text" name="faltas" class="validate">
+                            <label>Faltas</label>
+                        </div>
+                    </div>
+
+                    <button class="btn waves-effect waves-light orange darken-3" type="submit" name="action">Alterar
+                        <i class="material-icons right">send</i>
+                    </button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-3.2.1.min"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

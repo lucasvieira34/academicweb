@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Listagem dos Alunos</title>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css" media="screen,projection" />
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/listar_aluno.css">
+	<script type="text/javascript" src="js/jquery-3.2.1.min"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+	<nav>
+		<div class="nav-wrapper orange darken-3">
+			<a href="#!" class="brand-logo">Logo</a>
+			<ul class="right hide-on-med-and-down">
+				<li><a href="sass.html"><i class="material-icons left">search</i>Link with Left Icon</a></li>
+				<li><a href="badges.html"><i class="material-icons right">view_module</i>Link with Right Icon</a></li>
+				<li><a href="/logout"><i class="material-icons right">exit_to_app</i>Logout</a></li>
+			</ul>
+		</div>
+	</nav>
+
+</head>
+
+<body>
+	<div class="container">
+		<div id="tabela">
+			<h2>Lista dos Alunos</h2>
+
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th></th>
+						<th>Id</th>
+						<th>Matricula</th>
+						<th>Nome</th>
+						<th>Sobrenome</th>
+						<th>A1</th>
+						<th>A2</th>
+						<th>Faltas</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="aluno : ${alunos}">
+						<td><i class="medium material-icons">person</i></td>
+						<td><span th:text="${aluno.id_aluno}"></span></td>
+						<td><span th:text="${aluno.matricula}"></span></td>
+						<td><span th:text="${aluno.nome}"></span></td>
+						<td><span th:text="${aluno.sobrenome}"></span></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+
+						<td><a th:href="@{'/editarAluno/' + ${aluno.id_aluno}}"> <i class="small material-icons icon-orange">edit</i></a></td>
+					</tr>
+				</tbody>
+			</table>
+
+			
+
+
+			<a href="home">Home</a>
+		</div>
+	</div>
+</body>
+
+</html>
