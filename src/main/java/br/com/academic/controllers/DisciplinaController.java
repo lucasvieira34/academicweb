@@ -17,6 +17,7 @@ public class DisciplinaController {
 	@Autowired
 	private DisciplinaRepository dr;
 	
+	//LISTAR TODAS AS DISCIPLINAS
 	@RequestMapping(value="/disciplinas", method=RequestMethod.GET)
 	public ModelAndView listarDisciplina() {
 		
