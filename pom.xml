@@ -69,7 +69,13 @@
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>9.4-1201-jdbc41</version>
+			<version>42.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-dbcp2</artifactId>
+			<version>${commons-dbcp2.version}</version>
+			<scope>compile</scope>
 		</dependency>
 	</dependencies>
 
@@ -79,32 +85,6 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-
-			<!-- HEROKU -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<version>2.3</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>copy</goal>
-						</goals>
-						<configuration>
-							<artifactItems>
-								<artifactItem>
-									<groupId>com.github.jsimone</groupId>
-									<artifactId>webapp-runner</artifactId>
-									<version>7.0.57.2</version>
-									<destFileName>webapp-runner.jar</destFileName>
-								</artifactItem>
-							</artifactItems>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-
 		</plugins>
 	</build>
 
