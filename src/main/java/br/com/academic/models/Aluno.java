@@ -1,6 +1,8 @@
 package br.com.academic.models;
 
 import java.io.Serializable;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -37,14 +40,8 @@ public class Aluno implements Serializable{
 	@JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario", unique = true)
 	private Usuario usuario;
 	
-	/*@ManyToMany
-	@JoinTable(
-			name="AlunosDisciplinas",
-			uniqueConstraints = @UniqueConstraint(columnNames = { "id_aluno", "id_disciplina" }),
-			joinColumns 	  = @JoinColumn(name = "id_aluno"),
-			inverseJoinColumns = @JoinColumn(name = "id_disciplina")
-	)
-	private List<Disciplina> disciplinas;*/
+	@OneToMany(mappedBy = "aluno")
+	Set<AlunoDisciplina> extratos;
 	
 	public Aluno() {
 		super();
@@ -80,4 +77,13 @@ public class Aluno implements Serializable{
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+
+	public Set<AlunoDisciplina> getExtratos() {
+		return extratos;
+	}
+	public void setExtratos(Set<AlunoDisciplina> extratos) {
+		this.extratos = extratos;
+	}
+	
+	
 }
