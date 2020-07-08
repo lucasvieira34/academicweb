@@ -3,6 +3,7 @@ package br.com.academic.models;
 import java.util.Collection;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -45,7 +46,7 @@ public class Usuario implements UserDetails{
 	@OneToOne(mappedBy = "usuario")
     private Professor professor;
 	
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.MERGE)
 	@JoinTable(name = "usuario_roles", joinColumns = @JoinColumn(
 			   name = "usuario_id", referencedColumnName = "id_usuario"),
 			   inverseJoinColumns = @JoinColumn(

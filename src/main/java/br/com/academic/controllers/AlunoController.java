@@ -66,11 +66,10 @@ public class AlunoController {
 		ModelAndView mv = new ModelAndView("alunos/listar_alunos");
 		List<Aluno> alunos = as.getAlunos();
 		mv.addObject("alunos", alunos);
-		// mv.addObject("alunos", as.getAlunos());
 		return mv;
 	}
 
-	// EDITAR ALUNO
+	// EDITAR ALUNO ---- PRÓXIMA ETAPA: TRAZER NOTAS FALTAS E ID DA DISCIPLINA REFERENTE
 	@RequestMapping(value = "/editarAluno/{id_aluno}", method = RequestMethod.GET)
 	public ModelAndView editarAluno(@PathVariable("id_aluno") long id) {
 

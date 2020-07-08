@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import br.com.academic.service.ImplementsUserDatailsService;
@@ -20,16 +21,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	@Autowired
 	private ImplementsUserDatailsService userDetailsService;
 	
+	@Autowired
+	AuthenticationSuccessHandler successHandler;
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
-		http.csrf().disable().authorizeRequests()
-		.antMatchers(HttpMethod.GET, "/").permitAll()
-		//PERMISSIONAMENTOS PROFESSOR
-		//.antMatchers(HttpMethod.GET, "/alunos").hasRole("PROFESSOR")
-		.antMatchers("/resources/**").permitAll()
-		.anyRequest().authenticated()
-		.and().formLogin().loginPage("/login").permitAll()
-		.and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
+		http
+			.csrf().disable()
+			.authorizeRequests()
+			.antMatchers(HttpMethod.GET, "/").permitAll()
+			//PERMISSIONAMENTOS PROFESSOR
+			//.antMatchers(HttpMethod.GET, "/alunos").hasRole("PROFESSOR")
+			.antMatchers("/resources/**").permitAll()
+			.anyRequest().authenticated()
+			.and().formLogin().loginPage("/login").successHandler(successHandler).permitAll()
+			.and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
 	}
 	
 	@Override
