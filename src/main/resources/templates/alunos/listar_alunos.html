@@ -5,11 +5,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>Listagem dos Alunos</title>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css" media="screen,projection" />
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="css/listar_aluno.css">
-	<script type="text/javascript" src="js/jquery-3.2.1.min"></script>
-	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<link type="text/css" rel="stylesheet" href="/materialize/css/materialize.min.css" media="screen,projection" />
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/listar_aluno.css">
+	<script type="text/javascript" src="/js/jquery-3.2.1.min"></script>
+	<script type="text/javascript" src="/js/bootstrap.min.js"></script>
 
 	<nav>
 		<div class="nav-wrapper orange darken-3">
@@ -28,6 +28,8 @@
 	<div class="container">
 		<div id="tabela">
 			<h2>Lista dos Alunos</h2>
+			
+			<h3>Disciplina: <span th:text="${disciplina.nome}"></span></h3>
 
 			<table class="table table-hover">
 				<thead>
@@ -49,9 +51,9 @@
 						<td><span th:text="${alunoDisciplina.aluno.matricula}"></span></td>
 						<td><span th:text="${alunoDisciplina.aluno.nome}"></span></td>
 						<td><span th:text="${alunoDisciplina.aluno.sobrenome}"></span></td>
-						<td></td>
-						<td></td>
-						<td></td>
+						<td><span th:text="${alunoDisciplina.a1}"></span></td>
+						<td><span th:text="${alunoDisciplina.a2}"></span></td>
+						<td><span th:text="${alunoDisciplina.faltas}"></span></td>
 						<td></td>
 
 						<td><a th:href="@{'/editarAluno/' + ${alunoDisciplina.aluno.id_aluno}}"> <i class="small material-icons icon-orange">edit</i></a></td>

@@ -99,6 +99,7 @@ public class AlunoController {
 		
 		ModelAndView mv = new ModelAndView("alunos/listar_alunos");
 		mv.addObject("alunoDisciplina", alunoDisciplina);
+		mv.addObject("disciplina", disciplina);
 		mv.addObject("usuario", usuario);
 
 		return mv;
