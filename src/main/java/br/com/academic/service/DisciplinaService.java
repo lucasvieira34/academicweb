@@ -17,7 +17,7 @@ public class DisciplinaService {
 		return dr.findAll();
 	}
 	
-	public Disciplina getDisciplinaById(Long id) {
+	public Disciplina getDisciplinaById(long id) {
 		return dr.findById(id).get();
 	}
 

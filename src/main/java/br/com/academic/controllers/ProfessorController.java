@@ -3,6 +3,9 @@ package br.com.academic.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +32,8 @@ public class ProfessorController {
 
 	@Autowired
 	private UsuarioService us;
+	
+	private Usuario usuario;
 
 	// TEMPLATE CADASTRO DE PROFESSOR
 	@RequestMapping(value = "/cadastrarProfessor", method = RequestMethod.GET)
@@ -52,8 +57,10 @@ public class ProfessorController {
 	@RequestMapping(value = "/professores", method = RequestMethod.GET)
 	public ModelAndView listarProfessores() {
 
+		usuarioLogado();
 		ModelAndView mv = new ModelAndView("professor/listar_professores");
 		mv.addObject("professores", ps.getProfessores());
+		mv.addObject("usuario", usuario);
 		return mv;
 	}
 
@@ -86,6 +93,12 @@ public class ProfessorController {
 		return "redirect:/editarProfessor/" + id_professor;
 	}
 	
-	
+	private void usuarioLogado() {
+		Authentication autenticado = SecurityContextHolder.getContext().getAuthentication();
+		if(!(autenticado instanceof AnonymousAuthenticationToken)) {
+			String login = autenticado.getName();
+			usuario = us.usuarioPorLogin(login);
+		}
+	}
 
 }
