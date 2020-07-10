@@ -2,6 +2,9 @@ package br.com.academic.controllers;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +31,8 @@ public class AlunoController {
 	
 	@Autowired
 	private AlunoDisciplinaService ads;
+	
+	private Usuario usuario;
 
 	// TEMPLATE CADASTRO DE ALUNO
 	@RequestMapping(value = "/cadastrarAluno", method = RequestMethod.GET)
@@ -63,9 +68,11 @@ public class AlunoController {
 	@RequestMapping(value = "/alunos", method = RequestMethod.GET)
 	public ModelAndView listarAlunos() {
 
+		usuarioLogado();
 		ModelAndView mv = new ModelAndView("alunos/listar_alunos");
 		List<Aluno> alunos = as.getAlunos();
 		mv.addObject("alunos", alunos);
+		mv.addObject("usuario", usuario);
 		return mv;
 	}
 
@@ -79,6 +86,14 @@ public class AlunoController {
 		mv.addObject("aluno", aluno);
 
 		return mv;
+	}
+	
+	private void usuarioLogado() {
+		Authentication autenticado = SecurityContextHolder.getContext().getAuthentication();
+		if(!(autenticado instanceof AnonymousAuthenticationToken)) {
+			String login = autenticado.getName();
+			usuario = us.usuarioPorLogin(login);
+		}
 	}
 
 }

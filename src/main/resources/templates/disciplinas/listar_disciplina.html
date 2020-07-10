@@ -19,10 +19,9 @@
 	<div class="nav-wrapper orange darken-3">
 		<a href="#!" class="brand-logo">Logo</a>
 		<ul class="right hide-on-med-and-down">
-			<li><a href="sass.html"><i class="material-icons left">search</i>Link
-					with Left Icon</a></li>
-			<li><a href="badges.html"><i class="material-icons right">view_module</i>Link
-					with Right Icon</a></li>
+			<li><a href="sass.html"><i class="material-icons left">search</i>Link with Left Icon</a></li>
+			<li><a href="badges.html"><i class="material-icons right">view_module</i><span th:text="${usuario.nome}"></span></a></li>
+			<li><a href="/logout"><i class="material-icons right">exit_to_app</i>Logout</a></li>
 		</ul>
 	</div>
 </nav>
@@ -35,26 +34,26 @@
 		<div id="tabela">
 
 			<h2>Lista das Disciplinas</h2>
-			
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th>ID</th>
-							<th>Código</th>
-							<th>Nome</th>
-						</tr>
-					</thead>
-					<tbody>
-					
-						<tr th:each="disciplina : ${disciplinas}">
-							<td><span th:text="${disciplina.id_disciplina}"></span></td>
-							<td><span th:text="${disciplina.codigo}"></span></td>
-							<td><span th:text="${disciplina.nome}"></span></td>
-							<td><a href="">Selecionar</a></td>
-						</tr>
 
-					</tbody>
-				</table>
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Código</th>
+						<th>Nome</th>
+					</tr>
+				</thead>
+				<tbody>
+
+					<tr th:each="disciplina : ${disciplinas}">
+						<td><span th:text="${disciplina.id_disciplina}"></span></td>
+						<td><span th:text="${disciplina.codigo}"></span></td>
+						<td><span th:text="${disciplina.nome}"></span></td>
+						<td><a href="">Selecionar</a></td>
+					</tr>
+
+				</tbody>
+			</table>
 		</div>
 	</div>
 

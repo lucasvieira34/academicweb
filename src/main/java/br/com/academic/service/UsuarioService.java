@@ -15,5 +15,9 @@ public class UsuarioService {
 	public void salvarUsuario(Usuario usuario) {
 		ur.save(usuario);	
 	}
+	
+	public Usuario usuarioPorLogin(String login) {
+		return ur.findByLogin(login);
+	}
 
 }

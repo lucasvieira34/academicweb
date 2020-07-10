@@ -13,6 +13,7 @@ import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
+//CLASSE DE REDIRECIONAMENTO DE LOGIN REFERENTE AO PERFIL DO USUÁRIO
 @Component
 public class CustomSuccessHandler implements AuthenticationSuccessHandler{
 
