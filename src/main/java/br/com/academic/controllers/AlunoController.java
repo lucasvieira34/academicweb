@@ -1,6 +1,8 @@
 package br.com.academic.controllers;
 
 import java.util.List;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -18,6 +20,7 @@ import br.com.academic.models.Disciplina;
 import br.com.academic.models.Usuario;
 import br.com.academic.service.AlunoDisciplinaService;
 import br.com.academic.service.AlunoService;
+import br.com.academic.service.DisciplinaService;
 import br.com.academic.service.UsuarioService;
 
 @Controller
@@ -25,6 +28,9 @@ public class AlunoController {
 
 	@Autowired
 	private AlunoService as;
+	
+	@Autowired
+	private DisciplinaService ds;
 
 	@Autowired
 	private UsuarioService us;
@@ -36,13 +42,19 @@ public class AlunoController {
 
 	// TEMPLATE CADASTRO DE ALUNO
 	@RequestMapping(value = "/cadastrarAluno", method = RequestMethod.GET)
-	public String novoAluno() {
-		return "alunos/novo_aluno";
+	public ModelAndView novoAluno() {
+		
+		usuarioLogado();
+		ModelAndView mv = new ModelAndView("alunos/novo_aluno");
+		mv.addObject("usuario", usuario);
+		return mv;
 	}
 
 	// SALVAR ALUNO
 	@RequestMapping(value = "/cadastrarAluno", method = RequestMethod.POST)
 	public String salvarAluno(Aluno aluno, Usuario usuario, AlunoDisciplina alunoDisciplina) {
+		
+		usuarioLogado();
 
 		us.salvarUsuario(usuario);
 		aluno.setUsuario(usuario);
@@ -73,6 +85,22 @@ public class AlunoController {
 		List<Aluno> alunos = as.getAlunos();
 		mv.addObject("alunos", alunos);
 		mv.addObject("usuario", usuario);
+		return mv;
+	}
+	
+	// LISTAR ALUNOS PERTENCENTES À DISCIPLINA
+	@RequestMapping(value = "/disciplinas/{id_disciplina}/alunos", method = RequestMethod.GET)
+	public ModelAndView listarDisciplinaAluno(@PathVariable("id_disciplina") long id_disciplina) {
+		
+		usuarioLogado();
+		Disciplina disciplina = ds.getDisciplinaById(id_disciplina);
+		
+		Set<AlunoDisciplina> alunoDisciplina = disciplina.getExtratos();
+		
+		ModelAndView mv = new ModelAndView("alunos/listar_alunos");
+		mv.addObject("alunoDisciplina", alunoDisciplina);
+		mv.addObject("usuario", usuario);
+
 		return mv;
 	}
 

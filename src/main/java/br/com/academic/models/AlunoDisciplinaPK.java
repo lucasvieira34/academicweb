@@ -14,26 +14,26 @@ public class AlunoDisciplinaPK implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Column(name = "id_aluno")
-	Long alunoId;
+	Long id_aluno;
 	
 	@Column(name = "id_disciplina")
-	Long disciplinaId;
+	Long id_disciplina;
 
 	
 	public Long getAlunoId() {
-		return alunoId;
+		return id_aluno;
 	}
 
 	public void setAlunoId(Long alunoId) {
-		this.alunoId = alunoId;
+		this.id_aluno = alunoId;
 	}
 
 	public Long getDisciplinaId() {
-		return disciplinaId;
+		return id_disciplina;
 	}
 
 	public void setDisciplinaId(Long disciplinaId) {
-		this.disciplinaId = disciplinaId;
+		this.id_disciplina = disciplinaId;
 	}
 
 	public AlunoDisciplinaPK() {
@@ -42,16 +42,16 @@ public class AlunoDisciplinaPK implements Serializable{
 
 	public AlunoDisciplinaPK(Long alunoId, Long disciplinaId) {
 		super();
-		this.alunoId = alunoId;
-		this.disciplinaId = disciplinaId;
+		this.id_aluno = alunoId;
+		this.id_disciplina = disciplinaId;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((alunoId == null) ? 0 : alunoId.hashCode());
-		result = prime * result + ((disciplinaId == null) ? 0 : disciplinaId.hashCode());
+		result = prime * result + ((id_aluno == null) ? 0 : id_aluno.hashCode());
+		result = prime * result + ((id_disciplina == null) ? 0 : id_disciplina.hashCode());
 		return result;
 	}
 
@@ -64,15 +64,15 @@ public class AlunoDisciplinaPK implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		AlunoDisciplinaPK other = (AlunoDisciplinaPK) obj;
-		if (alunoId == null) {
-			if (other.alunoId != null)
+		if (id_aluno == null) {
+			if (other.id_aluno != null)
 				return false;
-		} else if (!alunoId.equals(other.alunoId))
+		} else if (!id_aluno.equals(other.id_aluno))
 			return false;
-		if (disciplinaId == null) {
-			if (other.disciplinaId != null)
+		if (id_disciplina == null) {
+			if (other.id_disciplina != null)
 				return false;
-		} else if (!disciplinaId.equals(other.disciplinaId))
+		} else if (!id_disciplina.equals(other.id_disciplina))
 			return false;
 		return true;
 	}

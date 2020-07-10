@@ -53,7 +53,7 @@ public class DisciplinaController {
 	}
 
 	// LISTAR TODAS AS DISCIPLINAS
-	@RequestMapping(value = "/disciplinasTESTE", method = RequestMethod.GET)
+	@RequestMapping(value = "/disciplinas/lista", method = RequestMethod.GET)
 	public ModelAndView listarDisciplina() {
 
 		usuarioLogado();

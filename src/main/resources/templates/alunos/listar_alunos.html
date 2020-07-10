@@ -43,18 +43,18 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="aluno : ${alunos}">
+					<tr th:each="alunoDisciplina : ${alunoDisciplina}">
 						<td><i class="medium material-icons">person</i></td>
-						<td><span th:text="${aluno.id_aluno}"></span></td>
-						<td><span th:text="${aluno.matricula}"></span></td>
-						<td><span th:text="${aluno.nome}"></span></td>
-						<td><span th:text="${aluno.sobrenome}"></span></td>
+						<td><span th:text="${alunoDisciplina.aluno.id_aluno}"></span></td>
+						<td><span th:text="${alunoDisciplina.aluno.matricula}"></span></td>
+						<td><span th:text="${alunoDisciplina.aluno.nome}"></span></td>
+						<td><span th:text="${alunoDisciplina.aluno.sobrenome}"></span></td>
 						<td></td>
 						<td></td>
 						<td></td>
 						<td></td>
 
-						<td><a th:href="@{'/editarAluno/' + ${aluno.id_aluno}}"> <i class="small material-icons icon-orange">edit</i></a></td>
+						<td><a th:href="@{'/editarAluno/' + ${alunoDisciplina.aluno.id_aluno}}"> <i class="small material-icons icon-orange">edit</i></a></td>
 					</tr>
 				</tbody>
 			</table>
