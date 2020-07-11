@@ -13,7 +13,6 @@ import javax.persistence.Table;
 import org.springframework.security.core.GrantedAuthority;
 
 @Entity
-@Table(name = "role")
 public class Role implements GrantedAuthority{
 	
 	/**
@@ -22,28 +21,28 @@ public class Role implements GrantedAuthority{
 	private static final long serialVersionUID = 1L;
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long idRole;
+	private long id_role;
 	
 	@Column(unique = true)
-	private String nomeRole;
+	private String nome;
 
-	@ManyToMany
+	@ManyToMany(mappedBy = "roles")
 	private List<Usuario> usuarios;
 	
 	public String getNomeRole() {
-		return nomeRole;
+		return nome;
 	}
 
-	public void setNomeRole(String nomeRole) {
-		this.nomeRole = nomeRole;
+	public void setNomeRole(String nome) {
+		this.nome = nome;
 	}
 
 	public long getIdRole() {
-		return idRole;
+		return id_role;
 	}
 
-	public void setIdRole(long idRole) {
-		this.idRole = idRole;
+	public void setIdRole(long id) {
+		this.id_role = id;
 	}
 
 	public List<Usuario> getUsuarios() {
@@ -57,7 +56,7 @@ public class Role implements GrantedAuthority{
 	@Override
 	public String getAuthority() {
 		// TODO Auto-generated method stub
-		return this.nomeRole;
+		return this.nome;
 	}
 
 }

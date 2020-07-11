@@ -46,11 +46,11 @@ public class Usuario implements UserDetails{
 	@OneToOne(mappedBy = "usuario")
     private Professor professor;
 	
-	@ManyToMany(cascade = CascadeType.MERGE)
+	@ManyToMany
 	@JoinTable(name = "usuario_roles", joinColumns = @JoinColumn(
-			   name = "usuario_id", referencedColumnName = "id_usuario"),
+			   name = "id_usuario", referencedColumnName = "id_usuario"),
 			   inverseJoinColumns = @JoinColumn(
-			   name = "role_id", referencedColumnName = "idRole"))
+			   name = "id_role", referencedColumnName = "id_role"))
 	private List<Role> roles;
 
 

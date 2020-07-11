@@ -1,6 +1,7 @@
 package br.com.academic.controllers;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +18,12 @@ import br.com.academic.models.Aluno;
 import br.com.academic.models.AlunoDisciplina;
 import br.com.academic.models.AlunoDisciplinaPK;
 import br.com.academic.models.Disciplina;
+import br.com.academic.models.Role;
 import br.com.academic.models.Usuario;
 import br.com.academic.service.AlunoDisciplinaService;
 import br.com.academic.service.AlunoService;
 import br.com.academic.service.DisciplinaService;
+import br.com.academic.service.RoleService;
 import br.com.academic.service.UsuarioService;
 
 @Controller
@@ -34,6 +37,9 @@ public class AlunoController {
 
 	@Autowired
 	private UsuarioService us;
+	
+	@Autowired
+	private RoleService rs;
 
 	@Autowired
 	private AlunoDisciplinaService ads;
@@ -53,9 +59,8 @@ public class AlunoController {
 	// SALVAR ALUNO
 	@RequestMapping(value = "/cadastrarAluno", method = RequestMethod.POST)
 	public String salvarAluno(Aluno aluno, Usuario usuario, AlunoDisciplina alunoDisciplina) {
-
 		usuarioLogado();
-
+		
 		us.salvarUsuario(usuario);
 		aluno.setUsuario(usuario);
 		as.salvarAluno(aluno);
