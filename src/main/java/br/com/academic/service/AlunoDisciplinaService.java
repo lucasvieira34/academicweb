@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import br.com.academic.models.AlunoDisciplina;
+import br.com.academic.models.AlunoDisciplinaPK;
 import br.com.academic.repository.AlunoDisciplinaRepository;
 
 @Service
@@ -20,6 +20,10 @@ public class AlunoDisciplinaService {
 
 	public void salvarAlunoDisciplina(AlunoDisciplina alunoDisciplina) {
 		adr.save(alunoDisciplina);
+	}
+	
+	public AlunoDisciplina getAlunoDisciplinasPorId(AlunoDisciplinaPK id) {
+		return adr.findById(id).get();
 	}
 
 }

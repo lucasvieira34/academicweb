@@ -26,13 +26,13 @@
     <div class="container">
         <div id="tabela">
             <div class="row">
-                <form class="col s12" th:object="${aluno}" th:action="@{/editarAluno}" method="POST">
+                <form class="col s12" th:action="@{/editarAluno}" method="POST">
                     <h2>Alteração de Aluno</h2>
 
                     <div class="row">
                         <div class="input-field col s12">
                             <i class="material-icons prefix">assignment_ind</i>
-                            <input th:value="${aluno.id_aluno}" type="text" name="id_aluno" class="valid" readonly>
+                            <input th:value="${alunoDisciplina.aluno.id_aluno}" type="text" name="id_aluno" class="valid" readonly>
                             <label>ID</label>
                         </div>
                     </div>
@@ -40,7 +40,7 @@
                     <div class="row">
                         <div class="input-field col s12">
                             <i class="material-icons prefix">fiber_pin</i>
-                            <input th:value="${aluno.matricula}" type="text" name="matricula" class="valid" readonly>
+                            <input th:value="${alunoDisciplina.aluno.matricula}" type="text" name="matricula" class="valid" readonly>
                             <label for="matricula">Matrícula</label>
                         </div>
                     </div>
@@ -48,11 +48,11 @@
                     <div class="row">
                         <div class="input-field col s6">
                             <i class="material-icons prefix">account_circle</i>
-                            <input th:value="${aluno.nome}" type="text" name="nome" class="valid" readonly>
+                            <input th:value="${alunoDisciplina.aluno.nome}" type="text" name="nome" class="valid" readonly>
                             <label>Nome</label>
                         </div>
                         <div class="input-field col s6">
-                            <input th:value="${aluno.sobrenome}" type="text" name="sobrenome" class="valid" readonly>
+                            <input th:value="${alunoDisciplina.aluno.sobrenome}" type="text" name="sobrenome" class="valid" readonly>
                             <label>Sobrenome</label>
                         </div>
                     </div>
@@ -60,16 +60,16 @@
                     <div class="row">
                         <div class="input-field col s6">
                             <i class="material-icons prefix">star</i>
-                            <input value="X" type="text" name="a1" class="validate">
+                            <input th:value="${alunoDisciplina.a1}" type="text" name="a1" class="validate">
                             <label>A1</label>
                         </div>
                         <div class="input-field col s6">
-                            <input value="X" type="text" name="a2" class="validate">
+                            <input th:value="${alunoDisciplina.a2}" type="text" name="a2" class="validate">
                             <label>A2</label>
                         </div>
                         <div class="input-field col s6">
                             <i class="material-icons prefix">unfold_more</i>
-                            <input value="X" type="text" name="faltas" class="validate">
+                            <input th:value="${alunoDisciplina.faltas}" type="text" name="faltas" class="validate">
                             <label>Faltas</label>
                         </div>
                     </div>

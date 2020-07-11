@@ -40,6 +40,13 @@ public class AlunoDisciplina {
 		this.a2 = a2;
 		this.faltas = faltas;
 	}
+	
+	public AlunoDisciplina(AlunoDisciplinaPK id, Aluno aluno, Disciplina disciplina) {
+		super();
+		this.id = id;
+		this.aluno = aluno;
+		this.disciplina = disciplina;
+	}
 
 	public AlunoDisciplinaPK getId() {
 		return id;
