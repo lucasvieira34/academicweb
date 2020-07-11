@@ -109,14 +109,32 @@ public class AlunoController {
 	@RequestMapping(value = "/disciplinas/{id_disciplina}/editarAluno/{id_aluno}", method = RequestMethod.GET)
 	public ModelAndView editarAluno(AlunoDisciplina alunoDisciplina, @PathVariable("id_aluno") long id_aluno, @PathVariable("id_disciplina") long id_disciplina) {
 		
+		Disciplina disciplina = ds.getDisciplinaById(id_disciplina);
 		AlunoDisciplinaPK alunoDisciplinaPK = new AlunoDisciplinaPK(id_aluno,id_disciplina);
 		alunoDisciplina.setId(alunoDisciplinaPK);
 		alunoDisciplina = ads.getAlunoDisciplinasPorId(alunoDisciplina.getId());
 		
 		ModelAndView mv = new ModelAndView("alunos/update_aluno");
+		mv.addObject("disciplina", disciplina);
 		mv.addObject("alunoDisciplina", alunoDisciplina);
 
 		return mv;
+	}
+	
+	// INSERIR NOTAS E FALTAS DO ALUNO
+	@RequestMapping(value = "/disciplinas/{id_disciplina}/editarAluno/{id_aluno}/alterar", method = RequestMethod.POST)
+	public String alterarAluno(AlunoDisciplina alunoDisciplina, @PathVariable("id_aluno") long id_aluno, @PathVariable("id_disciplina") long id_disciplina) {
+		
+		Aluno aluno = as.getAlunoById(id_aluno);
+		Disciplina disciplina = ds.getDisciplinaById(id_disciplina);
+		AlunoDisciplinaPK alunoDisciplinaPK = new AlunoDisciplinaPK(id_aluno, id_disciplina);
+		alunoDisciplina.setId(alunoDisciplinaPK);
+		alunoDisciplina.setAluno(aluno);
+		alunoDisciplina.setDisciplina(disciplina);
+		
+		ads.salvarAlunoDisciplina(alunoDisciplina);
+
+		return "redirect:/disciplinas/{id_disciplina}/alunos";
 	}
 
 	private void usuarioLogado() {
