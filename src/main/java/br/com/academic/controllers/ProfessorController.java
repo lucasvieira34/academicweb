@@ -16,9 +16,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.com.academic.models.Disciplina;
 import br.com.academic.models.Professor;
+import br.com.academic.models.Role;
 import br.com.academic.models.Usuario;
 import br.com.academic.service.DisciplinaService;
 import br.com.academic.service.ProfessorService;
+import br.com.academic.service.RoleService;
 import br.com.academic.service.UsuarioService;
 
 @Controller
@@ -29,6 +31,9 @@ public class ProfessorController {
 
 	@Autowired
 	private DisciplinaService ds;
+	
+	@Autowired
+	private RoleService rs;
 
 	@Autowired
 	private UsuarioService us;
@@ -38,18 +43,29 @@ public class ProfessorController {
 	// TEMPLATE CADASTRO DE PROFESSOR
 	@RequestMapping(value = "/cadastrarProfessor", method = RequestMethod.GET)
 	public ModelAndView novoProfessor() {
+		usuarioLogado();
 		ModelAndView mv = new ModelAndView("professor/novo_professor");
+		mv.addObject("usuario", usuario);
 		return mv;
 	}
 
 	// SALVAR PROFESSOR
 	@RequestMapping(value = "/cadastrarProfessor", method = RequestMethod.POST)
 	public String salvarProfessor(Professor professor, Usuario usuario) {
-
-		us.salvarUsuario(usuario);
+		usuarioLogado();
+		
 		professor.setUsuario(usuario);
 		ps.salvarProfessor(professor);
-
+				
+		List<Role> roles = rs.getRoles();
+		
+		//SETANDO TODAS AS ROLES
+		usuario.setRoles(roles);
+		//REMOVENDO A ROLE DE ALUNO DA LISTA
+		usuario.getRoles().remove(0);
+		
+		us.salvarUsuario(usuario);
+		
 		return "redirect:/professores";
 	}
 
