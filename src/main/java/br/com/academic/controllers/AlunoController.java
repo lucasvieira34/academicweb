@@ -17,10 +17,12 @@ import br.com.academic.models.Aluno;
 import br.com.academic.models.AlunoDisciplina;
 import br.com.academic.models.AlunoDisciplinaPK;
 import br.com.academic.models.Disciplina;
+import br.com.academic.models.Role;
 import br.com.academic.models.Usuario;
 import br.com.academic.service.AlunoDisciplinaService;
 import br.com.academic.service.AlunoService;
 import br.com.academic.service.DisciplinaService;
+import br.com.academic.service.RoleService;
 import br.com.academic.service.UsuarioService;
 
 @Controller
@@ -34,6 +36,9 @@ public class AlunoController {
 
 	@Autowired
 	private UsuarioService us;
+	
+	@Autowired
+	private RoleService rs;
 
 	@Autowired
 	private AlunoDisciplinaService ads;
@@ -55,7 +60,6 @@ public class AlunoController {
 	public String salvarAluno(Aluno aluno, Usuario usuario, AlunoDisciplina alunoDisciplina) {
 		usuarioLogado();
 		
-		us.salvarUsuario(usuario);
 		aluno.setUsuario(usuario);
 		as.salvarAluno(aluno);
 
@@ -70,6 +74,15 @@ public class AlunoController {
 			alunoDisciplina.setId(alunoDisciplinaPk);
 
 			ads.salvarAlunoDisciplina(alunoDisciplina);
+			
+			List<Role> roles = rs.getRoles();
+			
+			//SETANDO TODAS AS ROLES
+			usuario.setRoles(roles);
+			//REMOVENDO A ROLE DE ALUNO DA LISTA
+			usuario.getRoles().remove(1);
+			
+			us.salvarUsuario(usuario);
 		}
 
 		return "redirect:/alunos";
