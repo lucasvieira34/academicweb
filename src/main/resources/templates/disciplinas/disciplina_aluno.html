@@ -9,11 +9,11 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
 <link type="text/css" rel="stylesheet"
-	href="materialize/css/materialize.min.css" media="screen,projection" />
-<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="css/listar_disciplina.css">
-<script type="text/javascript" src="js/jquery-3.2.1.min"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	href="/materialize/css/materialize.min.css" media="screen,projection" />
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/css/listar_disciplina.css">
+<script type="text/javascript" src="/js/jquery-3.2.1.min"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
 
 <nav>
 	<div class="nav-wrapper orange darken-3">
@@ -38,18 +38,19 @@
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th>ID</th>
-						<th>Código</th>
 						<th>Nome</th>
+						<th>A1</th>
+						<th>A2</th>
+						<th>Faltas</th>
 					</tr>
 				</thead>
 				<tbody>
 
-					<tr th:each="disciplina : ${disciplinas}">
-						<td><span th:text="${disciplina.id_disciplina}"></span></td>
-						<td><span th:text="${disciplina.codigo}"></span></td>
-						<td><span th:text="${disciplina.nome}"></span></td>
-						<td><a th:href="@{'disciplinas/' + ${disciplina.id_disciplina} + '/alunos'}"> <i class="small material-icons icon-orange">edit</i></a></td>
+					<tr th:each="alunoDisciplina : ${alunoDisciplina}">
+						<td><span th:text="${alunoDisciplina.disciplina.nome}"></span></td>
+						<td><span th:text="${alunoDisciplina.a1}"></span></td>
+						<td><span th:text="${alunoDisciplina.a2}"></span></td>
+						<td><span th:text="${alunoDisciplina.faltas}"></span></td>
 					</tr>
 
 				</tbody>

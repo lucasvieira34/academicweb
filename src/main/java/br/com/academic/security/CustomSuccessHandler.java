@@ -28,10 +28,10 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler{
 		for (GrantedAuthority grantedAuthority : authorities) {
 			System.out.println("role " + grantedAuthority.getAuthority());
 			if (grantedAuthority.getAuthority().equals("ROLE_ALUNO")) {
-				redirectUrl = "/disciplinas";
+				redirectUrl = "/aluno/disciplinas";
 				break;
 			} else if (grantedAuthority.getAuthority().equals("ROLE_PROFESSOR")) {
-				redirectUrl = "/disciplinas";
+				redirectUrl = "/professor/disciplinas";
 				break;
 			}
 		}

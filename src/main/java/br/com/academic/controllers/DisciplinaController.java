@@ -1,6 +1,7 @@
 package br.com.academic.controllers;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.com.academic.models.Aluno;
+import br.com.academic.models.AlunoDisciplina;
 import br.com.academic.models.Disciplina;
 import br.com.academic.models.Professor;
 import br.com.academic.models.Usuario;
@@ -37,7 +40,7 @@ public class DisciplinaController {
 	}
 
 	// LISTAR TODAS AS DISCIPLINAS DO PROFESSOR
-	@RequestMapping(value = "/disciplinas", method = RequestMethod.GET)
+	@RequestMapping(value = "/professor/disciplinas", method = RequestMethod.GET)
 	public ModelAndView listarDisciplinaProfessor() {
 		
 		usuarioLogado();
@@ -45,8 +48,25 @@ public class DisciplinaController {
 		Professor professor = usuario.getProfessor();
 		List<Disciplina> disciplinas = professor.getDisciplinas();
 		
-		ModelAndView mv = new ModelAndView("disciplinas/listar_disciplina");
+		ModelAndView mv = new ModelAndView("disciplinas/disciplina_professor");
 		mv.addObject("disciplinas", disciplinas);
+		mv.addObject("usuario", usuario);
+
+		return mv;
+	}
+	
+	// LISTAR TODAS AS DISCIPLINAS DO ALUNO
+	@RequestMapping(value = "/aluno/disciplinas", method = RequestMethod.GET)
+	public ModelAndView listarDisciplinaAluno() {
+			
+		usuarioLogado();
+			
+		Aluno aluno = usuario.getAluno();
+
+		Set<AlunoDisciplina> alunoDisciplina = aluno.getExtratos();
+
+		ModelAndView mv = new ModelAndView("disciplinas/disciplina_aluno");
+		mv.addObject("alunoDisciplina", alunoDisciplina);
 		mv.addObject("usuario", usuario);
 
 		return mv;
