@@ -123,7 +123,7 @@ public class AlunoController {
 	}
 
 	// EDITAR ALUNO
-	@RequestMapping(value = "/disciplinas/{id_disciplina}/editarAluno/{id_aluno}", method = RequestMethod.GET)
+	@RequestMapping(value = "/professor/disciplinas/{id_disciplina}/editarAluno/{id_aluno}", method = RequestMethod.GET)
 	public ModelAndView editarAluno(AlunoDisciplina alunoDisciplina, @PathVariable("id_aluno") long id_aluno, @PathVariable("id_disciplina") long id_disciplina) {
 		
 		Disciplina disciplina = ds.getDisciplinaById(id_disciplina);
@@ -139,7 +139,7 @@ public class AlunoController {
 	}
 	
 	// INSERIR NOTAS E FALTAS DO ALUNO
-	@RequestMapping(value = "/disciplinas/{id_disciplina}/editarAluno/{id_aluno}/alterar", method = RequestMethod.POST)
+	@RequestMapping(value = "/professor/disciplinas/{id_disciplina}/editarAluno/{id_aluno}/alterar", method = RequestMethod.POST)
 	public String alterarAluno(AlunoDisciplina alunoDisciplina, @PathVariable("id_aluno") long id_aluno, @PathVariable("id_disciplina") long id_disciplina) {
 		
 		Aluno aluno = as.getAlunoById(id_aluno);
@@ -151,7 +151,7 @@ public class AlunoController {
 		
 		ads.salvarAlunoDisciplina(alunoDisciplina);
 
-		return "redirect:/disciplinas/{id_disciplina}/alunos";
+		return "redirect:/professor/disciplinas/{id_disciplina}/alunos";
 	}
 
 	private void usuarioLogado() {
