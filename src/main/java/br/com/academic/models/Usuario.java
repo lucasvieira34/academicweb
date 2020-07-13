@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -38,6 +39,9 @@ public class Usuario implements UserDetails{
 	
 	@Column(name = "nome")
 	private String nome;
+	
+	@Lob
+	private byte[] imagem;
 	
 	@OneToOne(mappedBy = "usuario")
     private Aluno aluno;
@@ -112,6 +116,14 @@ public class Usuario implements UserDetails{
 
 	public void setProfessor(Professor professor) {
 		this.professor = professor;
+	}
+	
+	public byte[] getImagem() {
+		return imagem;
+	}
+
+	public void setImagem(byte[] imagem) {
+		this.imagem = imagem;
 	}
 
 	@Override

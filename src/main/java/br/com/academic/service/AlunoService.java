@@ -24,5 +24,9 @@ public class AlunoService {
 	public Aluno getAlunoById(Long id) {
 		return ar.findById(id).get();
 	}
+	
+	public Aluno getOneAlunoById(Long id) {
+		return ar.getOne(id);
+	}
 
 }

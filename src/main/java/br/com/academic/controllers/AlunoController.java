@@ -1,5 +1,6 @@
 package br.com.academic.controllers;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
@@ -12,6 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.academic.models.Aluno;
@@ -58,9 +62,17 @@ public class AlunoController {
 
 	// SALVAR ALUNO
 	@RequestMapping(value = "/cadastrarAluno", method = RequestMethod.POST)
-	public String salvarAluno(Aluno aluno, Usuario usuario, AlunoDisciplina alunoDisciplina) {
+	public String salvarAluno(Aluno aluno, Usuario usuario, AlunoDisciplina alunoDisciplina, @RequestParam("fileUsuario") MultipartFile file) {
 		usuarioLogado();
 		
+		try {
+			usuario.setImagem(file.getBytes());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//CRIPTOGRAFANDO A SENHA
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String encodedPassword = passwordEncoder.encode(usuario.getSenha());
 		usuario.setSenha(encodedPassword);
@@ -152,6 +164,14 @@ public class AlunoController {
 		ads.salvarAlunoDisciplina(alunoDisciplina);
 
 		return "redirect:/professor/disciplinas/{id_disciplina}/alunos";
+	}
+	
+	@RequestMapping(value = "/imagem/{id_aluno}", method = RequestMethod.GET)
+	@ResponseBody
+	public byte[] exibirImagem(@PathVariable("id_aluno") long id_aluno) {
+		Aluno aluno = this.as.getOneAlunoById(id_aluno);
+		Usuario usuario = aluno.getUsuario();
+		return usuario.getImagem();
 	}
 
 	private void usuarioLogado() {

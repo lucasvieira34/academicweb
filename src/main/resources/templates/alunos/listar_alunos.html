@@ -46,7 +46,9 @@
 				</thead>
 				<tbody>
 					<tr th:each="alunoDisciplina : ${alunoDisciplina}">
-						<td><i class="medium material-icons">person</i></td>
+						<td>
+						<img alt="Image" height="50px" width="50px" th:src="|/imagem/${alunoDisciplina.aluno.id_aluno}|">
+						</td>
 						<td><span th:text="${alunoDisciplina.aluno.id_aluno}"></span></td>
 						<td><span th:text="${alunoDisciplina.aluno.matricula}"></span></td>
 						<td><span th:text="${alunoDisciplina.aluno.nome}"></span></td>

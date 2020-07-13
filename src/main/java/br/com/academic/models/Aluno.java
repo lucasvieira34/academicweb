@@ -84,6 +84,5 @@ public class Aluno implements Serializable{
 	public void setExtratos(Set<AlunoDisciplina> extratos) {
 		this.extratos = extratos;
 	}
-	
-	
+		
 }
