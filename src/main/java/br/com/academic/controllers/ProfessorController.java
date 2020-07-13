@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -63,6 +64,10 @@ public class ProfessorController {
 		usuario.setRoles(roles);
 		//REMOVENDO A ROLE DE ALUNO DA LISTA
 		usuario.getRoles().remove(0);
+		
+		//CRIPTOGRAFANDO A SENHA
+		String senha = new BCryptPasswordEncoder().encode(usuario.getSenha());
+		usuario.setSenha(senha);
 		
 		us.salvarUsuario(usuario);
 		

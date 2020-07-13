@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -82,10 +83,14 @@ public class AlunoController {
 			//REMOVENDO A ROLE DE ALUNO DA LISTA
 			usuario.getRoles().remove(1);
 			
+			//CRIPTOGRAFANDO A SENHA
+			String senha = new BCryptPasswordEncoder().encode(usuario.getSenha());
+			usuario.setSenha(senha);
+			
 			us.salvarUsuario(usuario);
 		}
 
-		return "redirect:/alunos";
+		return "redirect:/professor/disciplinas";
 	}
 
 	// LISTAR ALUNOS
@@ -101,7 +106,7 @@ public class AlunoController {
 	}
 
 	// LISTAR ALUNOS PERTENCENTES À DISCIPLINA
-	@RequestMapping(value = "/disciplinas/{id_disciplina}/alunos", method = RequestMethod.GET)
+	@RequestMapping(value = "professor/disciplinas/{id_disciplina}/alunos", method = RequestMethod.GET)
 	public ModelAndView listarDisciplinaAluno(@PathVariable("id_disciplina") long id_disciplina) {
 
 		usuarioLogado();
