@@ -61,6 +61,10 @@ public class AlunoController {
 	public String salvarAluno(Aluno aluno, Usuario usuario, AlunoDisciplina alunoDisciplina) {
 		usuarioLogado();
 		
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String encodedPassword = passwordEncoder.encode(usuario.getSenha());
+		usuario.setSenha(encodedPassword);
+		
 		aluno.setUsuario(usuario);
 		as.salvarAluno(aluno);
 
@@ -82,10 +86,6 @@ public class AlunoController {
 			usuario.setRoles(roles);
 			//REMOVENDO A ROLE DE ALUNO DA LISTA
 			usuario.getRoles().remove(1);
-			
-			//CRIPTOGRAFANDO A SENHA
-			String senha = new BCryptPasswordEncoder().encode(usuario.getSenha());
-			usuario.setSenha(senha);
 			
 			us.salvarUsuario(usuario);
 		}
