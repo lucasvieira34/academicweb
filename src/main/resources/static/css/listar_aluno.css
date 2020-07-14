@@ -19,3 +19,15 @@
 i.icon-orange {
     color: #ef6c00;
 }
+
+img{
+	border-radius: 50%;
+}
+
+.verde{
+    color: green;
+}
+
+.vermelho{
+    color: red;
+}
