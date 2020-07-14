@@ -1,17 +1,42 @@
-#tabela {
-	padding-top: 30px;
+#tabela{
+    padding-top: 30px;
 }
 
-.row-centered {
+.row-centered{
 	text-align: center;
 }
 
-.col-centered {
+.col-centered{
 	display: inline-block;
 	float: none;
 	text-align: center;
 }
 
-.input-field .prefix.active {
+  /* icon prefix focus color */
+  .input-field .prefix.active {
 	color: #fd7e14;
+  }
+
+.btn{
+	color: white;
+}
+
+.file-field input[type=file]{
+	height: 10px;
+}
+
+.foto-perfil{
+	margin-right: 30px;
+}
+
+.row .col.s5 {
+	padding-top: 20px;
+}
+
+.row .col.s5 label{
+	padding-top: 25px;
+}
+
+h2{
+	margin-bottom: 25px;
 }

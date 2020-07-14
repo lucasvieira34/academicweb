@@ -166,6 +166,31 @@ public class AlunoController {
 		return "redirect:/professor/disciplinas/{id_disciplina}/alunos";
 	}
 	
+	@RequestMapping(value = "/aluno/perfil", method = RequestMethod.GET)
+	public ModelAndView visualizarPerfil() {
+		usuarioLogado();
+		Aluno aluno = usuario.getAluno();
+		ModelAndView mv = new ModelAndView("alunos/alterar_aluno");
+		mv.addObject("aluno", aluno);
+		return mv;
+	}
+	
+	@RequestMapping(value = "/aluno/perfil/alterar", method = RequestMethod.POST)
+	public String alterarPerfil(@RequestParam("fileUsuario") MultipartFile file) {
+		usuarioLogado();
+		
+		try {
+			usuario.setImagem(file.getBytes());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		us.salvarUsuario(usuario);
+		
+		return "redirect:/aluno/perfil";
+	}
+	
 	@RequestMapping(value = "/imagem/{id_aluno}", method = RequestMethod.GET)
 	@ResponseBody
 	public byte[] exibirImagem(@PathVariable("id_aluno") long id_aluno) {
