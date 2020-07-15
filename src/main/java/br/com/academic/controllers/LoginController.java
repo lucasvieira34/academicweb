@@ -24,10 +24,7 @@ public class LoginController {
 			mv.setViewName("login");
 		}else {
 			mv.setViewName("home");
-		} 
-		
-		//VERIFICAÇÃO DE PERFIS PARA REDIRECIONAMENTO DE PÁGINAS
-		
+		}		
 		
 		return mv;
 	} */

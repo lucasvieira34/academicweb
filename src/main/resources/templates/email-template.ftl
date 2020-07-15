@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Sending Email with Thymeleaf HTML Template Example</title>
@@ -33,8 +33,8 @@
         </tr>
         <tr>
             <td bgcolor="#ef6c00" style="padding: 30px 30px 30px 30px;">
-                <p>${signature}</p>
-                <p>${location}</p>
+                <p>Academic Web</p>
+                <p>15/07/2020</p>
             </td>
         </tr>
     </table>

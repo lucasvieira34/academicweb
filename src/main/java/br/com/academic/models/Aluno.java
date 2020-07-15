@@ -36,6 +36,9 @@ public class Aluno implements Serializable{
 	@Column(name = "sobrenome")
 	private String sobrenome;
 	
+	@Column(name = "email")
+	private String email;
+	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario", unique = true)
 	private Usuario usuario;
@@ -83,6 +86,13 @@ public class Aluno implements Serializable{
 	}
 	public void setExtratos(Set<AlunoDisciplina> extratos) {
 		this.extratos = extratos;
+	}
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 		
 }

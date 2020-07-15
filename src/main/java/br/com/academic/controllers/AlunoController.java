@@ -1,8 +1,12 @@
 package br.com.academic.controllers;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+
+import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -22,16 +26,21 @@ import br.com.academic.models.Aluno;
 import br.com.academic.models.AlunoDisciplina;
 import br.com.academic.models.AlunoDisciplinaPK;
 import br.com.academic.models.Disciplina;
+import br.com.academic.models.Mail;
 import br.com.academic.models.Role;
 import br.com.academic.models.Usuario;
 import br.com.academic.service.AlunoDisciplinaService;
 import br.com.academic.service.AlunoService;
 import br.com.academic.service.DisciplinaService;
+import br.com.academic.service.EmailService;
 import br.com.academic.service.RoleService;
 import br.com.academic.service.UsuarioService;
 
 @Controller
 public class AlunoController {
+	
+	@Autowired
+	private EmailService emailService;
 
 	@Autowired
 	private AlunoService as;
@@ -152,7 +161,7 @@ public class AlunoController {
 	
 	// INSERIR NOTAS E FALTAS DO ALUNO
 	@RequestMapping(value = "/professor/disciplinas/{id_disciplina}/editarAluno/{id_aluno}/alterar", method = RequestMethod.POST)
-	public String alterarAluno(AlunoDisciplina alunoDisciplina, @PathVariable("id_aluno") long id_aluno, @PathVariable("id_disciplina") long id_disciplina) {
+	public String alterarAluno(AlunoDisciplina alunoDisciplina, @PathVariable("id_aluno") long id_aluno, @PathVariable("id_disciplina") long id_disciplina) throws Exception {
 		
 		Aluno aluno = as.getAlunoById(id_aluno);
 		Disciplina disciplina = ds.getDisciplinaById(id_disciplina);
@@ -162,6 +171,18 @@ public class AlunoController {
 		alunoDisciplina.setDisciplina(disciplina);
 		
 		ads.salvarAlunoDisciplina(alunoDisciplina);
+		
+		//MÉTODO ENVIAR EMAIL
+		Mail mail = new Mail();
+		mail.setFrom("academicwebboot@gmail.com");
+		mail.setTo(aluno.getEmail());
+		mail.setSubject("Sua nota acaba de ser alterada no sistema!");
+		
+		Map model = new HashMap();
+		model.put("name", aluno.getNome());
+		model.put("disciplina", alunoDisciplina.getDisciplina().getNome());
+		mail.setModel(model);
+		emailService.sendSimpleMessage(mail);
 
 		return "redirect:/professor/disciplinas/{id_disciplina}/alunos";
 	}
@@ -176,8 +197,10 @@ public class AlunoController {
 	}
 	
 	@RequestMapping(value = "/aluno/perfil/alterar", method = RequestMethod.POST)
-	public String alterarPerfil(@RequestParam("fileUsuario") MultipartFile file) {
+	public String alterarPerfil(Aluno aluno, @RequestParam("fileUsuario") MultipartFile file) {
 		usuarioLogado();
+		
+		aluno.setEmail(aluno.getEmail());
 		
 		try {
 			usuario.setImagem(file.getBytes());
@@ -186,6 +209,7 @@ public class AlunoController {
 			e.printStackTrace();
 		}
 
+		as.salvarAluno(aluno);
 		us.salvarUsuario(usuario);
 		
 		return "redirect:/aluno/perfil";
