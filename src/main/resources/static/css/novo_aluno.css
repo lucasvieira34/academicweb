@@ -29,6 +29,10 @@
 	margin-right: 30px;
 }
 
+img{
+	border-radius: 50%;
+}
+
 .row .col.s5 {
 	padding-top: 20px;
 }

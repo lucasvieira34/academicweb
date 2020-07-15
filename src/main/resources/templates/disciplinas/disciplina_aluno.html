@@ -5,7 +5,7 @@
 <head>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Listagem das Disciplinas</title>
+<title>Minhas Disciplinas</title>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
 <link type="text/css" rel="stylesheet"
@@ -20,7 +20,7 @@
 	<div class="nav-wrapper orange darken-3">
 		<a href="#!" class="brand-logo">Logo</a>
 		<ul class="right hide-on-med-and-down">
-			<li><a href="sass.html"><i class="material-icons left">search</i>Link with Left Icon</a></li>
+			<li><img alt="Image" onerror="this.style.display='none'" height="45px" width="45px" th:src="|/imagem/${usuario.aluno.id_aluno}|"></li>
 			<li><a href="badges.html"><i class="material-icons right">view_module</i><span th:text="${usuario.nome}"></span></a></li>
 			<li><a href="/logout"><i class="material-icons right">exit_to_app</i>Logout</a></li>
 		</ul>
@@ -34,7 +34,7 @@
 	<div class="container">
 		<div id="tabela">
 
-			<h2>Lista das Disciplinas</h2>
+			<h2>Disciplinas</h2>
 
 			<table class="table table-hover" id="myTable">
 				<thead>

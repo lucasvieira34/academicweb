@@ -15,9 +15,9 @@
         <div class="nav-wrapper orange darken-3">
             <a href="#!" class="brand-logo">Logo</a>
             <ul class="right hide-on-med-and-down">
-                <li><a href="sass.html"><i class="material-icons left">search</i>Link with Left Icon</a></li>
-                <li><a href="badges.html"><i class="material-icons right">view_module</i>Olá, username</a></li>
-                <li><a href="/logout"><i class="material-icons right">exit_to_app</i>Logout</a></li>
+                <li><img alt="Image" onerror="this.style.display='none'" height="45px" width="45px" th:src="|/imagem/${aluno.id_aluno}|"></li>
+				<li><a href="badges.html"><i class="material-icons right">view_module</i><span th:text="${aluno.usuario.nome}"></span></a></li>
+				<li><a href="/logout"><i class="material-icons right">exit_to_app</i>Logout</a></li>	
             </ul>
         </div>
     </nav>
@@ -33,7 +33,7 @@
 
                     <div class="row">
                         <div class="input-field foto-perfil">
-                            <img alt="Image" height="80px" width="80px" th:src="|/imagem/${aluno.id_aluno}|">
+                            <img onerror="this.style.display='none'" height="80px" width="80px" th:src="|/imagem/${aluno.id_aluno}|">
                         </div>
                         <div class="input-field col s5">
                             <input th:value="${aluno.nome}" type="text" name="nome" class="valid" readonly>
