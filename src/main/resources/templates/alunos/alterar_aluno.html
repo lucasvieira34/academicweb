@@ -58,7 +58,7 @@
                     <div class="row">
                         <div class="input-field col s6">
                             <i class="material-icons prefix">email</i>
-                            <input type="email" name="email" id="email" class="validate">
+                            <input th:value="${aluno.usuario.email}" type="email" name="email" id="email"  class="validate">
                             <label>Email do Aluno</label>
                         </div>
                     </div>
@@ -66,7 +66,7 @@
                     <div class="row">
                         <div class="input-field col s6">
                             <i class="material-icons prefix">email</i>
-                            <input value="X" type="email" name="email" class="validate">
+                            <input th:value="${aluno.emailResponsavel}" type="email" name="emailResponsavel" class="validate">
                             <label>Email do Responsável</label>
                         </div>
                     </div>

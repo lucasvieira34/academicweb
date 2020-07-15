@@ -175,7 +175,7 @@ public class AlunoController {
 		//MÉTODO ENVIAR EMAIL
 		Mail mail = new Mail();
 		mail.setFrom("academicwebboot@gmail.com");
-		mail.setTo(aluno.getEmail());
+		mail.setTo(aluno.getUsuario().getEmail());
 		mail.setSubject("Sua nota acaba de ser alterada no sistema!");
 		
 		Map model = new HashMap();
@@ -197,10 +197,11 @@ public class AlunoController {
 	}
 	
 	@RequestMapping(value = "/aluno/perfil/alterar", method = RequestMethod.POST)
-	public String alterarPerfil(Aluno aluno, @RequestParam("fileUsuario") MultipartFile file) {
+	public String alterarPerfil(@RequestParam("emailResponsavel") String emailResponsavel, @RequestParam("email") String email, @RequestParam("fileUsuario") MultipartFile file) {
 		usuarioLogado();
-		
-		aluno.setEmail(aluno.getEmail());
+		usuario.setEmail(email);
+		Aluno aluno = usuario.getAluno();
+		aluno.setEmailResponsavel(emailResponsavel);
 		
 		try {
 			usuario.setImagem(file.getBytes());

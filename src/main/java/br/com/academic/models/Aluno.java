@@ -36,8 +36,8 @@ public class Aluno implements Serializable{
 	@Column(name = "sobrenome")
 	private String sobrenome;
 	
-	@Column(name = "email")
-	private String email;
+	@Column(name = "email_responsavel")
+	private String emailResponsavel;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario", unique = true)
@@ -87,12 +87,12 @@ public class Aluno implements Serializable{
 	public void setExtratos(Set<AlunoDisciplina> extratos) {
 		this.extratos = extratos;
 	}
-	public String getEmail() {
-		return email;
+	public String getEmailResponsavel() {
+		return emailResponsavel;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setEmailResponsavel(String email) {
+		this.emailResponsavel = email;
 	}
 		
 }

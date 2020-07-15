@@ -31,6 +31,9 @@ public class Usuario implements UserDetails{
 	@Column(name = "id_usuario")
 	private long id_usuario;
 	
+	@Column(name = "email")
+	private String email;
+	
 	@Column(name = "login")
 	private String login;
 	
@@ -68,6 +71,14 @@ public class Usuario implements UserDetails{
 
 	public void setId_usuario(long id_usuario) {
 		this.id_usuario = id_usuario;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getLogin() {
