@@ -204,7 +204,12 @@ public class AlunoController {
 		aluno.setEmailResponsavel(emailResponsavel);
 		
 		try {
-			usuario.setImagem(file.getBytes());
+			if(file.isEmpty()) {
+				usuario.getImagem();
+			}else {
+				usuario.setImagem(file.getBytes());
+			}
+				
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
