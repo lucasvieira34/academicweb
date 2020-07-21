@@ -14,13 +14,13 @@
 <link rel="stylesheet" type="text/css" href="css/novo_aluno.css">
 <script type="text/javascript" src="js/jquery-3.2.1.min"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
-
+	
 <nav>
 	<div class="nav-wrapper orange darken-3">
 		<a href="#!" class="brand-logo">Logo</a>
 		<ul class="right hide-on-med-and-down">
 			<li><a href="sass.html"><i class="material-icons left">search</i>Link with Left Icon</a></li>
-			<li><a href="badges.html"><i class="material-icons right">view_module</i><span th:text="${usuario.nome}"></span></a></li>
+			<li><a href="badges.html"><i class="material-icons right">view_module</i><span th:text="${usuarioLogado.nome}"></span></a></li>
 			<li><a href="/logout"><i class="material-icons right">exit_to_app</i>Logout</a></li>
 		</ul>
 	</div>
@@ -34,23 +34,32 @@
 			<div class="row">
 				<form class="col s12" th:object="${professor}" th:action="@{/cadastrarProfessor}"
 					method="POST">
+					
+					<div class="alert alert-success" th:text="${mensagem}" th:if="${not #strings.isEmpty(mensagem)}"></div>
+					
+					<div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
+						<div th:each="detailedError : ${#fields.detailedErrors()}">
+						<span th:text="${detailedError.message}"></span>
+						</div>
+					</div>
+					
 					<h2>Cadastro de Professor</h2>
 
 					<div class="row">
 						<div class="input-field col s6">
 							<i class="material-icons prefix">account_circle</i> <input
-								type="text" class="validate" name="nome" required> <label>Nome</label>
+								type="text" class="validate" th:field="*{nome}" name="nome" required> <label>Nome</label>
 						</div>
 						<div class="input-field col s6">
 							<input id="icon_telephone" type="text" class="validate"
-								name="sobrenome" required> <label for="icon_telephone">Sobrenome</label>
+								th:field="*{sobrenome}" name="sobrenome" required> <label for="icon_telephone">Sobrenome</label>
 						</div>
 					</div>
 
 					<div class="row">
 						<div class="input-field col s12">
 							<i class="material-icons prefix">fiber_pin</i> <input
-								id="matricula" type="text" class="validate" name="matricula"
+								id="matricula" type="text" class="validate" th:field="*{matricula}" name="matricula"
 								required> <label for="matricula">Matrícula</label>
 						</div>
 					</div>

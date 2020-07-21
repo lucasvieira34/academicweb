@@ -2,18 +2,22 @@ package br.com.academic.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.academic.models.Disciplina;
 import br.com.academic.models.Professor;
@@ -39,21 +43,27 @@ public class ProfessorController {
 	@Autowired
 	private UsuarioService us;
 	
-	private Usuario usuario;
+	private Usuario usuarioLogado;
 
 	// TEMPLATE CADASTRO DE PROFESSOR
 	@RequestMapping(value = "/cadastrarProfessor", method = RequestMethod.GET)
-	public ModelAndView novoProfessor() {
+	public ModelAndView novoProfessor(Professor professor, Usuario usuario) {
 		usuarioLogado();
 		ModelAndView mv = new ModelAndView("professor/novo_professor");
+		mv.addObject("usuarioLogado", usuarioLogado);
 		mv.addObject("usuario", usuario);
+		mv.addObject("professor", professor);
 		return mv;
 	}
 
 	// SALVAR PROFESSOR
 	@RequestMapping(value = "/cadastrarProfessor", method = RequestMethod.POST)
-	public String salvarProfessor(Professor professor, Usuario usuario) {
+	public ModelAndView salvarProfessor(@Valid Professor professor, BindingResult result, Usuario usuario, RedirectAttributes attributes) {
 		usuarioLogado();
+		
+		if(result.hasErrors()) {
+			return novoProfessor(professor,usuario);
+		}
 		
 		//CRIPTOGRAFANDO A SENHA
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -72,7 +82,10 @@ public class ProfessorController {
 		
 		us.salvarUsuario(usuario);
 		
-		return "redirect:/professores";
+		ModelAndView mv = new ModelAndView("redirect:/cadastrarProfessor");
+		attributes.addFlashAttribute("mensagem", "Professor salvo com sucesso.");
+		
+		return mv;
 	}
 
 	// LISTAR PROFESSORES
@@ -82,18 +95,19 @@ public class ProfessorController {
 		usuarioLogado();
 		ModelAndView mv = new ModelAndView("professor/listar_professores");
 		mv.addObject("professores", ps.getProfessores());
-		mv.addObject("usuario", usuario);
+		mv.addObject("usuarioLogado", usuarioLogado);
 		return mv;
 	}
 
 	// EDITAR PROFESSOR
 	@RequestMapping(value = "/editarProfessor/{id_professor}", method = RequestMethod.GET)
 	public ModelAndView editarProfessor(@PathVariable("id_professor") long id) {
-
+		usuarioLogado();
 		Professor professor = ps.getProfessorById(id);
 
 		ModelAndView mv = new ModelAndView("professor/associar_disciplina");
 		mv.addObject("professor", professor);
+		mv.addObject("usuarioLogado", usuarioLogado);
 		
 		List<Disciplina> disciplinasNaoAssociadas = ds.getDisciplinas();
 		disciplinasNaoAssociadas.removeAll(professor.getDisciplinas());
@@ -119,7 +133,7 @@ public class ProfessorController {
 		Authentication autenticado = SecurityContextHolder.getContext().getAuthentication();
 		if(!(autenticado instanceof AnonymousAuthenticationToken)) {
 			String login = autenticado.getName();
-			usuario = us.usuarioPorLogin(login);
+			usuarioLogado = us.usuarioPorLogin(login);
 		}
 	}
 

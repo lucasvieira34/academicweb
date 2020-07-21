@@ -15,6 +15,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "professor")
@@ -28,13 +31,17 @@ public class Professor implements Serializable{
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_professor")
 	private long id_professor;
-	
+
+	@NotBlank(message = "O campo matricula não pode ser nulo")
+	@Size(min = 9, message = "O campo matricula deve ter no mínimo 10 caracteres")
 	@Column(name = "matricula")
 	private String matricula;
 	
+	@NotBlank(message = "O campo nome não pode ser nulo")
 	@Column(name = "nome")
 	private String nome;
 	
+	@NotBlank(message = "O campo sobrenome não pode ser nulo")
 	@Column(name = "sobrenome")
 	private String sobrenome;
 	
