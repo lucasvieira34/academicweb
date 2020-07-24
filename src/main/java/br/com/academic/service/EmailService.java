@@ -4,7 +4,9 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,18 @@ public class EmailService {
 
     @Autowired
     private Configuration freemarkerConfig;
+    
+    @Value("classpath:/static/img/logo.jpg")
+    Resource logo;
+    
+    @Value("classpath:/static/img/social-facebook.svg")
+    Resource facebook;
+    
+    @Value("classpath:/static/img/social-twitter.svg")
+    Resource twitter;
+    
+    @Value("classpath:/static/img/social-youtube.svg")
+    Resource youtube;
 
     public void sendSimpleMessage(Mail mail) throws MessagingException, IOException, TemplateException {
         MimeMessage message = emailSender.createMimeMessage();
@@ -32,15 +46,17 @@ public class EmailService {
                 MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
                 StandardCharsets.UTF_8.name());
 
-        helper.addAttachment("logo.png", new ClassPathResource("logo.png"));
-
-        Template t = freemarkerConfig.getTemplate("email-template.ftl");
+        Template t = freemarkerConfig.getTemplate("email.ftl");
         String html = FreeMarkerTemplateUtils.processTemplateIntoString(t, mail.getModel());
 
         helper.setTo(mail.getTo());
         helper.setText(html, true);
         helper.setSubject(mail.getSubject());
         helper.setFrom(mail.getFrom());
+        helper.addInline("logo.jpg", logo);
+        helper.addInline("social-facebook.svg", facebook);
+        helper.addInline("social-twitter.svg", twitter);
+        helper.addInline("social-youtube.svg", youtube);
 
         emailSender.send(message);
     }
