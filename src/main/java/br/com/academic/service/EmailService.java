@@ -5,7 +5,6 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -41,7 +40,8 @@ public class EmailService {
     Resource youtube;
 
     public void sendSimpleMessage(Mail mail) throws MessagingException, IOException, TemplateException {
-        MimeMessage message = emailSender.createMimeMessage();
+        
+    	MimeMessage message = emailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message,
                 MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
                 StandardCharsets.UTF_8.name());
@@ -60,5 +60,30 @@ public class EmailService {
 
         emailSender.send(message);
     }
+    
+    public void sendEmail(Mail mail) {
+    	
+    	try {
+	    	MimeMessage message = emailSender.createMimeMessage();
+	    	MimeMessageHelper helper = new MimeMessageHelper(message,
+	    			MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
+	    			StandardCharsets.UTF_8.name());
+	    	
+	    	Template t = freemarkerConfig.getTemplate("email-template.ftl");
+	    	String html = FreeMarkerTemplateUtils.processTemplateIntoString(t, mail.getModel());
+	    	
+	    	helper.setTo(mail.getTo());
+	    	helper.setText(html, true);
+	    	helper.setSubject(mail.getSubject());
+	    	helper.setFrom(mail.getFrom());
+	    	
+	    	emailSender.send(message);
+    	} catch (Exception e) {
+    		throw new RuntimeException(e);
+    	}
+    }
+    
+    
+    
 
 }

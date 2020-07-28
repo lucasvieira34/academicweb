@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'/>
 
     <!-- use the font -->
     <style>
@@ -18,26 +18,28 @@
 </head>
 <body style="margin: 0; padding: 0;">
 
-    <table align="center" border="0" cellpadding="0" cellspacing="0" width="600" style="border-collapse: collapse;">
-        <tr>
-            <td align="center" bgcolor="#ef6c00" style="padding: 40px 0 30px 0;">
-                <img src="cid:logo.jpg" style="display: block;" />
-            </td>
-        </tr>
-        <tr>
-            <td bgcolor="#eaeaea" style="padding: 40px 30px 40px 30px;">
-                <p>Olá ${name},</p>
-                <p>A sua nota de ${disciplina} acaba ser alterada!</p>
-                <p>Bons estudos!</p>
-            </td>
-        </tr>
-        <tr>
-            <td bgcolor="#ef6c00" style="padding: 30px 30px 30px 30px;">
-                <p>Academic Web</p>
-                <p>15/07/2020</p>
-            </td>
-        </tr>
-    </table>
+<table align="center" border="0" cellpadding="0" cellspacing="0" width="600" style="border-collapse: collapse;">
+    <tr>
+        <td align="center" bgcolor="#78ab46" style="padding: 40px 0 30px 0;">
+            <p>Memorynotfound.com</p>
+        </td>
+    </tr>
+    <tr>
+        <td bgcolor="#eaeaea" style="padding: 40px 30px 40px 30px;">
+            <p>Olá ${user.nome}</p>
+            <p>
+                You've requested a password reset.
+                <a href="${resetUrl}">reset your password</a>
+            </p>
+            <p>Thanks</p>
+        </td>
+    </tr>
+    <tr>
+        <td bgcolor="#777777" style="padding: 30px 30px 30px 30px;">
+            <p>Academic Web</p>
+        </td>
+    </tr>
+</table>
 
 </body>
 </html>

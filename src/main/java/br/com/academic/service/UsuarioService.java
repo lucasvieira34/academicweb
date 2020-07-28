@@ -19,5 +19,13 @@ public class UsuarioService {
 	public Usuario usuarioPorLogin(String login) {
 		return ur.findByLogin(login);
 	}
+	
+	public Usuario usuarioPorEmail(String email) {
+		return ur.findByEmail(email);
+	}
+
+	public void updatePassword(String password, long id_usuario) {
+		ur.updatePassword(password, id_usuario);
+	}
 
 }

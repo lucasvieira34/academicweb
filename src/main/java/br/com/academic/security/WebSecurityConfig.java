@@ -29,15 +29,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		http
 			.csrf().disable()
 			.authorizeRequests()
-			//PERMISSÕES ALUNO
-			.antMatchers(HttpMethod.GET, "/aluno/**").hasRole("ALUNO")
-			//PERMISSÕES PROFESSOR
-			.antMatchers(HttpMethod.GET, "/professor/**").hasRole("PROFESSOR")
-			.antMatchers(HttpMethod.GET, "/").hasRole("PROFESSOR")
-			.antMatchers("/resources/**").permitAll()
-			.anyRequest().authenticated()
-			.and().formLogin().loginPage("/login").successHandler(successHandler).permitAll()
-			.and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
+				.antMatchers(
+						"/forgot-password**",
+						"/reset-password**").permitAll()
+				//PERMISSÕES ALUNO
+				.antMatchers(HttpMethod.GET, "/aluno/**").hasRole("ALUNO")
+				//PERMISSÕES PROFESSOR
+				.antMatchers(HttpMethod.GET, "/professor/**").hasRole("PROFESSOR")
+				.antMatchers(HttpMethod.GET, "/").hasRole("PROFESSOR")
+				.antMatchers("/resources/**").permitAll()
+				.anyRequest().authenticated()
+			.and()
+				.formLogin()
+					.loginPage("/login")
+						.successHandler(successHandler).permitAll()
+			.and()
+				.logout()
+					.logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
 	}
 	
 	@Override
