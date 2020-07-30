@@ -1,0 +1,21 @@
+.bg-gradient-principal {
+    background-image: linear-gradient(180deg,#ea7e0e 10%,#6d3200 100%);
+}
+
+.fonte-pacifico {
+	font-family: 'Pacifico', cursive;
+}
+
+.navbar-cor {
+	background-color: #FA8021!important;
+	color: white;
+}
+
+.cor-principal {
+	color: #FA8021!important;
+}
+
+.botao-cor-principal {
+	background-color: #FA8021!important;
+	color: #ffffff;
+}

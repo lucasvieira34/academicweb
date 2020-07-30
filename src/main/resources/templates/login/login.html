@@ -1,50 +1,97 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-    <head>
-        <title>Academic Web - Login</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
-        <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
-        <link rel="stylesheet" type="text/css" href="/css/login.css">
-    </head>
-    <body>
+<html>
 
-        <div class="modal-dialog text-center">
-            <div class="col-sm-8 main-section">
-                <div class="modal-content">
+	<head>
+     	<!-- Required meta tags -->
+    	<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-                    <div class="col-12 user-img">
-                        <img src="/img/user.png">
-                    </div>
+    	<!-- Google Fonts -->
+    	<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 
-                    <form class="col-12" th:action="@{/login}" method="POST">
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="username" placeholder="Usuário">
-                        </div>
-                        <div class="form-group">
-                            <input type="password" class="form-control" name="password" placeholder="Senha">
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="perfil" id="inlineRadio1" value="A">
-                            <label class="form-check-label" for="inlineRadio1">Aluno</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="perfil" id="inlineRadio1" value="P">
-                            <label class="form-check-label" for="inlineRadio1">Professor</label>
-                        </div>
-                        <button type="submit" class="btn"><i class="fas fa-sign-in-alt"></i>Login</button>
-                    </form>
+    	<!-- Bootstrap CSS -->
+    	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-                    <div class="col-12 forgot">
-                        <a href="#">Esqueceu a senha?</a>
-                    </div>
+    	<!-- Imports CSS -->
+    	<link rel="stylesheet" type="text/css" href="/css/login.css">
 
-                </div>
-            </div>
-        </div>
+    	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css"> 
 
-    </body>
+	    <title>Academic Web - Portal do Aluno</title>
+	</head>
+
+	<body>
+		
+		<div class="container-box">
+			<div class="box text-center">
+				
+				<div class="col-12 user-img ">
+					<img src="img/user.png">
+				</div>
+
+				<div class="container">
+					<form class="col-12" th:action="@{/login}" method="POST">
+						
+						<div class="form-group">
+	                        <input type="text" class="form-control" name="username" id="username" placeholder="Usuário">
+	                    </div>
+	                    
+	                    <div class="form-group">
+	                        <input type="password" class="form-control" name="password" id="password" placeholder="Senha">
+	                    </div>
+
+	                    <button type="submit" class="btn btn-entrar botao-entrar"><i class="fas fa-sign-in-alt"></i>Login</button>
+
+					</form>
+
+					<div class="col-12 forgot">
+                    	<a data-toggle="modal" data-target="#modal-senha" href="#">Modal</a>
+                	</div>
+                	
+                	<div class="col-12 forgot">
+                    	<a href="/forgot-password">Esqueceu a senha?</a>
+                	</div>
+
+				</div>
+
+			</div>
+		</div>
+
+
+
+
+
+
+
+
+
+
+		<div class="modal" tabindex="-1" role="dialog" id="modal-senha">
+  			<div class="modal-dialog modal-dialog-centered">
+    			<div class="modal-content">
+      				<div class="modal-header">
+        				<h5 class="modal-title">Esqueceu sua senha?</h5>
+        				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          					<span aria-hidden="true">&times;</span>
+        				</button>
+      				</div>
+      				<div class="modal-body">
+        				<p>Para recuperar sua senha de acesso ao sistema, por favor, entre em contato com a secretaria por algum de nossos meio de comunicação.</p>
+        				<p>Email: academicwebboot@gmail.com</p>
+        				<p>Telefone: XXXX-XXXX</p>
+      				</div>
+      				<div class="modal-footer">
+        				<button type="button" class="btn botao-cor-principal" data-dismiss="modal">Close</button>
+      				</div>
+    			</div>
+  			</div>
+		</div>
+
+
+  	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+	</body>
+
 </html>

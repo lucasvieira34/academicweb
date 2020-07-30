@@ -51,19 +51,19 @@
   												<tr>
    													<td>
     												<a href="http://www.facebook.com/">
-     												<img src="cid:social-facebook.svg" alt="Facebook" width="38" height="38" style="display: block;" border="0" />
+     												<img src="cid:social-facebook.png" alt="Facebook" width="38" height="38" style="display: block;" border="0" />
     												</a>
    													</td>
    													<td style="font-size: 0; line-height: 0;" width="20">&nbsp;</td>
 						                            <td>
 						                            <a href="http://www.twitter.com/">
-						                              <img src="cid:social-twitter.svg" alt="Youtube" width="38" height="38" style="display: block;" border="0" />
+						                              <img src="cid:social-twitter.png" alt="Youtube" width="38" height="38" style="display: block;" border="0" />
 						                            </a>
 						                            </td>
 						                            <td style="font-size: 0; line-height: 0;" width="20">&nbsp;</td>
    													<td>
     												<a href="http://www.youtube.com/">
-     													<img src="cid:social-youtube.svg" alt="Youtube" width="38" height="38" style="display: block;" border="0" />
+     													<img src="cid:social-youtube.png" alt="Youtube" width="38" height="38" style="display: block;" border="0" />
     												</a>
    													</td>
   												</tr>

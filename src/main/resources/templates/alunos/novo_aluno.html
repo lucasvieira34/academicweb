@@ -1,108 +1,336 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html>
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Cadastro de Aluno</title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css" media="screen,projection" />
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/novo_aluno.css">
-    <script type="text/javascript" src="js/jquery-3.2.1.min"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
 
-    <nav>
-        <div class="nav-wrapper orange darken-3">
-            <a href="#!" class="brand-logo">Logo</a>
-            <ul class="right hide-on-med-and-down">
-                <li><a href="sass.html"><i class="material-icons left">search</i>Link with Left Icon</a></li>
-                <li><a href="badges.html"><i class="material-icons right">view_module</i><span th:text="${usuario.nome}"></span></a></li>
-                <li><a href="/logout"><i class="material-icons right">exit_to_app</i>Logout</a></li>
-            </ul>
-        </div>
-    </nav>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Portal Escolar Academic - Cadastro Aluno</title>
+
+  <!-- Custom fonts for this template-->
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="/css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="/css/dashboard.css" rel="stylesheet">
 
 </head>
 
-<body>
-    <div class="container">
-        <div id="tabela">
-            <div class="row">
-                <form class="col s12" th:action="@{/cadastrarAluno}" enctype="multipart/form-data" method="POST">
-                    <h2>Cadastro de Aluno</h2>
+<body id="page-top">
 
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <i class="material-icons prefix">account_circle</i>
-                            <input type="text" class="validate" name="nome" required>
-                            <label>Nome</label>
-                        </div>
-                        <div class="input-field col s6">
-                            <input id="icon_telephone" type="text" class="validate" name="sobrenome" required>
-                            <label for="icon_telephone">Sobrenome</label>
-                        </div>
-                    </div>
+  <!-- Page Wrapper -->
+  <div id="wrapper">
 
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">fiber_pin</i>
-                            <input id="matricula" type="text" class="validate" name="matricula" required>
-                            <label for="matricula">Matrícula</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">assignment_ind</i>
-                            <input id="login" type="text" class="validate" name="login" required>
-                            <label for="login">Username</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">lock</i>
-                            <input id="senha" type="password" class="validate" name="senha" required>
-                            <label for="senha">Senha</label>
-                            <small id="passwordHelpBlock" class="form-text text-muted">
-                                Sua senha precisa ter entre 8-20 caracteres, contendo letras e números e não pode conter espaços, caracteres especiais ou emojis.
-                            </small>
-                        </div>
-                    </div>
-                    
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <i class="material-icons prefix">email</i>
-                            <input type="email" name="email" id="email"  class="validate">
-                            <label>Email do Aluno</label>
-                        </div>
-                    </div>
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-principal sidebar sidebar-dark accordion" id="accordionSidebar">
 
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <i class="material-icons prefix">email</i>
-                            <input type="email" name="emailResponsavel" class="validate">
-                            <label>Email do Responsável</label>
-                        </div>
-                    </div>
-                    
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <div class="form-group">
-                                <i class="material-icons prefix">image</i>
-                                <label for="image">Foto de Perfil</label>
-                                <input type="file" class="form-control-file" id="imagem" name="fileUsuario" required>
-                            </div>
-                        </div>
-                    </div>
-
-                    <button class="btn waves-effect waves-light orange darken-3" type="submit" name="action">Cadastrar
-                        <i class="material-icons right">send</i>
-                    </button>
-
-                </form>
-            </div>
+      <!-- Sidebar - Brand -->
+      <a class="sidebar-brand d-flex align-items-center justify-content-center fonte-pacifico text-white" href="index.html">
+        <div class="sidebar-brand-icon rotate-n-15">
+          <i class="fas fa-laugh-wink"></i>
         </div>
+        <div class="sidebar-brand-text mx-3">Academic Web</div>
+      </a>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider my-0">
+
+      <!-- Nav Item - Dashboard -->
+      <li class="nav-item">
+        <a class="nav-link" href="secretaria_dashboard.html">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span></a>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        Alunos
+      </div>
+
+      <!-- Nav Item -->
+      <li class="nav-item">
+        <a class="nav-link pb-1" href="alunos.html">
+          <i class="fas fa-fw fa-list"></i>
+          <span>Lista de Alunos</span>
+        </a>
+      </li>
+
+      <!-- Nav Item -->
+      <li class="nav-item active">
+        <a class="nav-link pt-1" href="novo_aluno.html">
+          <i class="fas fa-fw fa-user-graduate"></i>
+          <span>Cadastro de Aluno</span>
+        </a>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        Professores
+      </div>
+
+      <!-- Nav Item -->
+      <li class="nav-item">
+        <a class="nav-link pb-1" href="professores.html">
+          <i class="fas fa-fw fa-list"></i>
+          <span>Lista de Professores</span>
+        </a>
+      </li>
+
+      <!-- Nav Item -->
+      <li class="nav-item">
+        <a class="nav-link pt-1 pb-1" href="associar_disciplina.html">
+          <i class="fas fa-fw fa-plus"></i>
+          <span>Associar Disciplina</span>
+        </a>
+      </li>
+
+      <!-- Nav Item -->
+      <li class="nav-item">
+        <a class="nav-link pt-1" href="novo_professor.html">
+          <i class="fas fa-fw fa-chalkboard-teacher"></i>
+          <span>Cadastro de Professor</span>
+        </a>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        Disciplinas
+      </div>
+
+      <!-- Nav Item -->
+      <li class="nav-item">
+        <a class="nav-link" href="disciplinas.html">
+          <i class="fas fa-fw fa-list"></i>
+          <span>Lista de Disciplinas</span>
+        </a>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        Meu Perfil
+      </div>
+
+      <!-- Nav Item - Tables -->
+      <li class="nav-item">
+        <a class="nav-link" href="tables.html">
+          <i class="fas fa-fw fa-user-edit"></i>
+          <span>Editar</span></a>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider d-none d-md-block">
+
+      <!-- Sidebar Toggler (Sidebar) -->
+      <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+      </div>
+
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+        <!-- Topbar -->
+        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+          <!-- Sidebar Toggle (Topbar) -->
+          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+            <i class="fa fa-bars"></i>
+          </button>
+
+          <!-- Topbar Navbar -->
+          <ul class="navbar-nav ml-auto">
+
+            <!-- Nav Item - User Information -->
+            <li class="nav-item dropdown no-arrow">
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Nome do Usuário</span>
+                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+              </a>
+              <!-- Dropdown - User Information -->
+              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                <a class="dropdown-item" href="#">
+                  <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Profile
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/logout" data-toggle="modal" data-target="#logoutModal">
+                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Logout
+                </a>
+              </div>
+            </li>
+
+          </ul>
+
+        </nav>
+        <!-- End of Topbar -->
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+          <!-- Page Heading -->
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Cadastro de Aluno</h1>
+          </div>
+
+          <!-- Content Row -->
+          <div class="row">
+
+            <div class="col-lg-12 mb-4">
+
+              <form class="col s12" th:action="@{/cadastrarAluno}" enctype="multipart/form-data" method="POST">
+
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="nome">Nome</label>
+                    <input type="text" class="form-control" id="nome" name="nome" required>
+                    <small class="form-text text-muted">
+                    Insira o nome do aluno.
+                    </small>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="sobrenome">Sobrenome</label>
+                    <input type="text" class="form-control" id="sobrenome" name="sobrenome" required>
+                    <small class="form-text text-muted">
+                    Insira o sobrenome do aluno.
+                    </small>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="matricula">Matrícula</label>
+                  <input type="text" class="form-control" id="matricula" name="matricula" required>
+                  <small class="form-text text-muted">
+                  Insira a matrícula do aluno. A matrícula deverá seguir o padrão: 20XXAAAABBB, onde XX é o ano da matrícula e AAAABBB um número aleatório.
+                  </small>
+                </div>
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type="email" class="form-control" id="email" name="email">
+                  <small class="form-text text-muted">
+                  Insira o email do aluno.
+                  </small>
+                </div>
+                <div class="form-group">
+                  <label for="emailResponsavel">Email do Responsável</label>
+                  <input type="email" class="form-control" id="emailResponsavel" name="emailResponsavel" required>
+                  <small class="form-text text-muted">
+                  Insira o email do responsável (pai/mãe).
+                  </small>
+                </div>
+                <div class="form-group">
+                  <label for="username">Username</label>
+                  <input type="text" class="form-control" id="login" name="login" required>
+                  <small class="form-text text-muted">
+                  Insira o login do aluno.
+                  </small>
+                </div>
+                <div class="form-group">
+                  <label for="senha">Senha</label>
+                  <input type="password" id="senha" class="form-control" name="senha" required>
+                  <small class="form-text text-muted">
+                  A senha precisa ter entre 8-20 caracteres, contendo letras e números e não pode conter espaços, caracteres especiais ou emojis.
+                  </small>
+                </div>
+                <div class="form-group">
+                  <label for="confirmPassword">Confirme a senha</label>
+                  <input type="password" id="confirmPassword" class="form-control" name="confirmPassword" required>
+                  <small class="form-text text-muted">
+                  A senha precisa ser idêntica a informada acima.
+                  </small>
+                </div>
+                <div class="form-group">
+                  <label for="image">Foto de Perfil</label>
+                  <input type="file" class="form-control-file" id="imagem" name="fileUsuario" required>
+                </div>
+
+                <button type="submit" class="btn botao-cor-principal">Cadastrar</button>
+
+              </form>
+
+            </div>
+          </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+
+      <!-- Footer -->
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright &copy; Your Website 2020</span>
+          </div>
+        </div>
+      </footer>
+      <!-- End of Footer -->
+
     </div>
-    <script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Sair?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Clique em "Logout" se você deseja encerrar sua sessão atual.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+          <a class="btn botao-cor-principal" href="login.html">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="/vendor/jquery/jquery.min.js"></script>
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="/js/sb-admin-2.min.js"></script>
+
 </body>
 
 </html>

@@ -1,89 +1,97 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto');
+body {
+	margin: 0px;
+}
 
-body{
-	font-family: 'Roboto', sans-serif;
-	background: url(../img/educacao.png) no-repeat center center fixed;
+.container-box {
+	background-image: url(../img/tema-login.jpg);
 	background-size: cover;
-	padding-top: 50px;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center
 }
-.main-section{
-	margin: 0 auto;
-	margin-top: 130px;
-	padding: 0;
+
+.box {
+	width: 300px;
+	height: 300px;
+	border-radius: 10px;
 }
-.modal-content{
-	background-color: #3B4652;
-	opacity: .95;
-	padding: 0 18px;
-	box-shadow: 0px 0px 3px #848484;
-}
-.user-img{
+
+.user-img {
 	margin-top: -50px;
 	margin-bottom: 35px;
 }
+
 .user-img img{
-	height: 100px;
 	width: 100px;
+	height: 100px;
 	border-radius: 5px;
-	box-shadow: 0px 0px 2px #3B4652;
+
 }
-.form-group{
+
+.form-group {
 	margin-bottom: 25px;
 }
-.form-group input{
+
+.form-group input {
 	height: 42px;
 	border-radius: 5px;
-	border: 0;
-	font-size: 18px;
+	border-color: #FA8021;
+	border: 1;
+	font-size: 15px;
 	padding-left: 54px;
 }
+
 .form-group:nth-child(1)::before {
 	font-family: 'Font Awesome\ 5 Free';
 	content: "\f007";
 	position: absolute;
 	font-size: 22px;
-	color: #555E60;
+	color: #FA8021;
 	left: 28px;
 	padding-top: 4px;
 }
+
 .form-group:nth-child(2)::before {
 	font-family: 'Font Awesome\ 5 Free';
 	content: "\f023";
 	position: absolute;
 	font-size: 22px;
-	color: #555E60;
+	color: #FA8021;
 	left: 28px;
 	padding-top: 4px;
 }
-.form-check{
-	margin-bottom: 5px;
-}
-.form-check-label{
-	color: #fff;
-}
-button{
+
+.botao-entrar {
 	width: 40%;
 	margin: 10px 0 15px;
 }
-.btn{
-	background-color: #27C2A5;
-	color: #fff;
-	font-size: 19px;
+
+.btn-entrar {
+	background-color: #FA8021	;
+	color: white;
+	font-size: 15px;
 	padding: 7px 14px;
 	border-radius: 5px;
-	border-bottom: 4px solid #219882;
 }
-.btn:hover, .btn:focus{
-	background-color: #25A890!important;
-	border-bottom: 4px solid #25A890!important;
+
+.botao-cor-principal {
+	background-color: #FA8021!important;
+	color: white;
 }
-.svg-inline--fa{
+
+.svg-inline--fa {
+	color: white;
 	font-size: 20px;
 	margin-right: 7px;
 }
-.forgot{
+
+.forgot {
 	padding: 0px 0 25px;
 }
-.forgot a{
-	color: #C2FBFE;
+
+.forgot a {
+	color: #656669;
 }

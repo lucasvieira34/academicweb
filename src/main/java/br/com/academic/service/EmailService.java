@@ -30,13 +30,13 @@ public class EmailService {
     @Value("classpath:/static/img/logo.jpg")
     Resource logo;
     
-    @Value("classpath:/static/img/social-facebook.svg")
+    @Value("classpath:/static/img/social-facebook.png")
     Resource facebook;
     
-    @Value("classpath:/static/img/social-twitter.svg")
+    @Value("classpath:/static/img/social-twitter.png")
     Resource twitter;
     
-    @Value("classpath:/static/img/social-youtube.svg")
+    @Value("classpath:/static/img/social-youtube.png")
     Resource youtube;
 
     public void sendSimpleMessage(Mail mail) throws MessagingException, IOException, TemplateException {
@@ -54,9 +54,9 @@ public class EmailService {
         helper.setSubject(mail.getSubject());
         helper.setFrom(mail.getFrom());
         helper.addInline("logo.jpg", logo);
-        helper.addInline("social-facebook.svg", facebook);
-        helper.addInline("social-twitter.svg", twitter);
-        helper.addInline("social-youtube.svg", youtube);
+        helper.addInline("social-facebook.png", facebook);
+        helper.addInline("social-twitter.png", twitter);
+        helper.addInline("social-youtube.png", youtube);
 
         emailSender.send(message);
     }
@@ -76,6 +76,10 @@ public class EmailService {
 	    	helper.setText(html, true);
 	    	helper.setSubject(mail.getSubject());
 	    	helper.setFrom(mail.getFrom());
+	    	helper.addInline("logo.jpg", logo);
+	        helper.addInline("social-facebook.png", facebook);
+	        helper.addInline("social-twitter.png", twitter);
+	        helper.addInline("social-youtube.png", youtube);
 	    	
 	    	emailSender.send(message);
     	} catch (Exception e) {

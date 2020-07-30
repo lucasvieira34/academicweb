@@ -1,0 +1,81 @@
+body {
+	margin: 0px;
+}
+
+.container-box {
+	background-image: url(../img/tema-login.jpg);
+	background-size: cover;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center
+}
+
+.box {
+	width: 400px;
+	height: 400px;
+	border-radius: 10px;
+}
+
+.form-group {
+	margin-bottom: 25px;
+}
+
+.form-group input {
+	height: 42px;
+	border-radius: 5px;
+	border-color: #FA8021;
+	border: 1;
+	font-size: 15px;
+	padding-left: 54px;
+}
+
+.form-group:nth-child(1)::before {
+	font-family: 'Font Awesome\ 5 Free';
+	content: "\f023";
+	position: absolute;
+	font-size: 22px;
+	color: #FA8021;
+	left: 28px;
+	padding-top: 4px;
+}
+
+.form-group:nth-child(2)::before {
+	font-family: 'Font Awesome\ 5 Free';
+	content: "\f023";
+	position: absolute;
+	font-size: 22px;
+	color: #FA8021;
+	left: 28px;
+	padding-top: 4px;
+}
+
+.botao-entrar {
+	width: 40%;
+	margin: 0px 0 15px;
+}
+
+.btn-entrar {
+	background-color: #FA8021	;
+	color: white;
+	font-size: 15px;
+	padding: 7px 14px;
+	border-radius: 5px;
+}
+
+.botao-cor-principal {
+	background-color: #FA8021!important;
+	color: white;
+}
+
+.svg-inline--fa {
+	color: white;
+	font-size: 20px;
+	margin-right: 7px;
+}
+
+.cor-principal {
+	color: #FA8021!important;
+}

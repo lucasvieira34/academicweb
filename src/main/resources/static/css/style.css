@@ -1,0 +1,85 @@
+.fonte-pacifico {
+	font-family: 'Pacifico', cursive;
+}
+
+.cor-principal {
+	color: #FA8021!important;
+}
+
+.botao-cor-principal {
+	background-color: #FA8021!important;
+	color: white;
+}
+
+.borda-cor-principal {
+	border-color: #FA8021;
+}
+
+.imagem-carrosel-um {
+	height: 400px;
+}
+
+.imagem-carrosel-dois {
+	height: 400px;
+}
+
+.imagem-carrosel-tres {
+	height: 400px;
+}
+
+.h-66 {
+	height: 66%;
+}
+
+.alinhamento-car-dois {
+	text-align: end;
+	height: 89px;
+	width: 736px;
+}
+
+.alinhamento-car-tres {
+	height: 24%;
+	width: 90%;
+}
+
+.card-largura {
+	max-width: 18rem;
+}
+
+footer {
+	background-color: #FA8021;
+}
+
+#social-medias {
+	display: flex;
+	list-style: none;
+	justify-content: space-around;
+	padding: 1vw 0;
+}
+
+#social-medias li a {
+	color: white;
+}
+
+#social-medias li a i{
+	transform: scale(1.6);
+}
+
+.logo-footer {
+	height: 130px;
+	width: 130px;
+}
+
+#sublinhado {
+	text-decoration: none;
+}
+
+#sublinhado-footer {
+	text-decoration: none;
+	color: white;
+}
+
+.rodape {
+	background-color: #EC6700;
+	margin-bottom: 0;
+}
