@@ -1,5 +1,7 @@
 package br.com.academic.controllers;
 
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -10,15 +12,18 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.com.academic.dto.CadastroProfessorDto;
 import br.com.academic.models.Disciplina;
 import br.com.academic.models.Professor;
 import br.com.academic.models.Role;
@@ -44,31 +49,62 @@ public class ProfessorController {
 	private UsuarioService us;
 	
 	private Usuario usuarioLogado;
+	
+	@ModelAttribute("dto")
+	public CadastroProfessorDto cadastroProfessorDto() {
+		return new CadastroProfessorDto();
+	}
 
 	// TEMPLATE CADASTRO DE PROFESSOR
 	@RequestMapping(value = "/cadastrarProfessor", method = RequestMethod.GET)
-	public ModelAndView novoProfessor(Professor professor, Usuario usuario) {
+	public ModelAndView novoProfessor(CadastroProfessorDto professorDto) {
 		usuarioLogado();
 		ModelAndView mv = new ModelAndView("professor/novo_professor");
 		mv.addObject("usuarioLogado", usuarioLogado);
-		mv.addObject("usuario", usuario);
-		mv.addObject("professor", professor);
 		return mv;
 	}
 
 	// SALVAR PROFESSOR
 	@RequestMapping(value = "/cadastrarProfessor", method = RequestMethod.POST)
-	public ModelAndView salvarProfessor(@Valid Professor professor, BindingResult result, Usuario usuario, RedirectAttributes attributes) {
+	public String salvarProfessor(@ModelAttribute("dto") @Valid CadastroProfessorDto professorDto, BindingResult result, @RequestParam("fileUsuario") MultipartFile file) {
 		usuarioLogado();
 		
+		Usuario emailExistente = us.usuarioPorEmail(professorDto.getEmail());
+		if (emailExistente != null) {
+			result.rejectValue("email", null, "Já existe uma conta registrada com este endereço de email.");
+		}
+		Usuario loginExistente = us.usuarioPorLogin(professorDto.getLogin());
+		if (loginExistente != null) {
+			result.rejectValue("login", null, "Já existe uma login registrado com este username.");
+		}
+		
 		if(result.hasErrors()) {
-			return novoProfessor(professor,usuario);
+			return "professor/novo_professor";
 		}
 		
 		//CRIPTOGRAFANDO A SENHA
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		String encodedPassword = passwordEncoder.encode(usuario.getSenha());
-		usuario.setSenha(encodedPassword);
+		String encodedPassword = passwordEncoder.encode(professorDto.getSenha());
+		professorDto.setSenha(encodedPassword);
+		
+		Usuario usuario = new Usuario();
+		Professor professor = new Professor();
+		
+		usuario.setEmail(professorDto.getEmail());
+		usuario.setNome(professorDto.getNome());
+		usuario.setLogin(professorDto.getLogin());
+		usuario.setSenha(professorDto.getSenha());
+		
+		try {
+			usuario.setImagem(file.getBytes());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		professor.setMatricula(professorDto.getMatricula());
+		professor.setNome(professorDto.getNome());
+		professor.setSobrenome(professorDto.getSobrenome());
 		
 		professor.setUsuario(usuario);
 		ps.salvarProfessor(professor);
@@ -82,10 +118,10 @@ public class ProfessorController {
 		
 		us.salvarUsuario(usuario);
 		
-		ModelAndView mv = new ModelAndView("redirect:/cadastrarProfessor");
-		attributes.addFlashAttribute("mensagem", "Professor salvo com sucesso.");
+		//ModelAndView mv = new ModelAndView("redirect:/cadastrarProfessor");
+		//attributes.addFlashAttribute("mensagem", "Professor salvo com sucesso.");
 		
-		return mv;
+		return "redirect:/cadastrarProfessor?success";
 	}
 
 	// LISTAR PROFESSORES
