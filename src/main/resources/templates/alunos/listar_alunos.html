@@ -50,7 +50,7 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item">
-        <a class="nav-link" href="professor_dashboard.html">
+        <a class="nav-link" href="/professor/disciplinas">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
@@ -64,10 +64,10 @@
       </div>
 
       <!-- Nav Item -->
-      <li class="nav-item active">
-        <a class="nav-link" href="listar_alunos.html">
+      <li class="nav-item" th:each="disciplina : ${disciplinasProf}">
+        <a class="nav-link" th:href="@{'/professor/disciplinas/' + ${disciplina.id_disciplina} + '/alunos'}">
           <i class="fas fa-fw fa-graduation-cap"></i>
-          <span>Nome da Disciplina</span>
+          <span th:text="${disciplina.nome}"></span></a>
         </a>
       </li>
 
@@ -118,7 +118,7 @@
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small" th:text="${usuario.nome}"></span>
-                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+                <img class="img-profile rounded-circle" onerror="this.style.display='none'" height="45px" width="45px" th:src="|/imagem/${usuario.professor.id_professor}|">
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -143,7 +143,7 @@
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">(Nome da Disciplina)</h1>
+          <h1 class="h3 mb-2 cor-principal"><span th:text="${disciplina.nome}"></span></h1>
           <p class="mb-4">Listagem de notas de faltas dos alunos referentes à disciplina selecionada.</p>
 
           <div class="card shadow mb-4">
@@ -217,7 +217,7 @@
         <div class="modal-body">Clique em "Logout" se você deseja encerrar sua sessão atual.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-          <a class="btn botao-cor-principal" href="login.html">Logout</a>
+          <a class="btn botao-cor-principal" href="/logout">Logout</a>
         </div>
       </div>
     </div>

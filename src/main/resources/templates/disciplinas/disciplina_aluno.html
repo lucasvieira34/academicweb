@@ -119,7 +119,7 @@
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small" th:text="${usuario.nome}"></span>
-                <img class="img-profile rounded-circle" onerror="this.style.display='none'" height="45px" width="45px" th:src="|/imagem/${usuario.aluno.id_aluno}|">
+                <img class="img-profile rounded-circle" onerror="this.style.display='none'" height="45px" width="45px" th:src="|/aluno/imagem/${usuario.aluno.id_aluno}|">
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -214,7 +214,7 @@
         <div class="modal-body">Clique em "Logout" se você deseja encerrar sua sessão atual.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-          <a class="btn botao-cor-principal" href="login.html">Logout</a>
+          <a class="btn botao-cor-principal" href="/logout">Logout</a>
         </div>
       </div>
     </div>

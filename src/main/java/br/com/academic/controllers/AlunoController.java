@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import br.com.academic.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -20,13 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import br.com.academic.models.Aluno;
-import br.com.academic.models.AlunoDisciplina;
-import br.com.academic.models.AlunoDisciplinaPK;
-import br.com.academic.models.Disciplina;
-import br.com.academic.models.Mail;
-import br.com.academic.models.Role;
-import br.com.academic.models.Usuario;
 import br.com.academic.service.AlunoDisciplinaService;
 import br.com.academic.service.AlunoService;
 import br.com.academic.service.DisciplinaService;
@@ -127,15 +121,20 @@ public class AlunoController {
 	// LISTAR ALUNOS PERTENCENTES À DISCIPLINA
 	@RequestMapping(value = "professor/disciplinas/{id_disciplina}/alunos", method = RequestMethod.GET)
 	public ModelAndView listarDisciplinaAluno(@PathVariable("id_disciplina") long id_disciplina) {
-
 		usuarioLogado();
-		Disciplina disciplina = ds.getDisciplinaById(id_disciplina);
 
+		//BUSCANDO ALUNOS DA DISCIPLINA
+		Disciplina disciplina = ds.getDisciplinaById(id_disciplina);
 		Set<AlunoDisciplina> alunoDisciplina = disciplina.getExtratos();
+
+		//BUSCANDO DISCIPLINAS DO PROFESSOR
+		Professor professor = usuario.getProfessor();
+		List<Disciplina> disciplinasProf = professor.getDisciplinas();
 
 		ModelAndView mv = new ModelAndView("alunos/listar_alunos");
 		mv.addObject("alunoDisciplina", alunoDisciplina);
 		mv.addObject("disciplina", disciplina);
+		mv.addObject("disciplinasProf", disciplinasProf);
 		mv.addObject("usuario", usuario);
 
 		return mv;
@@ -219,7 +218,7 @@ public class AlunoController {
 		return "redirect:/aluno/perfil";
 	}
 	
-	@RequestMapping(value = "/imagem/{id_aluno}", method = RequestMethod.GET)
+	@RequestMapping(value = "/aluno/imagem/{id_aluno}", method = RequestMethod.GET)
 	@ResponseBody
 	public byte[] exibirImagem(@PathVariable("id_aluno") long id_aluno) {
 		Aluno aluno = this.as.getOneAlunoById(id_aluno);
