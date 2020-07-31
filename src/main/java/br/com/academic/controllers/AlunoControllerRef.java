@@ -1,6 +1,5 @@
 package br.com.academic.controllers;
 
-import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,42 +13,44 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.com.academic.models.Aluno;
 import br.com.academic.models.AlunoDisciplina;
-import br.com.academic.models.Disciplina;
-import br.com.academic.models.Professor;
 import br.com.academic.models.Usuario;
-import br.com.academic.service.DisciplinaService;
 import br.com.academic.service.UsuarioService;
 
 @Controller
-public class DisciplinaController {
-
-	@Autowired
-	private DisciplinaService ds;
-
+@RequestMapping("/aluno")
+public class AlunoControllerRef {
+	
 	@Autowired
 	private UsuarioService us;
+	
+	private Usuario usuarioLogado;
 
-	private Usuario usuario;
-
-	// LISTAR TODAS AS DISCIPLINAS
-	@RequestMapping(value = "/disciplinas/lista", method = RequestMethod.GET)
-	public ModelAndView listarDisciplina() {
-
+	// LISTAR TODAS AS DISCIPLINAS DO ALUNO LOGADO
+	@RequestMapping(value = "/disciplinas", method = RequestMethod.GET)
+	public ModelAndView minhasDisciplinas() {
 		usuarioLogado();
-		ModelAndView mv = new ModelAndView("disciplinas/listar_disciplina");
-		List<Disciplina> disciplinas = ds.getDisciplinas();
-		mv.addObject("disciplinas", disciplinas);
-		mv.addObject("usuario", usuario);
+
+		Aluno aluno = usuarioLogado.getAluno();
+		Set<AlunoDisciplina> alunoDisciplina = aluno.getExtratos();
+
+		ModelAndView mv = new ModelAndView("disciplinas/disciplina_aluno");
+		mv.addObject("usuarioLogado", usuarioLogado);
+		mv.addObject("alunoDisciplina", alunoDisciplina);
 
 		return mv;
 	}
+	
+	
+	
+	
+	
 
 	private void usuarioLogado() {
 		Authentication autenticado = SecurityContextHolder.getContext().getAuthentication();
 		if (!(autenticado instanceof AnonymousAuthenticationToken)) {
 			String login = autenticado.getName();
-			usuario = us.usuarioPorLogin(login);
+			usuarioLogado = us.usuarioPorLogin(login);
 		}
 	}
-	
+
 }

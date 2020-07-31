@@ -39,14 +39,14 @@ public class EmailService {
     @Value("classpath:/static/img/social-youtube.png")
     Resource youtube;
 
-    public void sendSimpleMessage(Mail mail) throws MessagingException, IOException, TemplateException {
+    public void emailNotas(Mail mail) throws MessagingException, IOException, TemplateException {
         
     	MimeMessage message = emailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message,
                 MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
                 StandardCharsets.UTF_8.name());
 
-        Template t = freemarkerConfig.getTemplate("email.ftl");
+        Template t = freemarkerConfig.getTemplate("email-notas.ftl");
         String html = FreeMarkerTemplateUtils.processTemplateIntoString(t, mail.getModel());
 
         helper.setTo(mail.getTo());

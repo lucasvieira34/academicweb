@@ -38,7 +38,7 @@
                           <td><span th:text="${alunoDisciplina.a1}"></span></td>
                           <td><span th:text="${alunoDisciplina.a2}"></span></td>
                           <td><span th:text="${alunoDisciplina.faltas}"></span></td>
-                          <td><a th:href="@{'/professor/disciplinas/' + ${disciplina.id_disciplina} + '/editarAluno/' + ${alunoDisciplina.aluno.id_aluno}}"> <i class="small material-icons icon-orange">edit</i></a></td>
+                          <td><a th:href="@{'/professor/' + ${disciplina.nome} + '/notas/' + ${alunoDisciplina.aluno.id_aluno}}"> <i class="small material-icons icon-orange">edit</i></a></td>
                       </tr>
                   </tbody>
                 </table>

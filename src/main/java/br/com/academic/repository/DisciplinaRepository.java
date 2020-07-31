@@ -7,5 +7,7 @@ import br.com.academic.models.Disciplina;
 
 @Repository
 public interface DisciplinaRepository extends JpaRepository<Disciplina, Long>{
+	
+	Disciplina findByNome(String nome);
 
 }

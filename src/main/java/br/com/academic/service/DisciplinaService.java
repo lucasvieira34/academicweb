@@ -20,5 +20,9 @@ public class DisciplinaService {
 	public Disciplina getDisciplinaById(long id) {
 		return dr.findById(id).get();
 	}
+	
+	public Disciplina getDisciplinaByNome(String nome) {
+		return dr.findByNome(nome);
+	}
 
 }

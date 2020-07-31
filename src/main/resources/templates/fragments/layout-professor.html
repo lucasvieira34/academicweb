@@ -50,7 +50,7 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="dashboard.html">
+        <a class="nav-link" href="/professor/dashboard">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
@@ -65,8 +65,8 @@
 
       <!-- Nav Item -->
       <li class="nav-item" th:each="disciplina : ${disciplinasProf}">
-        <a class="nav-link pb-0" th:href="@{'/professor/disciplinas/' + ${disciplina.id_disciplina} + '/alunos'}">
-          <i class="fas fa-fw fa-graduation-cap"></i>
+        <a class="nav-link pb-0" th:href="@{'/professor/' + ${disciplina.nome} + '/alunos'}">
+          <i class="fas fa-fw fa-book"></i>
           <span th:text="${disciplina.nome}"></span></a>
         </a>
       </li>
@@ -81,7 +81,7 @@
 
       <!-- Nav Item - Tables -->
       <li class="nav-item">
-        <a class="nav-link" href="tables.html">
+        <a class="nav-link" href="/professor/perfil">
           <i class="fas fa-fw fa-cog"></i>
           <span>Editar</span></a>
       </li>
@@ -117,14 +117,14 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small" th:text="${usuario.nome}"></span>
-                <img class="img-profile rounded-circle" onerror="this.style.display='none'" height="45px" width="45px" th:src="|/imagem/${usuario.professor.id_professor}|">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small" th:text="${usuarioLogado.nome}"></span>
+                <img class="img-profile rounded-circle" onerror="this.style.display='none'" height="45px" width="45px" th:src="|/imagem/${usuarioLogado.professor.id_professor}|">
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="/professor/perfil">
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Profile
+                  Perfil
                 </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="/logout" data-toggle="modal" data-target="#logoutModal">

@@ -19,8 +19,14 @@
           <div class="row">
 
             <div class="col-lg-12 mb-4">
+            
+            	<div th:if="${param.success}">
+	                <div class="alert alert-info">
+	                    Notas e faltas inseridas com sucesso!
+	                </div>
+	            </div>
 
-              <form class="col s12" th:action="@{'/professor/disciplinas/' + ${disciplina.id_disciplina} + '/editarAluno/' + ${alunoDisciplina.aluno.id_aluno} + '/alterar'}" method="POST">
+              <form class="col s12" th:action="@{'/professor/' + ${disciplina.nome} + '/notas/' + ${alunoDisciplina.aluno.id_aluno} + '/alterar'}" method="POST">
 
                 <div class="form-row">
                   <div class="form-group col-md-6">

@@ -31,7 +31,7 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler{
 				redirectUrl = "/aluno/disciplinas";
 				break;
 			} else if (grantedAuthority.getAuthority().equals("ROLE_PROFESSOR")) {
-				redirectUrl = "/professor/disciplinas";
+				redirectUrl = "/professor/dashboard";
 				break;
 			}
 		}
