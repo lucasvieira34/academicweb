@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.academic.dto.PasswordForgotDto;
 import br.com.academic.models.Mail;
-import br.com.academic.models.PasswordResetToken;
+import br.com.academic.models.ValidationToken;
 import br.com.academic.models.Usuario;
-import br.com.academic.repository.PasswordResetTokenRepository;
+import br.com.academic.repository.ValidationTokenRepository;
 import br.com.academic.service.EmailService;
 import br.com.academic.service.UsuarioService;
 
@@ -31,7 +31,7 @@ public class PasswordForgotController {
 	private UsuarioService userService;
 	
 	@Autowired
-	private PasswordResetTokenRepository tokenRepository;
+	private ValidationTokenRepository tokenRepository;
 	
 	@Autowired
 	private EmailService emailService;
@@ -60,7 +60,7 @@ public class PasswordForgotController {
 			return "forgot-password";
 		}
 		
-		PasswordResetToken token = new PasswordResetToken();
+		ValidationToken token = new ValidationToken();
 		token.setToken(UUID.randomUUID().toString());
 		token.setUsuario(usuario);
 		token.setExpiryDate(30);

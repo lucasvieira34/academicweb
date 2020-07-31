@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.academic.dto.PasswordResetDto;
-import br.com.academic.models.PasswordResetToken;
+import br.com.academic.models.ValidationToken;
 import br.com.academic.models.Usuario;
-import br.com.academic.repository.PasswordResetTokenRepository;
+import br.com.academic.repository.ValidationTokenRepository;
 import br.com.academic.service.UsuarioService;
 
 @Controller
@@ -29,7 +29,7 @@ public class PasswordResetController {
 	private UsuarioService userService;
 	
 	@Autowired
-	private PasswordResetTokenRepository tokenRepository;
+	private ValidationTokenRepository tokenRepository;
 	
 	@ModelAttribute("passwordResetForm")
 	public PasswordResetDto passwordReset() {
@@ -39,7 +39,7 @@ public class PasswordResetController {
 	@GetMapping
 	public String displayResetPasswordPage(@RequestParam(required = false) String token, Model model) {
 		
-		PasswordResetToken resetToken = tokenRepository.findByToken(token);
+		ValidationToken resetToken = tokenRepository.findByToken(token);
 		if (resetToken == null) {
 			model.addAttribute("error", "Não foi possível encontrar o token passado.");
 		} else if (resetToken.isExpired()) {
@@ -64,7 +64,7 @@ public class PasswordResetController {
 			return "redirect:/reset-password?token=" + form.getToken();
 		}
 		
-		PasswordResetToken token = tokenRepository.findByToken(form.getToken());
+		ValidationToken token = tokenRepository.findByToken(form.getToken());
 		Usuario usuario = token.getUsuario();
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String updatedPassword = passwordEncoder.encode(form.getPassword());

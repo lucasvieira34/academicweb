@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 	<head>
      	<!-- Required meta tags -->
@@ -43,6 +44,12 @@
 	                    <button type="submit" class="btn btn-entrar botao-entrar"><i class="fas fa-sign-in-alt"></i>Login</button>
 
 					</form>
+
+					<div th:if="${param.resetSuccess}">
+						<div class="alert alert-info">
+							Senha alterada com sucesso!
+						</div>
+					</div>
 
 					<div class="col-12 forgot">
                     	<a data-toggle="modal" data-target="#modal-senha" href="#">Modal</a>
