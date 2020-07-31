@@ -21,4 +21,8 @@ public class RoleService {
 		return rr.findById(id).get();
 	}
 	
+	public Role getRolePorNome(String nome) {
+		return rr.findByNome(nome);
+	}
+	
 }

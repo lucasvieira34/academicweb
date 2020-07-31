@@ -1,7 +1,6 @@
 package br.com.academic.controllers;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -12,7 +11,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.academic.dto.CadastroProfessorDto;
 import br.com.academic.models.Disciplina;
@@ -117,10 +114,7 @@ public class ProfessorController {
 		usuario.getRoles().remove(0);
 		
 		us.salvarUsuario(usuario);
-		
-		//ModelAndView mv = new ModelAndView("redirect:/cadastrarProfessor");
-		//attributes.addFlashAttribute("mensagem", "Professor salvo com sucesso.");
-		
+				
 		return "redirect:/cadastrarProfessor?success";
 	}
 
