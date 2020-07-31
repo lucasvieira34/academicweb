@@ -112,6 +112,8 @@ public class ProfessorController {
 		usuario.setRoles(roles);
 		//REMOVENDO A ROLE DE ALUNO DA LISTA
 		usuario.getRoles().remove(0);
+		//REMOVENDO A ROLE DE SECRETARIA DA LISTA
+		usuario.getRoles().remove(1);
 		
 		us.salvarUsuario(usuario);
 				

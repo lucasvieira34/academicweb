@@ -92,16 +92,18 @@ public class AlunoController {
 			alunoDisciplina.setId(alunoDisciplinaPk);
 
 			ads.salvarAlunoDisciplina(alunoDisciplina);
-			
-			List<Role> roles = rs.getRoles();
-			
-			//SETANDO TODAS AS ROLES
-			usuario.setRoles(roles);
-			//REMOVENDO A ROLE DE ALUNO DA LISTA
-			usuario.getRoles().remove(1);
-			
-			us.salvarUsuario(usuario);
 		}
+		
+		List<Role> roles = rs.getRoles();
+		
+		//SETANDO TODAS AS ROLES
+		usuario.setRoles(roles);
+		//REMOVENDO A ROLE DE PROFESSOR DA LISTA
+		usuario.getRoles().remove(1);
+		//REMOVENDO A ROLE DE SECRETARIA DA LISTA
+		usuario.getRoles().remove(1);
+		
+		us.salvarUsuario(usuario);
 
 		return "redirect:/professor/disciplinas";
 	}
