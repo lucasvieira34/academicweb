@@ -143,15 +143,21 @@ public class AlunoController {
 	// EDITAR ALUNO
 	@RequestMapping(value = "/professor/disciplinas/{id_disciplina}/editarAluno/{id_aluno}", method = RequestMethod.GET)
 	public ModelAndView editarAluno(AlunoDisciplina alunoDisciplina, @PathVariable("id_aluno") long id_aluno, @PathVariable("id_disciplina") long id_disciplina) {
+		usuarioLogado();
 		
 		Disciplina disciplina = ds.getDisciplinaById(id_disciplina);
 		AlunoDisciplinaPK alunoDisciplinaPK = new AlunoDisciplinaPK(id_aluno,id_disciplina);
 		alunoDisciplina.setId(alunoDisciplinaPK);
 		alunoDisciplina = ads.getAlunoDisciplinasPorId(alunoDisciplina.getId());
 		
+		Professor professor = usuario.getProfessor();
+		List<Disciplina> disciplinasProf = professor.getDisciplinas();
+		
 		ModelAndView mv = new ModelAndView("alunos/update_aluno");
 		mv.addObject("disciplina", disciplina);
 		mv.addObject("alunoDisciplina", alunoDisciplina);
+		mv.addObject("disciplinasProf", disciplinasProf);
+		mv.addObject("usuario", usuario);
 
 		return mv;
 	}
@@ -222,8 +228,8 @@ public class AlunoController {
 	@ResponseBody
 	public byte[] exibirImagem(@PathVariable("id_aluno") long id_aluno) {
 		Aluno aluno = this.as.getOneAlunoById(id_aluno);
-		Usuario usuario = aluno.getUsuario();
-		return usuario.getImagem();
+		Usuario usuarioAluno = aluno.getUsuario();
+		return usuarioAluno.getImagem();
 	}
 
 	private void usuarioLogado() {

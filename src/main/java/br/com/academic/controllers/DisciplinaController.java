@@ -31,14 +31,6 @@ public class DisciplinaController {
 
 	private Usuario usuario;
 
-	private void usuarioLogado() {
-		Authentication autenticado = SecurityContextHolder.getContext().getAuthentication();
-		if (!(autenticado instanceof AnonymousAuthenticationToken)) {
-			String login = autenticado.getName();
-			usuario = us.usuarioPorLogin(login);
-		}
-	}
-
 	// LISTAR TODAS AS DISCIPLINAS DO PROFESSOR
 	@RequestMapping(value = "/professor/disciplinas", method = RequestMethod.GET)
 	public ModelAndView listarDisciplinaProfessor() {
@@ -46,10 +38,10 @@ public class DisciplinaController {
 		usuarioLogado();
 		
 		Professor professor = usuario.getProfessor();
-		List<Disciplina> disciplinas = professor.getDisciplinas();
+		List<Disciplina> disciplinasProf = professor.getDisciplinas();
 		
 		ModelAndView mv = new ModelAndView("disciplinas/disciplina_professor");
-		mv.addObject("disciplinas", disciplinas);
+		mv.addObject("disciplinasProf", disciplinasProf);
 		mv.addObject("usuario", usuario);
 
 		return mv;
@@ -85,4 +77,12 @@ public class DisciplinaController {
 		return mv;
 	}
 
+	private void usuarioLogado() {
+		Authentication autenticado = SecurityContextHolder.getContext().getAuthentication();
+		if (!(autenticado instanceof AnonymousAuthenticationToken)) {
+			String login = autenticado.getName();
+			usuario = us.usuarioPorLogin(login);
+		}
+	}
+	
 }

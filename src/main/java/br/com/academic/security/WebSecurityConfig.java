@@ -30,10 +30,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			.csrf().disable()
 			.authorizeRequests()
 				.antMatchers(
-						"/forgot-password**",
-						"/reset-password**", "/").permitAll()
+						"/forgot-password**", 
+						"/reset-password**", 
+						"/aluno/imagem/",
+						"/").permitAll()
 				//PERMISSÕES ALUNO
-				.antMatchers(HttpMethod.GET, "/aluno/**").hasRole("ALUNO")
+				.antMatchers(HttpMethod.GET, "/aluno/disciplinas").hasRole("ALUNO")
 				//PERMISSÕES PROFESSOR
 				.antMatchers(HttpMethod.GET, "/professor/**").hasRole("PROFESSOR")
 				.antMatchers(HttpMethod.GET, "/").hasRole("PROFESSOR")
