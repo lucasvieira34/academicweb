@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.academic.models.Aluno;
+import br.com.academic.models.Disciplina;
 import br.com.academic.models.Professor;
 import br.com.academic.models.Usuario;
 import br.com.academic.service.AlunoService;
+import br.com.academic.service.DisciplinaService;
 import br.com.academic.service.ProfessorService;
 import br.com.academic.service.UsuarioService;
 
@@ -27,9 +29,12 @@ public class SecretariaController {
 
 	@Autowired
 	private AlunoService as;
-	
+
 	@Autowired
 	private ProfessorService ps;
+	
+	@Autowired
+	private DisciplinaService ds;
 
 	private Usuario usuarioLogado;
 
@@ -60,6 +65,17 @@ public class SecretariaController {
 		ModelAndView mv = new ModelAndView("secretaria/secretaria-professores");
 		List<Professor> professores = ps.getProfessores();
 		mv.addObject("professores", professores);
+		mv.addObject("usuarioLogado", usuarioLogado);
+		return mv;
+	}
+
+	// LISTAR TODOS OS ALUNOS
+	@RequestMapping(value = "/disciplinas", method = RequestMethod.GET)
+	public ModelAndView listarTodasDisciplinas() {
+		usuarioLogado();
+		ModelAndView mv = new ModelAndView("secretaria/secretaria-disciplinas");
+		List<Disciplina> disciplinas = ds.getDisciplinas();
+		mv.addObject("disciplinas", disciplinas);
 		mv.addObject("usuarioLogado", usuarioLogado);
 		return mv;
 	}
