@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragments/layout-secretaria}">
+
+<head>
+  <title>Portal Escolar Academic - Cadastro Professor</title>
+</head>
+
+<body>
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid" layout:fragment="corpo">
+
+          <!-- Page Heading -->
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Cadastro de Professor</h1>
+          </div>
+
+          <!-- Content Row -->
+          <div class="row">
+
+            <div class="col-lg-12 mb-4">
+            
+	            <div th:if="${param.success}">
+	                <div class="alert alert-info">
+	                    Professor registrado com sucesso!
+	                </div>
+	            </div>
+
+              <form class="col s12" th:object="${dto}" th:action="@{/secretaria/cadastrar/professor}"
+              enctype="multipart/form-data"
+              method="POST">
+              
+              	<p class="error-message"
+                   th:if="${#fields.hasGlobalErrors()}"
+                   th:each="error : ${#fields.errors('global')}"
+                   th:text="${error}">Validation error</p>
+
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="nome">Nome</label>
+                    <input type="text" th:field="*{nome}" class="form-control" id="nome" name="nome" th:classappend="${#fields.hasErrors('nome')}? 'is-invalid':''">
+                    <p class="error-message"
+                       th:each="error: ${#fields.errors('nome')}"
+                       th:text="${error}">Nome incorreto</p>
+                    <small class="form-text text-muted">
+                    Insira o nome do professor.
+                    </small>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="sobrenome">Sobrenome</label>
+                    <input type="text" th:field="*{sobrenome}" class="form-control" id="sobrenome" name="sobrenome" th:classappend="${#fields.hasErrors('sobrenome')}? 'is-invalid':''">
+                    <p class="error-message"
+                       th:each="error : ${#fields.errors('sobrenome')}"
+                       th:text="${error}">Sobrenome incorreto</p>
+                    <small class="form-text text-muted">
+                    Insira o sobrenome do professor.
+                    </small>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="matricula">Matrícula</label>
+                  <input type="text" th:field="*{matricula}" class="form-control" id="matricula" name="matricula" th:classappend="${#fields.hasErrors('matricula')}? 'is-invalid':''">
+                  <p class="error-message"
+                       th:each="error : ${#fields.errors('matricula')}"
+                       th:text="${error}">Matricula incorreta</p>
+                  <small class="form-text text-muted">
+                  Insira a matrícula do professor. A matrícula deverá seguir o padrão: 20XXAAAA, onde XX é o ano da matrícula e AAAA um número aleatório.
+                  </small>
+                </div>
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type="email" th:field="*{email}" class="form-control" id="email" name="email" th:classappend="${#fields.hasErrors('email')}? 'is-invalid':''">
+                  <p class="error-message"
+                       th:each="error : ${#fields.errors('email')}"
+                       th:text="${error}">Email incorreto</p>
+                  <small class="form-text text-muted">
+                  Insira o email do professor.
+                  </small>
+                </div>
+                <div class="form-group">
+                  <label for="username">Username</label>
+                  <input type="text" th:field="*{login}" class="form-control" id="login" name="login" th:classappend="${#fields.hasErrors('login')}? 'is-invalid':''">
+                  <p class="error-message"
+                       th:each="error : ${#fields.errors('login')}"
+                       th:text="${error}">Username incorreto</p>
+                  <small class="form-text text-muted">
+                  Insira o login do professor.
+                  </small>
+                </div>
+                <div class="form-group">
+                  <label for="senha">Senha</label>
+                  <input type="password" id="senha" class="form-control" name="senha" th:classappend="${#fields.hasErrors('senha')}? 'is-invalid':''">
+                  <p class="error-message"
+                       th:each="error : ${#fields.errors('senha')}"
+                       th:text="${error}">Senha incorreta</p>
+                  <small class="form-text text-muted">
+                  A senha precisa ter entre 8-20 caracteres, contendo letras e números e não pode conter espaços, caracteres especiais ou emojis.
+                  </small>
+                </div>
+                <div class="form-group">
+                  <label for="confirmPassword">Confirme a senha</label>
+                  <input type="password" id="confirmPassword" class="form-control" name="confirmPassword">
+                  <small class="form-text text-muted">
+                  A senha precisa ser idêntica a informada acima.
+                  </small>
+                </div>
+                <div class="form-group">
+                  <label for="image">Foto de Perfil</label>
+                  <input type="file" class="form-control-file" id="imagem" name="fileUsuario" required>
+                </div>
+
+                <button type="submit" class="btn botao-cor-principal">Cadastrar</button>
+
+              </form>
+
+            </div>
+          </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
+</body>
+
+</html>

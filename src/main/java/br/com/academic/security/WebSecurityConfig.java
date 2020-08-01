@@ -12,14 +12,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import br.com.academic.service.ImplementsUserDatailsService;
+import br.com.academic.service.ImplementsUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Autowired
-	private ImplementsUserDatailsService userDetailsService;
+	private ImplementsUserDetailsService userDetailsService;
 	
 	@Autowired
 	AuthenticationSuccessHandler successHandler;
