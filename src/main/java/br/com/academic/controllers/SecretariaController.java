@@ -139,7 +139,7 @@ public class SecretariaController {
 		return mv;
 	}
 
-	// SALVAR PROFESSOR
+	// CADASTRAR PROFESSOR
 	@RequestMapping(value = "/cadastrar/professor", method = RequestMethod.POST)
 	public String cadastrarProfessor(@ModelAttribute("dto") @Valid CadastroProfessorDto professorDto, BindingResult result,
 			@RequestParam("fileUsuario") MultipartFile file, Model model) {

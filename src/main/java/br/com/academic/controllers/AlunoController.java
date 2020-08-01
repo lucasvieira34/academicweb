@@ -61,6 +61,7 @@ public class AlunoController {
 		return mv;
 	}
 
+	// CADASTRAR REALIZANDO VALIDAÇÕES COM DTO
 	// SALVAR ALUNO
 	@RequestMapping(value = "/cadastrarAluno", method = RequestMethod.POST)
 	public String salvarAluno(Aluno aluno, Usuario usuario, AlunoDisciplina alunoDisciplina, @RequestParam("fileUsuario") MultipartFile file) {
@@ -117,6 +118,7 @@ public class AlunoController {
 		return mv;
 	}
 	
+	// REFATORAR UTILIZADO DTO
 	@RequestMapping(value = "/aluno/perfil/alterar", method = RequestMethod.POST)
 	public String alterarPerfil(@RequestParam("emailResponsavel") String emailResponsavel, @RequestParam("email") String email, @RequestParam("fileUsuario") MultipartFile file) {
 		usuarioLogado();
