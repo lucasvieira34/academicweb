@@ -7,9 +7,11 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.academic.models.Aluno;
@@ -59,7 +61,7 @@ public class SecretariaController {
 		return mv;
 	}
 
-	// LISTAR TODOS OS ALUNOS
+	// LISTAR TODOS OS PROFESSORES
 	@RequestMapping(value = "/professores", method = RequestMethod.GET)
 	public ModelAndView listarTodosProfessores() {
 		usuarioLogado();
@@ -70,7 +72,7 @@ public class SecretariaController {
 		return mv;
 	}
 
-	// LISTAR TODOS OS ALUNOS
+	// LISTAR TODAS AS DISCIPLINAS
 	@RequestMapping(value = "/disciplinas", method = RequestMethod.GET)
 	public ModelAndView listarTodasDisciplinas() {
 		usuarioLogado();
@@ -81,7 +83,7 @@ public class SecretariaController {
 		return mv;
 	}
 
-	// EDITAR PROFESSOR
+	// FORM DE ASSOCIAÇÃO DE DISCIPLINAS
 	@RequestMapping(value = "/professor/disciplinas/{id_professor}", method = RequestMethod.GET)
 	public ModelAndView formAssociacaoDisciplinas(@PathVariable("id_professor") long id) {
 		usuarioLogado();
@@ -96,9 +98,16 @@ public class SecretariaController {
 
 		return mv;
 	}
-	
-	
-	
+
+	// REQUISIÇÃO DE INCLUSÃO DE DISCIPLINA
+	@RequestMapping(value = "/professor/disciplinas/{id_professor}/incluir", method = RequestMethod.POST)
+	public String associarDisciplina(@ModelAttribute Disciplina disciplina, @PathVariable Long id_professor) {
+		Professor professor = ps.getProfessorById(id_professor);
+		disciplina = ds.getDisciplinaById(disciplina.getId_disciplina());
+		professor.getDisciplinas().add(disciplina);
+		ps.salvarProfessor(professor);
+		return "redirect:/secretaria/professor/disciplinas/" + id_professor + "?success";
+	}
 	
 	
 	

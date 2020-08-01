@@ -20,9 +20,15 @@
           <div class="row">
 
             <div class="col-lg-12 mb-4">
+            
+            	<div th:if="${param.success}">
+	                <div class="alert alert-info">
+	                    Disciplina associada ao professor com sucesso!
+	                </div>
+	            </div>
 
-              <form class="col s12" th:object="${professor}" th:action="@{/associarDisciplina(id_professor=${professor.id_professor})}" method="POST">
-
+              <form class="col s12" th:object="${professor}" th:action="@{'/secretaria/professor/disciplinas/' + ${professor.id_professor} + '/incluir'}" method="POST">
+															
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label for="nome">Nome</label>

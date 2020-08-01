@@ -119,47 +119,6 @@ public class ProfessorController {
 				
 		return "redirect:/cadastrarProfessor?success";
 	}
-
-	// LISTAR PROFESSORES
-	@RequestMapping(value = "/professores", method = RequestMethod.GET)
-	public ModelAndView listarProfessores() {
-
-		usuarioLogado();
-		ModelAndView mv = new ModelAndView("professor/listar_professores");
-		mv.addObject("professores", ps.getProfessores());
-		mv.addObject("usuarioLogado", usuarioLogado);
-		return mv;
-	}
-
-	// EDITAR PROFESSOR
-	@RequestMapping(value = "/editarProfessor/{id_professor}", method = RequestMethod.GET)
-	public ModelAndView editarProfessor(@PathVariable("id_professor") long id) {
-		usuarioLogado();
-		Professor professor = ps.getProfessorById(id);
-
-		ModelAndView mv = new ModelAndView("professor/associar_disciplina");
-		mv.addObject("professor", professor);
-		mv.addObject("usuarioLogado", usuarioLogado);
-		
-		List<Disciplina> disciplinasNaoAssociadas = ds.getDisciplinas();
-		disciplinasNaoAssociadas.removeAll(professor.getDisciplinas());
-		mv.addObject("disciplinas", disciplinasNaoAssociadas);
-
-		return mv;
-	}
-	
-	// ASSOCIAR PROFESSOR DISCIPLINA
-	@RequestMapping(value = "/associarDisciplina", method = RequestMethod.POST)
-	public String associarDisciplina(@ModelAttribute Disciplina disciplina, @RequestParam Long id_professor) {
-		
-		Professor professor = ps.getProfessorById(id_professor);
-		disciplina = ds.getDisciplinaById(disciplina.getId_disciplina());
-		
-		professor.getDisciplinas().add(disciplina);
-		ps.salvarProfessor(professor);
-		
-		return "redirect:/editarProfessor/" + id_professor;
-	}
 	
 	private void usuarioLogado() {
 		Authentication autenticado = SecurityContextHolder.getContext().getAuthentication();
