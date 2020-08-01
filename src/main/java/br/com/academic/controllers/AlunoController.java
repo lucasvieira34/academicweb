@@ -107,18 +107,6 @@ public class AlunoController {
 
 		return "redirect:/professor/disciplinas";
 	}
-
-	// LISTAR ALUNOS
-	@RequestMapping(value = "/alunos", method = RequestMethod.GET)
-	public ModelAndView listarAlunos() {
-
-		usuarioLogado();
-		ModelAndView mv = new ModelAndView("alunos/listar_alunos");
-		List<Aluno> alunos = as.getAlunos();
-		mv.addObject("alunos", alunos);
-		mv.addObject("usuario", usuario);
-		return mv;
-	}
 	
 	@RequestMapping(value = "/aluno/perfil", method = RequestMethod.GET)
 	public ModelAndView visualizarPerfil() {
