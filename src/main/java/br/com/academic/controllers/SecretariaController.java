@@ -7,6 +7,7 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -32,7 +33,7 @@ public class SecretariaController {
 
 	@Autowired
 	private ProfessorService ps;
-	
+
 	@Autowired
 	private DisciplinaService ds;
 
@@ -79,6 +80,26 @@ public class SecretariaController {
 		mv.addObject("usuarioLogado", usuarioLogado);
 		return mv;
 	}
+
+	// EDITAR PROFESSOR
+	@RequestMapping(value = "/professor/disciplinas/{id_professor}", method = RequestMethod.GET)
+	public ModelAndView formAssociacaoDisciplinas(@PathVariable("id_professor") long id) {
+		usuarioLogado();
+		Professor professor = ps.getProfessorById(id);
+		ModelAndView mv = new ModelAndView("secretaria/associar-disciplina");
+		mv.addObject("professor", professor);
+		mv.addObject("usuarioLogado", usuarioLogado);
+
+		List<Disciplina> disciplinasNaoAssociadas = ds.getDisciplinas();
+		disciplinasNaoAssociadas.removeAll(professor.getDisciplinas());
+		mv.addObject("disciplinas", disciplinasNaoAssociadas);
+
+		return mv;
+	}
+	
+	
+	
+	
 	
 	
 	

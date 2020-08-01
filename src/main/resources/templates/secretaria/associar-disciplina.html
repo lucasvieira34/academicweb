@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragments/layout-secretaria}">
+
+<head>
+  <title>Portal Escolar Academic - Associar Disciplina</title>
+</head>
+
+<body>
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid" layout:fragment="corpo">
+
+          <!-- Page Heading -->
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Professor - Incluir Disciplina</h1>
+          </div>
+
+          <!-- Content Row -->
+          <div class="row">
+
+            <div class="col-lg-12 mb-4">
+
+              <form class="col s12" th:object="${professor}" th:action="@{/associarDisciplina(id_professor=${professor.id_professor})}" method="POST">
+
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="nome">Nome</label>
+                    <input th:value="${professor.nome}" type="text" class="form-control" id="nome" name="nome" readonly>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="sobrenome">Sobrenome</label>
+                    <input th:value="${professor.sobrenome}" type="text" class="form-control" id="sobrenome" name="sobrenome" readonly>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="matricula">Matrícula</label>
+                  <input th:value="${professor.matricula}" type="text" class="form-control" id="matricula" name="matricula" readonly>
+                </div>
+                <div class="form-group">
+                  <label for="inputState">Disciplina(s)</label>
+                  <select class="form-control" id="id_disciplina" name="id_disciplina">
+                  <option value="" disabled selected>Selecione a disciplina...</option>
+                  <option th:each="disciplina : ${disciplinas}"
+                  th:value="${disciplina.id_disciplina}"
+                  th:text="${disciplina.nome}">  
+                  </option>
+                  </select>
+                  <small class="form-text text-muted">
+                  Selecione a disciplina na qual deseja associar ao professor.
+                  </small>
+                </div>
+
+                <button type="submit" class="btn botao-cor-principal">Alterar</button>
+
+              </form>
+
+            </div>
+          </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
+</body>
+
+</html>
