@@ -5,15 +5,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.academic.models.Aluno;
 import br.com.academic.models.AlunoDisciplina;
@@ -48,6 +54,11 @@ public class ProfessorController {
 	private AlunoDisciplinaService ads;
 
 	private Usuario usuarioLogado;
+	
+	@ModelAttribute("dtoNotas")
+	public AlunoDisciplina alunoDisciplina() {
+		return new AlunoDisciplina();
+	}
 
 	// LISTAR TODAS AS DISCIPLINAS DO PROFESSOR
 	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
@@ -113,9 +124,19 @@ public class ProfessorController {
 
 	// INSERIR NOTAS E FALTAS DO ALUNO
 	@RequestMapping(value = "/{nome}/notas/{id_aluno}/alterar", method = RequestMethod.POST)
-	public String inserirNotasAluno(AlunoDisciplina alunoDisciplina, 
-							   @PathVariable("id_aluno") long id_aluno,
-							   @PathVariable("nome") String nome) throws Exception {
+	public String inserirNotasAluno(@ModelAttribute("dtoNotas") @Valid AlunoDisciplina alunoDisciplina, 
+							  		BindingResult result,
+							  		RedirectAttributes attr,
+							  		@PathVariable("id_aluno") long id_aluno,
+							  		@PathVariable("nome") String nome,
+							  		Model model) throws Exception {
+		
+		if (result.hasErrors()) {
+			attr.addFlashAttribute("org.springframework.validation.BindingResult.dtoNotas", result);
+		    attr.addFlashAttribute("dtoNotas", alunoDisciplina);
+		    
+			return "redirect:/professor/{nome}/notas/{id_aluno}?error";
+		}
 
 		Aluno aluno = as.getAlunoById(id_aluno);
 		Disciplina disciplina = ds.getDisciplinaByNome(nome);
@@ -132,10 +153,10 @@ public class ProfessorController {
 		mail.setTo(aluno.getUsuario().getEmail());
 		mail.setSubject("Sua nota acaba de ser alterada no sistema!");
 
-		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("name", aluno.getNome());
-		model.put("disciplina", alunoDisciplina.getDisciplina().getNome());
-		mail.setModel(model);
+		Map<String, Object> modelMail = new HashMap<String, Object>();
+		modelMail.put("name", aluno.getNome());
+		modelMail.put("disciplina", alunoDisciplina.getDisciplina().getNome());
+		mail.setModel(modelMail);
 		emailService.emailNotas(mail);
 
 		return "redirect:/professor/{nome}/notas/{id_aluno}?success";

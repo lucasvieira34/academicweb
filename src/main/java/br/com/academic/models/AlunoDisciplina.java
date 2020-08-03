@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 @Entity
 public class AlunoDisciplina {
@@ -22,8 +24,15 @@ public class AlunoDisciplina {
 	@JoinColumn(name = "id_disciplina")
 	Disciplina disciplina;
 	
-	double a1;
-	double a2;
+	@Min(value = 0, message = "Não é possível inserir uma nota menor que zero.")
+	@Max(value = 10, message = "Não é possível inserir uma nota maior que dez.")
+	private double a1;
+	
+	@Min(value = 0, message = "Não é possível inserir uma nota menor que zero.")
+	@Max(value = 10, message = "Não é possível inserir uma nota maior que dez.")
+	private double a2;
+	
+	@Max(value = 10 , message = "O aluno não pode ter mais do que dez faltas.")
 	int faltas;
 	
 	public AlunoDisciplina() {

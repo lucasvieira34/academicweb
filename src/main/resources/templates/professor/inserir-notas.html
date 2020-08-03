@@ -25,8 +25,20 @@
 	                    Notas e faltas inseridas com sucesso!
 	                </div>
 	            </div>
+	            
+	            <div th:if="${param.error}">
+	                <div class="alert alert-danger">
+	                    As notas e faltas não foram inseridas. <br>
+	                    Por favor, verifique os valores informados.
+	                </div>
+	            </div>
 
-              <form class="col s12" th:action="@{'/professor/' + ${disciplina.nome} + '/notas/' + ${alunoDisciplina.aluno.id_aluno} + '/alterar'}" method="POST">
+              <form class="col s12" th:object="${dtoNotas}" th:action="@{'/professor/' + ${disciplina.nome} + '/notas/' + ${alunoDisciplina.aluno.id_aluno} + '/alterar'}" method="POST">
+              
+              	<p class="error-message"
+                   th:if="${#fields.hasGlobalErrors()}"
+                   th:each="error : ${#fields.errors('global')}"
+                   th:text="${error}">Validation error</p>
 
                 <div class="form-row">
                   <div class="form-group col-md-6">
@@ -45,21 +57,30 @@
                 <div class="form-row">
                   <div class="form-group col-md-4">
                     <label>A1</label>
-                    <input th:value="${alunoDisciplina.a1}" type="text" class="form-control" id="a1" name="a1">
+                    <input th:value="${alunoDisciplina.a1}" type="text" class="form-control" id="a1" name="a1" th:classappend="${#fields.hasErrors('a1')}? 'is-invalid':''">
+                    <p class="error-message"
+                       th:each="error: ${#fields.errors('a1')}"
+                       th:text="${error}">Nome incorreto</p>
                     <small class="form-text text-muted">
                     Nota referente à A1.
                     </small>
                   </div>
                   <div class="form-group col-md-4">
                     <label>A2</label>
-                    <input th:value="${alunoDisciplina.a2}" type="text" class="form-control" id="a2" name="a2">
+                    <input th:value="${alunoDisciplina.a2}" type="text" class="form-control" id="a2" name="a2" th:classappend="${#fields.hasErrors('a2')}? 'is-invalid':''">
+                    <p class="error-message"
+                       th:each="error: ${#fields.errors('a2')}"
+                       th:text="${error}">Nome incorreto</p>
                     <small class="form-text text-muted">
                     Nota referente à A2.
                     </small>
                   </div>
                   <div class="form-group col-md-4">
                     <label>Faltas</label>
-                    <input th:value="${alunoDisciplina.faltas}" type="text" class="form-control" id="faltas" name="faltas">
+                    <input th:value="${alunoDisciplina.faltas}" type="text" class="form-control" id="faltas" name="faltas" th:classappend="${#fields.hasErrors('faltas')}? 'is-invalid':''">
+                    <p class="error-message"
+                       th:each="error: ${#fields.errors('faltas')}"
+                       th:text="${error}">Nome incorreto</p>
                     <small class="form-text text-muted">
                     Faltas do aluno.
                     </small>
