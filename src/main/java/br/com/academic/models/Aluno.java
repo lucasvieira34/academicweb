@@ -1,6 +1,7 @@
 package br.com.academic.models;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -35,6 +36,15 @@ public class Aluno implements Serializable{
 	
 	@Column(name = "sobrenome")
 	private String sobrenome;
+	
+	@Column(name = "cpf")
+	private String cpf;
+	
+	@Column(name = "data_nascimento")
+	private Date dataNascimento;
+	
+	@Column(name = "nome_responsavel")
+	private String nomeResponsavel;
 	
 	@Column(name = "email_responsavel")
 	private String emailResponsavel;
@@ -93,6 +103,30 @@ public class Aluno implements Serializable{
 
 	public void setEmailResponsavel(String email) {
 		this.emailResponsavel = email;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public Date getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+
+	public String getNomeResponsavel() {
+		return nomeResponsavel;
+	}
+
+	public void setNomeResponsavel(String nomeResponsavel) {
+		this.nomeResponsavel = nomeResponsavel;
 	}
 		
 }

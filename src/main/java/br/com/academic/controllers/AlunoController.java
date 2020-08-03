@@ -51,16 +51,6 @@ public class AlunoController {
 
 	private Usuario usuario;
 
-	// TEMPLATE CADASTRO DE ALUNO
-	@RequestMapping(value = "/cadastrarAluno", method = RequestMethod.GET)
-	public ModelAndView novoAluno() {
-
-		usuarioLogado();
-		ModelAndView mv = new ModelAndView("alunos/novo_aluno");
-		mv.addObject("usuario", usuario);
-		return mv;
-	}
-
 	// CADASTRAR REALIZANDO VALIDAÇÕES COM DTO
 	// SALVAR ALUNO
 	@RequestMapping(value = "/cadastrarAluno", method = RequestMethod.POST)

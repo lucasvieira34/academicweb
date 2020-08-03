@@ -48,15 +48,15 @@ public class SecretariaController {
 
 	@Autowired
 	private DisciplinaService ds;
-	
+
 	@Autowired
 	private RoleService rs;
-	
+
 	@Autowired
 	private CadastroProfessorService cps;
 
 	private Usuario usuarioLogado;
-	
+
 	@ModelAttribute("dto")
 	public CadastroProfessorDto cadastroProfessorDto() {
 		return new CadastroProfessorDto();
@@ -141,8 +141,8 @@ public class SecretariaController {
 
 	// CADASTRAR PROFESSOR
 	@RequestMapping(value = "/cadastrar/professor", method = RequestMethod.POST)
-	public String cadastrarProfessor(@ModelAttribute("dto") @Valid CadastroProfessorDto professorDto, BindingResult result,
-			@RequestParam("fileUsuario") MultipartFile file, Model model) {
+	public String cadastrarProfessor(@ModelAttribute("dto") @Valid CadastroProfessorDto professorDto,
+			BindingResult result, @RequestParam("fileUsuario") MultipartFile file, Model model) {
 		usuarioLogado();
 
 		Usuario emailExistente = us.usuarioPorEmail(professorDto.getEmail());
@@ -170,6 +170,17 @@ public class SecretariaController {
 
 		return "redirect:/secretaria/cadastrar/professor?success";
 	}
+
+	// VIEW DE CADASTRO DE PROFESSOR
+	@RequestMapping(value = "/cadastrar/aluno", method = RequestMethod.GET)
+	public ModelAndView viewCadastrarProfessor() {
+		usuarioLogado();
+		ModelAndView mv = new ModelAndView("secretaria/cadastrar-aluno");
+		mv.addObject("usuarioLogado", usuarioLogado);
+		return mv;
+	}
+	
+	
 	
 	
 	
