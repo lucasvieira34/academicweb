@@ -20,20 +20,37 @@
           <div class="row">
 
             <div class="col-lg-12 mb-4">
+            
+            	<div th:if="${param.success}">
+	                <div class="alert alert-info">
+	                    Aluno registrado com sucesso!
+	                </div>
+	            </div>
 
-              <form class="col s12" th:action="@{/cadastrarAluno}" enctype="multipart/form-data" method="POST">
+              <form class="col s12" th:object="${dtoAluno}" th:action="@{/secretaria/cadastrar/aluno}" enctype="multipart/form-data" method="POST">
+              
+              	<p class="error-message"
+                   th:if="${#fields.hasGlobalErrors()}"
+                   th:each="error : ${#fields.errors('global')}"
+                   th:text="${error}">Validation error</p>
 
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label for="nome">Nome</label>
-                    <input type="text" class="form-control" id="nome" name="nome" required>
+                    <input type="text" th:field="*{nome}" class="form-control" id="nome" name="nome" th:classappend="${#fields.hasErrors('nome')}? 'is-invalid':''">
+                    <p class="error-message"
+                       th:each="error: ${#fields.errors('nome')}"
+                       th:text="${error}">Nome incorreto</p>
                     <small class="form-text text-muted">
                     Insira o nome do aluno.
                     </small>
                   </div>
                   <div class="form-group col-md-6">
                     <label for="sobrenome">Sobrenome</label>
-                    <input type="text" class="form-control" id="sobrenome" name="sobrenome" required>
+                    <input type="text" th:field="*{sobrenome}" class="form-control" id="sobrenome" name="sobrenome" th:classappend="${#fields.hasErrors('sobrenome')}? 'is-invalid':''">
+                    <p class="error-message"
+                       th:each="error : ${#fields.errors('sobrenome')}"
+                       th:text="${error}">Sobrenome incorreto</p>
                     <small class="form-text text-muted">
                     Insira o sobrenome do aluno.
                     </small>
@@ -41,63 +58,87 @@
                 </div>
                 <div class="form-group">
                   <label for="cpf">CPF</label>
-                  <input type="text" class="form-control" id="cpf" name="cpf" required>
+                  <input type="text" th:field="*{cpf}" class="form-control" id="cpf" name="cpf" th:classappend="${#fields.hasErrors('cpf')}? 'is-invalid':''">
+                  <p class="error-message"
+                       th:each="error : ${#fields.errors('cpf')}"
+                       th:text="${error}">CPF incorreto</p>
                   <small class="form-text text-muted">
                   Insira o CPF do aluno.
                   </small>
                 </div>
                 <div class="form-group">
                   <label for="dataNascimento">Data de Nascimento</label>
-                  <input type="date" class="form-control" id="dataNascimento" name="dataNascimento" required>
+                  <input type="date" th:field="*{dataNascimento}" class="form-control" id="dataNascimento" name="dataNascimento" th:classappend="${#fields.hasErrors('dataNascimento')}? 'is-invalid':''">
+                  <p class="error-message"
+                       th:each="error : ${#fields.errors('dataNascimento')}"
+                       th:text="${error}">Data incorreta</p>
                   <small class="form-text text-muted">
                   Insira a data de nascimento do aluno.
                   </small>
                 </div>
                 <div class="form-group">
                   <label for="matricula">Matrícula</label>
-                  <input type="text" class="form-control" id="matricula" name="matricula" required>
+                  <input type="text" th:field="*{matricula}" class="form-control" id="matricula" name="matricula" th:classappend="${#fields.hasErrors('matricula')}? 'is-invalid':''">
+                  <p class="error-message"
+                       th:each="error : ${#fields.errors('matricula')}"
+                       th:text="${error}">Matricula incorreta</p>
                   <small class="form-text text-muted">
                   Insira a matrícula do aluno. A matrícula deverá seguir o padrão: 20XXAAAABBB, onde XX é o ano da matrícula e AAAABBB um número aleatório.
                   </small>
                 </div>
                 <div class="form-group">
                   <label for="email">Email</label>
-                  <input type="email" class="form-control" id="email" name="email">
+                  <input type="email" th:field="*{email}" class="form-control" id="email" name="email" th:classappend="${#fields.hasErrors('email')}? 'is-invalid':''">
+                  <p class="error-message"
+                       th:each="error : ${#fields.errors('email')}"
+                       th:text="${error}">Email incorreto</p>
                   <small class="form-text text-muted">
                   Insira o email do aluno.
                   </small>
                 </div>
                 <div class="form-group">
                   <label for="nomeResponsavel">Nome do Responsável</label>
-                  <input type="text" class="form-control" id="nomeResponsavel" name="nomeResponsavel" required>
+                  <input type="text" th:field="*{nomeResponsavel}" class="form-control" id="nomeResponsavel" name="nomeResponsavel" th:classappend="${#fields.hasErrors('nomeResponsavel')}? 'is-invalid':''">
+                  <p class="error-message"
+                       th:each="error : ${#fields.errors('nomeResponsavel')}"
+                       th:text="${error}">Nome incorreto</p>
                   <small class="form-text text-muted">
                   Insira o nome do responsável (pai/mãe).
                   </small>
                 </div>
                 <div class="form-group">
                   <label for="emailResponsavel">Email do Responsável</label>
-                  <input type="email" class="form-control" id="emailResponsavel" name="emailResponsavel" required>
+                  <input type="email" th:field="*{emailResponsavel}" class="form-control" id="emailResponsavel" name="emailResponsavel" th:classappend="${#fields.hasErrors('emailResponsavel')}? 'is-invalid':''">
+                  <p class="error-message"
+                       th:each="error : ${#fields.errors('emailResponsavel')}"
+                       th:text="${error}">Nome incorreto</p>
                   <small class="form-text text-muted">
                   Insira o email do responsável (pai/mãe).
                   </small>
                 </div>
                 <div class="form-group">
                   <label for="username">Username</label>
-                  <input type="text" class="form-control" id="login" name="login" required>
+                  <input type="text" th:field="*{login}" class="form-control" id="login" name="login" th:classappend="${#fields.hasErrors('login')}? 'is-invalid':''">
+                  <p class="error-message"
+                       th:each="error : ${#fields.errors('login')}"
+                       th:text="${error}">Username incorreto</p>
                   <small class="form-text text-muted">
                   Insira o login do aluno.
                   </small>
                 </div>
                 <div class="form-group">
                   <label for="senha">Senha</label>
-                  <input type="password" id="senha" class="form-control" name="senha" required>
+                  <input type="password" id="senha" class="form-control" name="senha" th:classappend="${#fields.hasErrors('senha')}? 'is-invalid':''">
+                  <p class="error-message"
+                       th:each="error : ${#fields.errors('senha')}"
+                       th:text="${error}">Senha incorreta</p>
                   <small class="form-text text-muted">
                   A senha precisa ter entre 8-20 caracteres, contendo letras e números e não pode conter espaços, caracteres especiais ou emojis.
                   </small>
                 </div>
                 <div class="form-group">
                   <label for="confirmPassword">Confirme a senha</label>
-                  <input type="password" id="confirmPassword" class="form-control" name="confirmPassword" required>
+                  <input type="password" id="confirmPassword" class="form-control" name="confirmPassword">
                   <small class="form-text text-muted">
                   A senha precisa ser idêntica a informada acima.
                   </small>

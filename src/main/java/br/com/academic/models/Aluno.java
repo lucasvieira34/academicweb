@@ -15,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name = "aluno")
 public class Aluno implements Serializable{
@@ -40,6 +42,7 @@ public class Aluno implements Serializable{
 	@Column(name = "cpf")
 	private String cpf;
 	
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	@Column(name = "data_nascimento")
 	private Date dataNascimento;
 	

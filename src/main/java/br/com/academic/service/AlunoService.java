@@ -28,5 +28,9 @@ public class AlunoService {
 	public Aluno getOneAlunoById(Long id) {
 		return ar.getOne(id);
 	}
+	
+	public Aluno alunoPorMatricula(String matricula) {
+		return ar.findByMatricula(matricula);
+	}
 
 }

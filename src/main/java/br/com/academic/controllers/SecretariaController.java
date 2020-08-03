@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.com.academic.dto.CadastroAlunoDto;
 import br.com.academic.dto.CadastroProfessorDto;
 import br.com.academic.models.Aluno;
 import br.com.academic.models.Disciplina;
@@ -27,6 +28,7 @@ import br.com.academic.models.Professor;
 import br.com.academic.models.Role;
 import br.com.academic.models.Usuario;
 import br.com.academic.service.AlunoService;
+import br.com.academic.service.CadastroAlunoService;
 import br.com.academic.service.CadastroProfessorService;
 import br.com.academic.service.DisciplinaService;
 import br.com.academic.service.ProfessorService;
@@ -54,12 +56,20 @@ public class SecretariaController {
 
 	@Autowired
 	private CadastroProfessorService cps;
+	
+	@Autowired
+	private CadastroAlunoService cas;
 
 	private Usuario usuarioLogado;
 
-	@ModelAttribute("dto")
+	@ModelAttribute("dtoProf")
 	public CadastroProfessorDto cadastroProfessorDto() {
 		return new CadastroProfessorDto();
+	}
+
+	@ModelAttribute("dtoAluno")
+	public CadastroAlunoDto cadastroAlunoDto() {
+		return new CadastroAlunoDto();
 	}
 
 	// DASHBOARD DE SECRETARIA
@@ -141,7 +151,7 @@ public class SecretariaController {
 
 	// CADASTRAR PROFESSOR
 	@RequestMapping(value = "/cadastrar/professor", method = RequestMethod.POST)
-	public String cadastrarProfessor(@ModelAttribute("dto") @Valid CadastroProfessorDto professorDto,
+	public String cadastrarProfessor(@ModelAttribute("dtoProf") @Valid CadastroProfessorDto professorDto,
 			BindingResult result, @RequestParam("fileUsuario") MultipartFile file, Model model) {
 		usuarioLogado();
 
@@ -171,16 +181,50 @@ public class SecretariaController {
 		return "redirect:/secretaria/cadastrar/professor?success";
 	}
 
-	// VIEW DE CADASTRO DE PROFESSOR
+	// VIEW DE CADASTRO DE ALUNO
 	@RequestMapping(value = "/cadastrar/aluno", method = RequestMethod.GET)
-	public ModelAndView viewCadastrarProfessor() {
+	public ModelAndView viewCadastrarAluno(CadastroAlunoDto alunoDto) {
 		usuarioLogado();
 		ModelAndView mv = new ModelAndView("secretaria/cadastrar-aluno");
 		mv.addObject("usuarioLogado", usuarioLogado);
 		return mv;
 	}
-	
-	
+
+	// CADASTRAR ALUNO
+	@RequestMapping(value = "/cadastrar/aluno", method = RequestMethod.POST)
+	public String cadastrarAluno(@ModelAttribute("dtoAluno") @Valid CadastroAlunoDto alunoDto,
+			BindingResult result, @RequestParam("fileUsuario") MultipartFile file, Model model) {
+		usuarioLogado();
+
+		Usuario emailExistente = us.usuarioPorEmail(alunoDto.getEmail());
+		if (emailExistente != null) {
+			result.rejectValue("email", null, "Já existe uma conta registrada com este endereço de email.");
+		}
+		Usuario loginExistente = us.usuarioPorLogin(alunoDto.getLogin());
+		if (loginExistente != null) {
+			result.rejectValue("login", null, "Já existe uma login registrado com este username.");
+		}
+		Aluno matriculaExistente = as.alunoPorMatricula(alunoDto.getMatricula());
+		if (matriculaExistente != null) {
+			result.rejectValue("matricula", null, "Já existe um aluno registrado com esta matrícula.");
+		}
+
+		if (result.hasErrors()) {
+			model.addAttribute("usuarioLogado", usuarioLogado);
+			return "secretaria/cadastrar-aluno";
+		}
+
+		// CRIPTOGRAFANDO A SENHA
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String encodedPassword = passwordEncoder.encode(alunoDto.getSenha());
+		alunoDto.setSenha(encodedPassword);
+
+		List<Role> roles = rs.getRoles();
+
+		cas.salvarAlunoDto(alunoDto, file, roles);
+
+		return "redirect:/secretaria/cadastrar/aluno?success";
+	}
 	
 	
 	

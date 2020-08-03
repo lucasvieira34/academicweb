@@ -1,6 +1,5 @@
 package br.com.academic.dto;
 
-import javax.persistence.Column;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
@@ -8,7 +7,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class CadastroProfessorDto {
 	
-	@NotEmpty(message = "A matrícula não pode estar vazia")
+	@NotEmpty(message = "A matrícula não pode estar vazia.")
 	@Size(min = 4, max = 8 ,message = "A matrícula precisa ter entre 4 e 8 números.")
 	private String matricula;
 	
