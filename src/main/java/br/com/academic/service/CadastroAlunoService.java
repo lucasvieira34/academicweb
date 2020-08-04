@@ -1,7 +1,12 @@
 package br.com.academic.service;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,10 +17,13 @@ import br.com.academic.models.Aluno;
 import br.com.academic.models.AlunoDisciplina;
 import br.com.academic.models.AlunoDisciplinaPK;
 import br.com.academic.models.Disciplina;
+import br.com.academic.models.Mail;
 import br.com.academic.models.Role;
 import br.com.academic.models.Usuario;
+import br.com.academic.models.ValidationToken;
 import br.com.academic.repository.AlunoRepository;
 import br.com.academic.repository.UsuarioRepository;
+import br.com.academic.repository.ValidationTokenRepository;
 
 @Service
 public class CadastroAlunoService {
@@ -28,8 +36,14 @@ public class CadastroAlunoService {
 	
 	@Autowired
 	private AlunoDisciplinaService ads;
+	
+	@Autowired
+	private EmailService emailService;
+	
+	@Autowired
+	private ValidationTokenRepository tokenRepository;
 
-	public void salvarAlunoDto(CadastroAlunoDto alunoDto, MultipartFile file, List<Role> roles) {
+	public void salvarAlunoDto(CadastroAlunoDto alunoDto, MultipartFile file, List<Role> roles, HttpServletRequest request) {
 		Usuario usuario = new Usuario();
 		Aluno aluno = new Aluno();
 		AlunoDisciplina alunoDisciplina = new AlunoDisciplina();
@@ -79,6 +93,26 @@ public class CadastroAlunoService {
 		usuario.getRoles().remove(1);
 
 		ur.save(usuario);
+		
+		ValidationToken token = new ValidationToken();
+		token.setToken(UUID.randomUUID().toString());
+		token.setUsuario(usuario);
+		token.setExpiryDate(24*60);
+		tokenRepository.save(token);
+		
+		Mail mail = new Mail();
+		mail.setFrom("academicwebboot@gmail.com");
+		mail.setTo(usuario.getEmail());
+		mail.setSubject("Bem vindo ao Academic Web!");
+		
+		Map<String, Object> model = new HashMap<>();
+		model.put("token", token);
+		model.put("user", usuario);
+		
+		String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort(); 
+		model.put("ativarCadastro", url + "/ativarCadastro?token=" + token.getToken());
+		mail.setModel(model);
+		emailService.emailCadastro(mail);
 
 	}
 

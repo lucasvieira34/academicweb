@@ -43,6 +43,9 @@ public class Usuario implements UserDetails{
 	@Column(name = "nome")
 	private String nome;
 	
+	@Column(name = "ativo")
+	private boolean ativo;
+	
 	@Lob
 	private byte[] imagem;
 	
@@ -63,6 +66,7 @@ public class Usuario implements UserDetails{
 	
 	public Usuario() {
 		super();
+		this.ativo = false;
 	}
 
 	public long getId_usuario() {
@@ -95,6 +99,14 @@ public class Usuario implements UserDetails{
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public boolean isAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
 	}
 
 	public String getSenha() {
@@ -176,7 +188,7 @@ public class Usuario implements UserDetails{
 	@Override
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
-		return true;
+		return this.ativo;
 	}
 	
 

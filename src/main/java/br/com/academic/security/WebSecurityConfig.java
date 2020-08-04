@@ -31,7 +31,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			.authorizeRequests()
 				.antMatchers(
 						"/forgot-password**", 
-						"/reset-password**", 
+						"/reset-password**",
+						"/ativarCadastro**",
 						"/aluno/imagem/",
 						"/").permitAll()
 				//PERMISSÕES ALUNO

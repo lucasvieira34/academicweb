@@ -50,6 +50,24 @@
 							Senha alterada com sucesso!
 						</div>
 					</div>
+					
+					<div th:if="${param.enable}">
+						<div class="alert alert-success">
+							Usuário ativado com sucesso!
+						</div>
+					</div>
+					
+					<div th:if="${param.tokenInvalido}">
+						<div class="alert alert-danger">
+							Não foi possível encontrar o token passado.
+						</div>
+					</div>
+					
+					<div th:if="${param.tokenExpirado}">
+						<div class="alert alert-danger">
+							Token expirado, por favor, entre em contato com a secretaria e solicite a ativação do usuário.
+						</div>
+					</div>
 
 					<div class="col-12 forgot">
                     	<a data-toggle="modal" data-target="#modal-senha" href="#">Modal</a>

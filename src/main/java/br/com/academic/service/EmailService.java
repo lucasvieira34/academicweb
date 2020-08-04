@@ -21,73 +21,100 @@ import java.nio.charset.StandardCharsets;
 @Service
 public class EmailService {
 
-    @Autowired
-    private JavaMailSender emailSender;
+	@Autowired
+	private JavaMailSender emailSender;
 
-    @Autowired
-    private Configuration freemarkerConfig;
-    
-    @Value("classpath:/static/img/logo.jpg")
-    Resource logo;
-    
-    @Value("classpath:/static/img/social-facebook.png")
-    Resource facebook;
-    
-    @Value("classpath:/static/img/social-twitter.png")
-    Resource twitter;
-    
-    @Value("classpath:/static/img/social-youtube.png")
-    Resource youtube;
+	@Autowired
+	private Configuration freemarkerConfig;
 
-    public void emailNotas(Mail mail) throws MessagingException, IOException, TemplateException {
-        
-    	MimeMessage message = emailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message,
-                MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
-                StandardCharsets.UTF_8.name());
+	@Value("classpath:/static/img/logo.jpg")
+	Resource logo;
 
-        Template t = freemarkerConfig.getTemplate("email-notas.ftl");
-        String html = FreeMarkerTemplateUtils.processTemplateIntoString(t, mail.getModel());
+	@Value("classpath:/static/img/social-facebook.png")
+	Resource facebook;
 
-        helper.setTo(mail.getTo());
-        helper.setText(html, true);
-        helper.setSubject(mail.getSubject());
-        helper.setFrom(mail.getFrom());
-        helper.addInline("logo.jpg", logo);
-        helper.addInline("social-facebook.png", facebook);
-        helper.addInline("social-twitter.png", twitter);
-        helper.addInline("social-youtube.png", youtube);
+	@Value("classpath:/static/img/social-twitter.png")
+	Resource twitter;
 
-        emailSender.send(message);
-    }
-    
-    public void sendEmail(Mail mail) {
-    	
-    	try {
-	    	MimeMessage message = emailSender.createMimeMessage();
-	    	MimeMessageHelper helper = new MimeMessageHelper(message,
-	    			MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
-	    			StandardCharsets.UTF_8.name());
-	    	
-	    	Template t = freemarkerConfig.getTemplate("email-template.ftl");
-	    	String html = FreeMarkerTemplateUtils.processTemplateIntoString(t, mail.getModel());
-	    	
-	    	helper.setTo(mail.getTo());
-	    	helper.setText(html, true);
-	    	helper.setSubject(mail.getSubject());
-	    	helper.setFrom(mail.getFrom());
-	    	helper.addInline("logo.jpg", logo);
-	        helper.addInline("social-facebook.png", facebook);
-	        helper.addInline("social-twitter.png", twitter);
-	        helper.addInline("social-youtube.png", youtube);
-	    	
-	    	emailSender.send(message);
-    	} catch (Exception e) {
-    		throw new RuntimeException(e);
-    	}
-    }
-    
-    
-    
+	@Value("classpath:/static/img/social-youtube.png")
+	Resource youtube;
+	
+	@Value("classpath:/static/img/portal.png")
+	Resource portal;
+	
+	@Value("classpath:/static/img/piscina.jpg")
+	Resource piscina;
+
+	public void emailNotas(Mail mail) throws MessagingException, IOException, TemplateException {
+
+		MimeMessage message = emailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(message, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
+				StandardCharsets.UTF_8.name());
+
+		Template t = freemarkerConfig.getTemplate("email-notas.ftl");
+		String html = FreeMarkerTemplateUtils.processTemplateIntoString(t, mail.getModel());
+
+		helper.setTo(mail.getTo());
+		helper.setText(html, true);
+		helper.setSubject(mail.getSubject());
+		helper.setFrom(mail.getFrom());
+		helper.addInline("logo.jpg", logo);
+		helper.addInline("social-facebook.png", facebook);
+		helper.addInline("social-twitter.png", twitter);
+		helper.addInline("social-youtube.png", youtube);
+
+		emailSender.send(message);
+	}
+
+	public void sendEmail(Mail mail) {
+
+		try {
+			MimeMessage message = emailSender.createMimeMessage();
+			MimeMessageHelper helper = new MimeMessageHelper(message, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
+					StandardCharsets.UTF_8.name());
+
+			Template t = freemarkerConfig.getTemplate("email-reset.ftl");
+			String html = FreeMarkerTemplateUtils.processTemplateIntoString(t, mail.getModel());
+
+			helper.setTo(mail.getTo());
+			helper.setText(html, true);
+			helper.setSubject(mail.getSubject());
+			helper.setFrom(mail.getFrom());
+			helper.addInline("logo.jpg", logo);
+			helper.addInline("social-facebook.png", facebook);
+			helper.addInline("social-twitter.png", twitter);
+			helper.addInline("social-youtube.png", youtube);
+
+			emailSender.send(message);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public void emailCadastro(Mail mail) {
+
+		try {
+			MimeMessage message = emailSender.createMimeMessage();
+			MimeMessageHelper helper = new MimeMessageHelper(message, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
+					StandardCharsets.UTF_8.name());
+
+			Template t = freemarkerConfig.getTemplate("email-cadastro.ftl");
+			String html = FreeMarkerTemplateUtils.processTemplateIntoString(t, mail.getModel());
+
+			helper.setTo(mail.getTo());
+			helper.setText(html, true);
+			helper.setSubject(mail.getSubject());
+			helper.setFrom(mail.getFrom());
+			helper.addInline("logo.jpg", logo);
+			helper.addInline("portal.png", portal);
+			helper.addInline("piscina.jpg", piscina);
+			helper.addInline("social-twitter.png", twitter);
+			helper.addInline("social-youtube.png", youtube);
+
+			emailSender.send(message);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
 
 }

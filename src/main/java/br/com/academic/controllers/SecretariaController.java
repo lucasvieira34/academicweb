@@ -2,6 +2,7 @@ package br.com.academic.controllers;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -193,7 +194,7 @@ public class SecretariaController {
 	// CADASTRAR ALUNO
 	@RequestMapping(value = "/cadastrar/aluno", method = RequestMethod.POST)
 	public String cadastrarAluno(@ModelAttribute("dtoAluno") @Valid CadastroAlunoDto alunoDto,
-			BindingResult result, @RequestParam("fileUsuario") MultipartFile file, Model model) {
+			BindingResult result, @RequestParam("fileUsuario") MultipartFile file, Model model, HttpServletRequest request) {
 		usuarioLogado();
 
 		Usuario emailExistente = us.usuarioPorEmail(alunoDto.getEmail());
@@ -221,7 +222,7 @@ public class SecretariaController {
 
 		List<Role> roles = rs.getRoles();
 
-		cas.salvarAlunoDto(alunoDto, file, roles);
+		cas.salvarAlunoDto(alunoDto, file, roles, request);
 
 		return "redirect:/secretaria/cadastrar/aluno?success";
 	}
