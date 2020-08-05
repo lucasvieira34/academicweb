@@ -82,9 +82,9 @@
 
       <!-- Nav Item - Tables -->
       <li class="nav-item">
-        <a class="nav-link" href="tables.html">
-          <i class="fas fa-fw fa-cog"></i>
-          <span>Editar</span></a>
+        <a class="nav-link" href="/aluno/perfil">
+          <i class="fas fa-fw fa-user-edit"></i>
+          <span>Meu Perfil</span></a>
       </li>
 
       <!-- Divider -->
@@ -118,12 +118,13 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small" th:text="${usuarioLogado.nome}"></span>
+                <span class="mr-1 d-none d-lg-inline text-gray-600 small" th:text="${usuarioLogado.nome}"></span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small" th:text="${usuarioLogado.aluno.sobrenome}"></span>
                 <img class="img-profile rounded-circle" onerror="this.style.display='none'" height="45px" width="45px" th:src="|/aluno/imagem/${usuarioLogado.aluno.id_aluno}|">
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="/aluno/perfil">
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profile
                 </a>
@@ -193,6 +194,9 @@
   <!-- Bootstrap core JavaScript-->
   <script src="/vendor/jquery/jquery.min.js"></script>
   <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
+  
 
   <!-- Core plugin JavaScript-->
   <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
@@ -208,6 +212,7 @@
   <script src="/js/demo/datatables-demo.js"></script>
 
   <script src="/js/notas_alunos.js"></script>
+  <script src="/js/mascaras.js"></script>
 
 </body>
 
