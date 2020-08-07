@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -34,6 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 						"/reset-password**",
 						"/ativarCadastro**",
 						"/aluno/imagem/",
+						"/login/blocked",
 						"/").permitAll()
 				//PERMISSÕES ALUNO
 				.antMatchers(HttpMethod.GET, "/aluno/disciplinas").hasRole("ALUNO")
@@ -43,7 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 				.antMatchers("/resources/**").permitAll()
 				.anyRequest().authenticated()
 			.and()
-				.formLogin()
+				.formLogin().permitAll()
 					.loginPage("/login")
 						.successHandler(successHandler).permitAll()
 			.and()

@@ -4,7 +4,7 @@
 
 	<head>
      	<!-- Required meta tags -->
-    	<meta charset="utf-8">
+    	<meta charset="UTF-8">
     	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     	<!-- Google Fonts -->
@@ -44,6 +44,19 @@
 	                    <button type="submit" class="btn btn-entrar botao-entrar"><i class="fas fa-sign-in-alt"></i>Login</button>
 
 					</form>
+					
+					<div th:if="${param.error} and ${session}" th:with="errorMsg=${session['SPRING_SECURITY_LAST_EXCEPTION'].message}">
+     					<div class="alert alert-danger">
+          					<span th:text="${errorMsg}">Demo Invalid input</span>
+     					</div>
+					</div>
+					
+					<div th:if="${param.logout}">
+						<div class="alert alert-success">
+							Logout realizado com sucesso.
+						</div>
+					</div>
+					
 
 					<div th:if="${param.resetSuccess}">
 						<div class="alert alert-info">
