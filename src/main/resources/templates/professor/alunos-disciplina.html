@@ -32,7 +32,7 @@
                   </thead>
                   <tbody>
                       <tr th:each="alunoDisciplina : ${alunoDisciplina}">
-                          <td><img alt="Image" onerror="this.style.display='none'" height="50px" width="50px" th:src="|/aluno/imagem/${alunoDisciplina.aluno.id_aluno}|"></td>
+                          <td><img alt="Image" onerror="this.style.display='none'" height="50px" width="50px" th:src="|/imagem/aluno/${alunoDisciplina.aluno.id_aluno}|"></td>
                           <td><span th:text="${alunoDisciplina.aluno.nome}"></span></td>
                           <td><span th:text="${alunoDisciplina.aluno.sobrenome}"></span></td>
                           <td><span th:text="${alunoDisciplina.a1}"></span></td>
