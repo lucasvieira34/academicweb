@@ -227,9 +227,45 @@ public class SecretariaController {
 		return "redirect:/secretaria/cadastrar/aluno?success";
 	}
 	
+	@RequestMapping(value = "/alunos/ativar/{id_aluno}", method = RequestMethod.GET)
+	public String ativarAluno(@PathVariable("id_aluno") long id) {
+		Aluno aluno = as.getAlunoById(id);
+		Usuario usuario = aluno.getUsuario();
+		usuario.setAtivo(true);
+		us.salvarUsuario(usuario);
+		
+		return "redirect:/secretaria/alunos?ativo";
+	}
 	
+	@RequestMapping(value = "/alunos/desativar/{id_aluno}", method = RequestMethod.GET)
+	public String desativarAluno(@PathVariable("id_aluno") long id) {
+		Aluno aluno = as.getAlunoById(id);
+		Usuario usuario = aluno.getUsuario();
+		usuario.setAtivo(false);
+		us.salvarUsuario(usuario);
+		
+		return "redirect:/secretaria/alunos?inativo";
+	}
 	
+	@RequestMapping(value = "/professores/ativar/{id_professor}", method = RequestMethod.GET)
+	public String ativarProfessor(@PathVariable("id_professor") long id) {
+		Professor professor = ps.getProfessorById(id);
+		Usuario usuario = professor.getUsuario();
+		usuario.setAtivo(true);
+		us.salvarUsuario(usuario);
+		
+		return "redirect:/secretaria/professores?ativo";
+	}
 	
+	@RequestMapping(value = "/professores/desativar/{id_professor}", method = RequestMethod.GET)
+	public String desativarProfessor(@PathVariable("id_professor") long id) {
+		Professor professor = ps.getProfessorById(id);
+		Usuario usuario = professor.getUsuario();
+		usuario.setAtivo(false);
+		us.salvarUsuario(usuario);
+		
+		return "redirect:/secretaria/professores?inativo";
+	}
 	
 	
 	
