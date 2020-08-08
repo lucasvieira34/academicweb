@@ -108,6 +108,7 @@ public class EmailService {
 			helper.addInline("logo.jpg", logo);
 			helper.addInline("portal.png", portal);
 			helper.addInline("piscina.jpg", piscina);
+			helper.addInline("social-facebook.png", facebook);
 			helper.addInline("social-twitter.png", twitter);
 			helper.addInline("social-youtube.png", youtube);
 

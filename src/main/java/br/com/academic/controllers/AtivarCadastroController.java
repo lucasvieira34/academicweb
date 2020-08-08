@@ -27,7 +27,6 @@ public class AtivarCadastroController {
 	public String ativarCadastro(@RequestParam(required = false) String token) {
 
 		ValidationToken tokenCadastro = tokenRepository.findByToken(token);
-		Usuario usuario = tokenCadastro.getUsuario();
 		
 		if (tokenCadastro == null) {
 			return "redirect:/login?tokenInvalido";
@@ -37,6 +36,7 @@ public class AtivarCadastroController {
 			return "redirect:/login?tokenExpirado";
 		}
 		
+		Usuario usuario = tokenCadastro.getUsuario();
 		usuario.setAtivo(true);
 		userService.salvarUsuario(usuario);
 		tokenRepository.delete(tokenCadastro);
