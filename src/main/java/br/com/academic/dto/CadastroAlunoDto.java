@@ -8,6 +8,12 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import br.com.academic.validator.FieldMatch;
+
+@FieldMatch.List({
+	@FieldMatch(first = "senha", second = "confirmarSenha", message = "As senhas não conferem."),
+	@FieldMatch(first = "confirmarSenha", second = "senha", message = "As senhas não conferem.")
+})
 public class CadastroAlunoDto {
 	
 	@NotEmpty(message = "A matrícula não pode estar vazia.")
@@ -42,6 +48,9 @@ public class CadastroAlunoDto {
 	
 	@NotEmpty(message = "A senha não pode estar vazia.")
 	private String senha;
+	
+	@NotEmpty(message = "Repita a senha.")
+	private String confirmarSenha;
 
 	public String getMatricula() {
 		return matricula;
@@ -121,6 +130,14 @@ public class CadastroAlunoDto {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public String getConfirmarSenha() {
+		return confirmarSenha;
+	}
+
+	public void setConfirmarSenha(String confirmarSenha) {
+		this.confirmarSenha = confirmarSenha;
 	}
 
 }

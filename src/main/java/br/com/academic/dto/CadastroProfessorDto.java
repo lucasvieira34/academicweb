@@ -2,9 +2,15 @@ package br.com.academic.dto;
 
 import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
+import br.com.academic.validator.FieldMatch;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+@FieldMatch.List({
+	@FieldMatch(first = "senha", second = "confirmarSenha", message = "As senhas não conferem."),
+	@FieldMatch(first = "confirmarSenha", second = "senha", message = "As senhas não conferem.")
+})
 public class CadastroProfessorDto {
 	
 	@NotEmpty(message = "A matrícula não pode estar vazia.")
@@ -26,6 +32,9 @@ public class CadastroProfessorDto {
 	
 	@NotEmpty(message = "A senha não pode estar vazia.")
 	private String senha;
+	
+	@NotEmpty(message = "Repita a senha.")
+	private String confirmarSenha;
 
 	public String getMatricula() {
 		return matricula;
@@ -73,6 +82,14 @@ public class CadastroProfessorDto {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public String getConfirmarSenha() {
+		return confirmarSenha;
+	}
+
+	public void setConfirmarSenha(String confirmarSenha) {
+		this.confirmarSenha = confirmarSenha;
 	}
 
 }

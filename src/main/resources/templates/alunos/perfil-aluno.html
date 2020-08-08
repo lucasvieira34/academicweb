@@ -86,14 +86,17 @@
                 </div>
                 <div class="form-group">
                   <label for="senha">Senha</label>
-                  <input type="password" id="senha" class="form-control" name="senha">
+                  <input type="password" id="senha" class="form-control" name="senha" th:classappend="${#fields.hasErrors('aluno.usuario.senha')}? 'is-invalid':''">
+                  <p class="error-message"
+                       th:each="error : ${#fields.errors('aluno.usuario.senha')}"
+                       th:text="${error}">Senha incorreta</p>
                   <small class="form-text text-muted">
                   A senha precisa ter entre 8-20 caracteres, contendo letras e números e não pode conter espaços, caracteres especiais ou emojis.
                   </small>
                 </div>
                 <div class="form-group">
-                  <label for="confirmPassword">Confirme a senha</label>
-                  <input type="password" id="confirmPassword" class="form-control" name="confirmPassword">
+                  <label for="confirmarSenha">Confirme a senha</label>
+                  <input type="password" id="confirmarSenha" class="form-control" name="confirmarSenha">
                   <small class="form-text text-muted">
                   A senha precisa ser idêntica a informada acima.
                   </small>

@@ -137,8 +137,11 @@
                   </small>
                 </div>
                 <div class="form-group">
-                  <label for="confirmPassword">Confirme a senha</label>
-                  <input type="password" id="confirmPassword" class="form-control" name="confirmPassword">
+                  <label for="confirmarSenha">Confirme a senha</label>
+                  <input type="password" id="confirmarSenha" class="form-control" name="confirmarSenha" th:classappend="${#fields.hasErrors('confirmarSenha')}? 'is-invalid':''">
+                  <p class="error-message"
+                       th:each="error : ${#fields.errors('confirmarSenha')}"
+                       th:text="${error}">Senha incorreta</p>
                   <small class="form-text text-muted">
                   A senha precisa ser idêntica a informada acima.
                   </small>

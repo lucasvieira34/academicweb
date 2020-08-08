@@ -1,13 +1,19 @@
 package br.com.academic.dto;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import javax.validation.constraints.NotEmpty;
 
+import br.com.academic.validator.FieldMatch;
+
+@FieldMatch.List({
+	@FieldMatch(first = "password", second = "confirmPassword", message = "As senhas não conferem."),
+	@FieldMatch(first = "confirmPassword", second = "password", message = "As senhas não conferem.")
+})
 public class PasswordResetDto {
 	
-	@NotEmpty
+	@NotEmpty(message = "A senha não pode estar vazia.")
 	private String password;
 	
-	@NotEmpty
+	@NotEmpty(message = "Repita a senha.")
 	private String confirmPassword;
 	
 	@NotEmpty

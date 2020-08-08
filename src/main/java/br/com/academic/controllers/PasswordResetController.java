@@ -41,7 +41,7 @@ public class PasswordResetController {
 		
 		ValidationToken resetToken = tokenRepository.findByToken(token);
 		if (resetToken == null) {
-			model.addAttribute("error", "Não foi possível encontrar o token passado.");
+			model.addAttribute("error", "Não foi possível encontrar o token.");
 		} else if (resetToken.isExpired()) {
 			model.addAttribute("error", "Token expirado, por favor, solicite uma nova alteração de senha.");
 		} else {
