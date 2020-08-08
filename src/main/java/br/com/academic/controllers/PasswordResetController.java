@@ -48,7 +48,7 @@ public class PasswordResetController {
 			model.addAttribute("token", resetToken.getToken());
 		}
 		
-		return "reset-password";
+		return "password/reset-password";
 		
 	}
 	

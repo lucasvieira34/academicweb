@@ -34,6 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 						"/reset-password**",
 						"/ativarCadastro**",
 						"/aluno/imagem/",
+						"/login**",
 						"/").permitAll()
 				//PERMISSÕES ALUNO
 				.antMatchers(HttpMethod.GET, "/aluno/disciplinas").hasRole("ALUNO")

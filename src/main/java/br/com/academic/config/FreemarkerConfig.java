@@ -12,7 +12,7 @@ public class FreemarkerConfig {
     @Primary
     public FreeMarkerConfigurationFactoryBean getFreeMarkerConfiguration() {
         FreeMarkerConfigurationFactoryBean bean = new FreeMarkerConfigurationFactoryBean();
-        bean.setTemplateLoaderPath("classpath:templates/");
+        bean.setTemplateLoaderPath("classpath:templates/email/");
         return bean;
     }
 }

@@ -43,7 +43,7 @@ public class PasswordForgotController {
 	
 	@GetMapping
 	public String displayForgotPasswordPage() {
-		return "forgot-password";
+		return "password/forgot-password";
 	}
 	
 	@PostMapping
@@ -51,13 +51,13 @@ public class PasswordForgotController {
 											BindingResult result, HttpServletRequest request) {
 		
 		if (result.hasErrors()) {
-			return "forgot-password";
+			return "password/forgot-password";
 		}
 		
 		Usuario usuario = userService.usuarioPorEmail(form.getEmail());
 		if (usuario == null) {
 			result.rejectValue("email", null, "Não conseguimos encontrar uma conta associada a este email.");
-			return "forgot-password";
+			return "password/forgot-password";
 		}
 		
 		ValidationToken token = new ValidationToken();
