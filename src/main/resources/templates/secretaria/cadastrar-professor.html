@@ -59,6 +59,26 @@
                   </div>
                 </div>
                 <div class="form-group">
+                  <label for="cpf">CPF</label>
+                  <input type="text" th:field="*{cpf}" class="form-control" id="cpf" name="cpf" th:classappend="${#fields.hasErrors('cpf')}? 'is-invalid':''">
+                  <p class="error-message"
+                       th:each="error : ${#fields.errors('cpf')}"
+                       th:text="${error}">CPF incorreto</p>
+                  <small class="form-text text-muted">
+                  Insira o CPF do professor.
+                  </small>
+                </div>
+                <div class="form-group">
+                  <label for="dataNascimento">Data de Nascimento</label>
+                  <input type="date" th:field="*{dataNascimento}" class="form-control" id="dataNascimento" name="dataNascimento" th:classappend="${#fields.hasErrors('dataNascimento')}? 'is-invalid':''">
+                  <p class="error-message"
+                       th:each="error : ${#fields.errors('dataNascimento')}"
+                       th:text="${error}">Data incorreta</p>
+                  <small class="form-text text-muted">
+                  Insira a data de nascimento do professor.
+                  </small>
+                </div>
+                <div class="form-group">
                   <label for="matricula">Matrícula</label>
                   <input type="text" th:field="*{matricula}" class="form-control" id="matricula" name="matricula" th:classappend="${#fields.hasErrors('matricula')}? 'is-invalid':''">
                   <p class="error-message"

@@ -1,6 +1,7 @@
 package br.com.academic.models;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -14,7 +15,11 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "professor")
@@ -37,6 +42,14 @@ public class Professor implements Serializable{
 	
 	@Column(name = "sobrenome")
 	private String sobrenome;
+	
+	@Column(name = "cpf")
+	private String cpf;
+	
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+	@Column(name = "data_nascimento")
+	@Temporal(TemporalType.DATE)
+	private Date dataNascimento;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario", unique = true)
@@ -86,6 +99,22 @@ public class Professor implements Serializable{
 
 	public void setSobrenome(String sobrenome) {
 		this.sobrenome = sobrenome;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public Date getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
 	}
 
 	public Usuario getUsuario() {

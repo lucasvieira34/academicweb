@@ -2,7 +2,11 @@ package br.com.academic.dto;
 
 import javax.validation.constraints.Size;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import br.com.academic.validator.FieldMatch;
+
+import java.util.Date;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -22,6 +26,12 @@ public class CadastroProfessorDto {
 	
 	@NotEmpty(message = "O sobrenome não pode estar vazio.")
 	private String sobrenome;
+	
+	@NotEmpty(message = "O cpf não pode estar vazio.")
+	private String cpf;
+	
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+	private Date dataNascimento;
 	
 	@Email(message = "Este email não é válido.")
 	@NotEmpty(message = "O email não pode estar vazio.")
@@ -58,6 +68,22 @@ public class CadastroProfessorDto {
 
 	public void setSobrenome(String sobrenome) {
 		this.sobrenome = sobrenome;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public Date getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
 	}
 
 	public String getEmail() {
