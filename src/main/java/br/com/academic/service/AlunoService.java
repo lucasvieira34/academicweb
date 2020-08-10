@@ -32,5 +32,9 @@ public class AlunoService {
 	public Aluno alunoPorMatricula(String matricula) {
 		return ar.findByMatricula(matricula);
 	}
+	
+	public long quantidadeAlunos() {
+		return ar.count();
+	}
 
 }
