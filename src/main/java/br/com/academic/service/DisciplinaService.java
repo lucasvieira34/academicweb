@@ -24,5 +24,9 @@ public class DisciplinaService {
 	public Disciplina getDisciplinaByNome(String nome) {
 		return dr.findByNome(nome);
 	}
+	
+	public long quantidadeDisciplinas() {
+		return dr.count();
+	}
 
 }

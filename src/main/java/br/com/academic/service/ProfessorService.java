@@ -25,4 +25,8 @@ public class ProfessorService {
 		return pr.findById(id).get();
 	}
 	
+	public long quantidadeProfessores() {
+		return pr.count();
+	}
+	
 }

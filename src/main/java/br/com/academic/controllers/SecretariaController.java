@@ -79,6 +79,9 @@ public class SecretariaController {
 		usuarioLogado();
 		ModelAndView mv = new ModelAndView("secretaria/secretaria-dashboard");
 		mv.addObject("usuarioLogado", usuarioLogado);
+		mv.addObject("quantidadeAlunos", as.quantidadeAlunos());
+		mv.addObject("quantidadeProfessores", ps.quantidadeProfessores());
+		mv.addObject("quantidadeDisciplinas", ds.quantidadeDisciplinas());
 		return mv;
 	}
 
