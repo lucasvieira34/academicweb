@@ -19,7 +19,7 @@ public class Role implements GrantedAuthority{
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Id @GeneratedValue(strategy = GenerationType.AUTO)
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id_role;
 	
 	@Column(unique = true)
