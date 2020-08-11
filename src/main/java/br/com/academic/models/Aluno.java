@@ -1,6 +1,7 @@
 package br.com.academic.models;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Set;
 
@@ -45,6 +46,9 @@ public class Aluno implements Serializable{
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	@Column(name = "data_nascimento")
 	private Date dataNascimento;
+	
+	@Column(name = "mensalidade")
+	private BigDecimal mensalidade;
 	
 	@Column(name = "nome_responsavel")
 	private String nomeResponsavel;
@@ -122,6 +126,14 @@ public class Aluno implements Serializable{
 
 	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
+	}
+
+	public BigDecimal getMensalidade() {
+		return mensalidade;
+	}
+
+	public void setMensalidade(BigDecimal mensalidade) {
+		this.mensalidade = mensalidade;
 	}
 
 	public String getNomeResponsavel() {

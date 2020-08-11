@@ -65,6 +65,7 @@ public class CadastroAlunoService {
 		aluno.setSobrenome(alunoDto.getSobrenome());
 		aluno.setCpf(alunoDto.getCpf());
 		aluno.setDataNascimento(alunoDto.getDataNascimento());
+		aluno.setMensalidade(alunoDto.getMensalidade());
 		aluno.setNomeResponsavel(alunoDto.getNomeResponsavel());
 		aluno.setEmailResponsavel(alunoDto.getEmailResponsavel());
 

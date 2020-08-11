@@ -1,11 +1,14 @@
 package br.com.academic.dto;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import br.com.academic.validator.FieldMatch;
@@ -26,11 +29,15 @@ public class CadastroAlunoDto {
 	@NotEmpty(message = "O sobrenome não pode estar vazio.")
 	private String sobrenome;
 	
+	@CPF
 	@NotEmpty(message = "O cpf não pode estar vazio.")
 	private String cpf;
 	
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private Date dataNascimento;
+	
+	@DecimalMin(value = "0", message = "A mensalidade precisa ser maior que zero.")
+	private BigDecimal mensalidade;
 	
 	@NotEmpty(message = "O nome do responsável não pode estar vazio.")
 	private String nomeResponsavel;
@@ -90,6 +97,14 @@ public class CadastroAlunoDto {
 
 	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
+	}
+
+	public BigDecimal getMensalidade() {
+		return mensalidade;
+	}
+
+	public void setMensalidade(BigDecimal mensalidade) {
+		this.mensalidade = mensalidade;
 	}
 
 	public String getNomeResponsavel() {
