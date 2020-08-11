@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,9 +19,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.com.academic.dto.AlterarProfessorDto;
 import br.com.academic.models.Aluno;
 import br.com.academic.models.AlunoDisciplina;
 import br.com.academic.models.AlunoDisciplinaPK;
@@ -28,6 +32,7 @@ import br.com.academic.models.Disciplina;
 import br.com.academic.models.Mail;
 import br.com.academic.models.Professor;
 import br.com.academic.models.Usuario;
+import br.com.academic.service.AlterarProfessorService;
 import br.com.academic.service.AlunoDisciplinaService;
 import br.com.academic.service.AlunoService;
 import br.com.academic.service.DisciplinaService;
@@ -40,10 +45,10 @@ public class ProfessorController {
 
 	@Autowired
 	private EmailService emailService;
-	
+
 	@Autowired
 	private UsuarioService us;
-	
+
 	@Autowired
 	private AlunoService as;
 
@@ -52,9 +57,12 @@ public class ProfessorController {
 
 	@Autowired
 	private AlunoDisciplinaService ads;
+	
+	@Autowired
+	private AlterarProfessorService aps;
 
 	private Usuario usuarioLogado;
-	
+
 	@ModelAttribute("dtoNotas")
 	public AlunoDisciplina alunoDisciplina() {
 		return new AlunoDisciplina();
@@ -124,17 +132,14 @@ public class ProfessorController {
 
 	// INSERIR NOTAS E FALTAS DO ALUNO
 	@RequestMapping(value = "/{nome}/notas/{id_aluno}/alterar", method = RequestMethod.POST)
-	public String inserirNotasAluno(@ModelAttribute("dtoNotas") @Valid AlunoDisciplina alunoDisciplina, 
-							  		BindingResult result,
-							  		RedirectAttributes attr,
-							  		@PathVariable("id_aluno") long id_aluno,
-							  		@PathVariable("nome") String nome,
-							  		Model model) throws Exception {
-		
+	public String inserirNotasAluno(@ModelAttribute("dtoNotas") @Valid AlunoDisciplina alunoDisciplina,
+			BindingResult result, RedirectAttributes attr, @PathVariable("id_aluno") long id_aluno,
+			@PathVariable("nome") String nome, Model model) throws Exception {
+
 		if (result.hasErrors()) {
 			attr.addFlashAttribute("org.springframework.validation.BindingResult.dtoNotas", result);
-		    attr.addFlashAttribute("dtoNotas", alunoDisciplina);
-		    
+			attr.addFlashAttribute("dtoNotas", alunoDisciplina);
+
 			return "redirect:/professor/{nome}/notas/{id_aluno}?error";
 		}
 
@@ -161,6 +166,44 @@ public class ProfessorController {
 
 		return "redirect:/professor/{nome}/notas/{id_aluno}?success";
 	}
+
+	// EXIBIR VIEW DO PERFIL DO PROFESSOR
+	@RequestMapping(value = "/perfil", method = RequestMethod.GET)
+	public ModelAndView viewMeuPerfil() {
+		usuarioLogado();
+		Professor professor = usuarioLogado.getProfessor();
+		ModelAndView mv = new ModelAndView("professor/perfil-professor");
+		mv.addObject("professor", professor);
+		mv.addObject("usuarioLogado", usuarioLogado);
+		return mv;
+	}
+
+	// ALTERAR PERFIL DO ALUNO
+	@RequestMapping(value = "/perfil/alterar", method = RequestMethod.POST)
+	public String alterarPerfil(@Valid AlterarProfessorDto professorDto, BindingResult result, RedirectAttributes attr,
+			@RequestParam("fileUsuario") MultipartFile file, Model model) {
+
+		if (result.hasErrors()) {
+			Professor professor = usuarioLogado.getProfessor();
+			model.addAttribute("usuarioLogado", usuarioLogado);
+			model.addAttribute("professor", professor);
+			return "redirect:/professor/perfil?error";
+		}
+
+		// CRIPTOGRAFANDO A SENHA
+		if (professorDto.getSenha().isEmpty()) {
+			professorDto.setSenha(usuarioLogado.getSenha());
+		} else {
+			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+			String encodedPassword = passwordEncoder.encode(professorDto.getSenha());
+			professorDto.setSenha(encodedPassword);
+		}
+
+		aps.alterarProfessorDto(professorDto, file, usuarioLogado);
+
+		return "redirect:/professor/perfil?success";
+	}
+	
 	
 	
 	
