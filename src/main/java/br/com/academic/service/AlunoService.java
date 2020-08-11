@@ -1,5 +1,6 @@
 package br.com.academic.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +36,10 @@ public class AlunoService {
 	
 	public long quantidadeAlunos() {
 		return ar.count();
+	}
+	
+	public BigDecimal totalMensalidades() {
+		return ar.mensalidades();
 	}
 
 }

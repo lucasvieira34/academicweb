@@ -19,3 +19,7 @@
 	background-color: #FA8021!important;
 	color: #ffffff;
 }
+
+.border-left-cor-principal {
+    border-left: .25rem solid #FA8021!important;
+}
