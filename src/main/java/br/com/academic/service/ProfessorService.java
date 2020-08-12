@@ -1,5 +1,6 @@
 package br.com.academic.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,10 @@ public class ProfessorService {
 	
 	public long quantidadeProfessores() {
 		return pr.count();
+	}
+	
+	public BigDecimal totalSalarios() {
+		return pr.salarios();
 	}
 	
 }
