@@ -27,6 +27,10 @@ public class SecretariaService {
 		return sr.findById(id).get();
 	}
 	
+	public long quantidadeFuncionarios() {
+		return sr.count();
+	}
+	
 	public BigDecimal balancoMensal() {
 		return sr.balanco();
 	}

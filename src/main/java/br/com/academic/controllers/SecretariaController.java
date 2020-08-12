@@ -86,6 +86,7 @@ public class SecretariaController {
 		mv.addObject("quantidadeAlunos", as.quantidadeAlunos());
 		mv.addObject("quantidadeProfessores", ps.quantidadeProfessores());
 		mv.addObject("quantidadeDisciplinas", ds.quantidadeDisciplinas());
+		mv.addObject("quantidadeFuncionarios", ss.quantidadeFuncionarios());
 		mv.addObject("totalMensalidades", as.totalMensalidades());
 		mv.addObject("totalSalarios", ps.totalSalarios());
 		mv.addObject("balancoMensal", ss.balancoMensal());
