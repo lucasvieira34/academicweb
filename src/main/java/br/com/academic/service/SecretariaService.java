@@ -1,5 +1,6 @@
 package br.com.academic.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,5 +25,9 @@ public class SecretariaService {
 	
 	public Secretaria getSecretariaById(long id) {
 		return sr.findById(id).get();
+	}
+	
+	public BigDecimal balancoMensal() {
+		return sr.balanco();
 	}
 }

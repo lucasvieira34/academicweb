@@ -34,6 +34,7 @@ import br.com.academic.service.CadastroProfessorService;
 import br.com.academic.service.DisciplinaService;
 import br.com.academic.service.ProfessorService;
 import br.com.academic.service.RoleService;
+import br.com.academic.service.SecretariaService;
 import br.com.academic.service.UsuarioService;
 
 @Controller
@@ -54,6 +55,9 @@ public class SecretariaController {
 
 	@Autowired
 	private RoleService rs;
+	
+	@Autowired
+	private SecretariaService ss;
 
 	@Autowired
 	private CadastroProfessorService cps;
@@ -84,6 +88,7 @@ public class SecretariaController {
 		mv.addObject("quantidadeDisciplinas", ds.quantidadeDisciplinas());
 		mv.addObject("totalMensalidades", as.totalMensalidades());
 		mv.addObject("totalSalarios", ps.totalSalarios());
+		mv.addObject("balancoMensal", ss.balancoMensal());
 		return mv;
 	}
 
