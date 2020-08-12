@@ -1,6 +1,7 @@
 package br.com.academic.models;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -50,6 +51,9 @@ public class Professor implements Serializable{
 	@Column(name = "data_nascimento")
 	@Temporal(TemporalType.DATE)
 	private Date dataNascimento;
+	
+	@Column(name = "salario")
+	private BigDecimal salario;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario", unique = true)
@@ -115,6 +119,14 @@ public class Professor implements Serializable{
 
 	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
+	}
+
+	public BigDecimal getSalario() {
+		return salario;
+	}
+
+	public void setSalario(BigDecimal salario) {
+		this.salario = salario;
 	}
 
 	public Usuario getUsuario() {

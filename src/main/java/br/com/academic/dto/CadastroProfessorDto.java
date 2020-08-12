@@ -6,8 +6,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import br.com.academic.validator.FieldMatch;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
@@ -32,6 +34,9 @@ public class CadastroProfessorDto {
 	
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private Date dataNascimento;
+	
+	@DecimalMin(value = "0", message = "O salário precisa ser maior que zero.")
+	private BigDecimal salario;
 	
 	@Email(message = "Este email não é válido.")
 	@NotEmpty(message = "O email não pode estar vazio.")
@@ -84,6 +89,14 @@ public class CadastroProfessorDto {
 
 	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
+	}
+
+	public BigDecimal getSalario() {
+		return salario;
+	}
+
+	public void setSalario(BigDecimal salario) {
+		this.salario = salario;
 	}
 
 	public String getEmail() {

@@ -44,6 +44,7 @@ public class CadastroProfessorService {
 		professor.setSobrenome(professorDto.getSobrenome());
 		professor.setCpf(professorDto.getCpf());
 		professor.setDataNascimento(professorDto.getDataNascimento());
+		professor.setSalario(professorDto.getSalario());
 		
 		professor.setUsuario(usuario);
 		pr.save(professor);

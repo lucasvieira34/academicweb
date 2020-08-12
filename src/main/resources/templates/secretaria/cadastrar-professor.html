@@ -99,6 +99,16 @@
                   </small>
                 </div>
                 <div class="form-group">
+                  <label for="salario">Salário</label>
+                  <input type="number" th:field="*{salario}" class="form-control" id="salario" name="salario" th:classappend="${#fields.hasErrors('salario')}? 'is-invalid':''">
+                  <p class="error-message"
+                       th:each="error : ${#fields.errors('salario')}"
+                       th:text="${error}">Nome incorreto</p>
+                  <small class="form-text text-muted">
+                  Insira o valor do salário.
+                  </small>
+                </div>
+                <div class="form-group">
                   <label for="username">Username</label>
                   <input type="text" th:field="*{login}" class="form-control" id="login" name="login" th:classappend="${#fields.hasErrors('login')}? 'is-invalid':''">
                   <p class="error-message"
