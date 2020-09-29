@@ -23,3 +23,8 @@
 .border-left-cor-principal {
     border-left: .25rem solid #FA8021!important;
 }
+
+.loadingoverlay{
+	justify-content: center!important;
+	height: 780px!important;
+}
