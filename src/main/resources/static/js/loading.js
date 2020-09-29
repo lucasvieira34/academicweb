@@ -18,7 +18,7 @@ $(document).ready(function () {
         });
         setTimeout(function () {
             $(".container-fluid").LoadingOverlay("hide");
-        }, 8000);
+        }, 8000000);
 
     });
 });

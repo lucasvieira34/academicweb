@@ -172,9 +172,14 @@ public class ProfessorController {
 	public ModelAndView viewMeuPerfil() {
 		usuarioLogado();
 		Professor professor = usuarioLogado.getProfessor();
+		
+		// BUSCANDO DISCIPLINAS DO PROFESSOR
+		List<Disciplina> disciplinasProf = professor.getDisciplinas();
+		
 		ModelAndView mv = new ModelAndView("professor/perfil-professor");
 		mv.addObject("professor", professor);
 		mv.addObject("usuarioLogado", usuarioLogado);
+		mv.addObject("disciplinasProf", disciplinasProf);
 		return mv;
 	}
 
