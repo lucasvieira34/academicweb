@@ -26,14 +26,12 @@ import br.com.academic.dto.CadastroProfessorDto;
 import br.com.academic.models.Aluno;
 import br.com.academic.models.Disciplina;
 import br.com.academic.models.Professor;
-import br.com.academic.models.Role;
 import br.com.academic.models.Usuario;
 import br.com.academic.service.AlunoService;
 import br.com.academic.service.CadastroAlunoService;
 import br.com.academic.service.CadastroProfessorService;
 import br.com.academic.service.DisciplinaService;
 import br.com.academic.service.ProfessorService;
-import br.com.academic.service.RoleService;
 import br.com.academic.service.SecretariaService;
 import br.com.academic.service.UsuarioService;
 
@@ -53,9 +51,6 @@ public class SecretariaController {
 	@Autowired
 	private DisciplinaService ds;
 
-	@Autowired
-	private RoleService rs;
-	
 	@Autowired
 	private SecretariaService ss;
 
@@ -186,9 +181,7 @@ public class SecretariaController {
 		String encodedPassword = passwordEncoder.encode(professorDto.getSenha());
 		professorDto.setSenha(encodedPassword);
 
-		List<Role> roles = rs.getRoles();
-
-		cps.salvarProfessorDto(professorDto, file, roles);
+		cps.salvarProfessorDto(professorDto, file);
 
 		return "redirect:/secretaria/cadastrar/professor?success";
 	}
@@ -231,9 +224,7 @@ public class SecretariaController {
 		String encodedPassword = passwordEncoder.encode(alunoDto.getSenha());
 		alunoDto.setSenha(encodedPassword);
 
-		List<Role> roles = rs.getRoles();
-
-		cas.salvarAlunoDto(alunoDto, file, roles, request);
+		cas.salvarAlunoDto(alunoDto, file, request);
 
 		return "redirect:/secretaria/cadastrar/aluno?success";
 	}

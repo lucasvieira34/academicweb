@@ -1,7 +1,8 @@
 package br.com.academic.service;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import br.com.academic.models.Professor;
 import br.com.academic.models.Role;
 import br.com.academic.models.Usuario;
 import br.com.academic.repository.ProfessorRepository;
+import br.com.academic.repository.RoleRepository;
 import br.com.academic.repository.UsuarioRepository;
 
 @Service
@@ -23,9 +25,15 @@ public class CadastroProfessorService {
 	@Autowired
 	private ProfessorRepository pr;
 	
-	public void salvarProfessorDto(CadastroProfessorDto professorDto, MultipartFile file, List<Role> roles) {
+	@Autowired
+	private RoleRepository rr;
+	
+	public void salvarProfessorDto(CadastroProfessorDto professorDto, MultipartFile file) {
 		Usuario usuario = new Usuario();
 		Professor professor = new Professor();
+		
+		Role role = rr.findByNome("ROLE_PROFESSOR");
+		usuario.setRoles(new ArrayList<Role>(Arrays.asList(role)));
 		
 		usuario.setEmail(professorDto.getEmail());
 		usuario.setNome(professorDto.getNome());
@@ -47,15 +55,8 @@ public class CadastroProfessorService {
 		professor.setSalario(professorDto.getSalario());
 		
 		professor.setUsuario(usuario);
+		
 		pr.save(professor);
-		
-		//SETANDO TODAS AS ROLES
-		usuario.setRoles(roles);
-		//REMOVENDO A ROLE DE ALUNO DA LISTA
-		usuario.getRoles().remove(0);
-		//REMOVENDO A ROLE DE SECRETARIA DA LISTA
-		usuario.getRoles().remove(1);
-		
 		ur.save(usuario);
 		
 	}

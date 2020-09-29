@@ -1,7 +1,6 @@
 package br.com.academic.models;
 
 import java.util.Collection;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -62,7 +61,7 @@ public class Usuario implements UserDetails{
 			   name = "id_usuario", referencedColumnName = "id_usuario"),
 			   inverseJoinColumns = @JoinColumn(
 			   name = "id_role", referencedColumnName = "id_role"))
-	private List<Role> roles;
+	private Collection<Role> roles;
 
 
 	
@@ -119,11 +118,11 @@ public class Usuario implements UserDetails{
 		this.senha = senha;
 	}
 
-	public List<Role> getRoles() {
+	public Collection<Role> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(List<Role> roles) {
+	public void setRoles(Collection<Role> roles) {
 		this.roles = roles;
 	}
 

@@ -1,6 +1,6 @@
 package br.com.academic.models;
 
-import java.util.List;
+import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,7 +26,7 @@ public class Role implements GrantedAuthority{
 	private String nome;
 
 	@ManyToMany(mappedBy = "roles")
-	private List<Usuario> usuarios;
+	private Collection<Usuario> usuarios;
 	
 	public Role() {
     }
@@ -51,12 +51,34 @@ public class Role implements GrantedAuthority{
 		this.id_role = id;
 	}
 
-	public List<Usuario> getUsuarios() {
+	public Collection<Usuario> getUsuarios() {
 		return usuarios;
 	}
 
-	public void setUsuarios(List<Usuario> usuarios) {
+	public void setUsuarios(Collection<Usuario> usuarios) {
 		this.usuarios = usuarios;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id_role ^ (id_role >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Role other = (Role) obj;
+		if (id_role != other.id_role)
+			return false;
+		return true;
 	}
 
 	@Override

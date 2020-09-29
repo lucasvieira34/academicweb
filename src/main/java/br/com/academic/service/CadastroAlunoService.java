@@ -1,8 +1,9 @@
 package br.com.academic.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -22,6 +23,7 @@ import br.com.academic.models.Role;
 import br.com.academic.models.Usuario;
 import br.com.academic.models.ValidationToken;
 import br.com.academic.repository.AlunoRepository;
+import br.com.academic.repository.RoleRepository;
 import br.com.academic.repository.UsuarioRepository;
 import br.com.academic.repository.ValidationTokenRepository;
 
@@ -30,6 +32,9 @@ public class CadastroAlunoService {
 
 	@Autowired
 	private UsuarioRepository ur;
+	
+	@Autowired
+	private RoleRepository rr;
 
 	@Autowired
 	private AlunoRepository ar;
@@ -43,10 +48,13 @@ public class CadastroAlunoService {
 	@Autowired
 	private ValidationTokenRepository tokenRepository;
 
-	public void salvarAlunoDto(CadastroAlunoDto alunoDto, MultipartFile file, List<Role> roles, HttpServletRequest request) {
+	public void salvarAlunoDto(CadastroAlunoDto alunoDto, MultipartFile file, HttpServletRequest request) {
 		Usuario usuario = new Usuario();
 		Aluno aluno = new Aluno();
 		AlunoDisciplina alunoDisciplina = new AlunoDisciplina();
+		
+		Role role = rr.findByNome("ROLE_ALUNO");
+		usuario.setRoles(new ArrayList<Role>(Arrays.asList(role)));
 
 		usuario.setEmail(alunoDto.getEmail());
 		usuario.setNome(alunoDto.getNome());
@@ -85,13 +93,6 @@ public class CadastroAlunoService {
 
 			ads.salvarAlunoDisciplina(alunoDisciplina);
 		}
-
-		// SETANDO TODAS AS ROLES
-		usuario.setRoles(roles);
-		// REMOVENDO A ROLE DE PROFESSOR DA LISTA
-		usuario.getRoles().remove(1);
-		// REMOVENDO A ROLE DE SECRETARIA DA LISTA
-		usuario.getRoles().remove(1);
 
 		ur.save(usuario);
 		
