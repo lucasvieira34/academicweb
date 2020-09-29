@@ -15,6 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -47,6 +48,7 @@ public class Usuario implements UserDetails{
 	private boolean ativo;
 	
 	@Lob
+	@Type(type = "org.hibernate.type.ImageType")
 	private byte[] imagem;
 	
 	@OneToOne(mappedBy = "usuario")
