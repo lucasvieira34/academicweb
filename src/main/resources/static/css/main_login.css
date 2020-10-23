@@ -204,11 +204,24 @@ img {
   max-width: 100%;
 }
 
+.forgot100-pic {
+  width: 316px;
+  padding-left: 65px;
+}
+
+.forgot100-pic img {
+  max-width: 100%;
+}
+
 
 /*------------------------------------------------------------------
 [  ]*/
 .login100-form {
   width: 290px;
+}
+
+.forgot100-form {
+  width: 330px;
 }
 
 .login100-form-title {
@@ -232,6 +245,28 @@ img {
   width: 100%;
   display: block;
   padding-bottom: 54px;
+}
+.forgot100-form-title {
+  font-family: Poppins-Bold;
+  font-size: 26px;
+  color: #FA8021;
+  line-height: 1.2;
+  text-align: center;
+
+  width: 100%;
+  display: block;
+  padding-bottom: 15px;
+}
+.forgot100-form-subtitle {
+  font-family: Poppins-Regular;
+  font-size: 16px;
+  color: #333333;
+  line-height: 1.2;
+  text-align: center;
+
+  width: 100%;
+  display: block;
+  padding-bottom: 20px;
 }
 
 
@@ -336,6 +371,18 @@ img {
   padding-top: 20px;
 }
 
+.container-forgot100-form-btn {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-top: 5px;
+}
+
 .login100-form-btn {
   font-family: Montserrat-Bold;
   font-size: 15px;
@@ -382,7 +429,15 @@ img {
     width: 35%;
   }
 
+  .forgot100-pic {
+    width: 35%;
+  }
+
   .login100-form {
+    width: 50%;
+  }
+
+  .forgot100-form {
     width: 50%;
   }
 }
@@ -396,7 +451,15 @@ img {
     display: none;
   }
 
+  .forgot100-pic {
+    display: none;
+  }
+
   .login100-form {
+    width: 100%;
+  }
+
+  .forgot-form {
     width: 100%;
   }
 }

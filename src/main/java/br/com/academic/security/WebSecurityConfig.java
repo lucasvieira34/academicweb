@@ -41,6 +41,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 				//PERMISSÕES PROFESSOR
 				.antMatchers(HttpMethod.GET, "/professor/**").hasRole("PROFESSOR")
 				.antMatchers(HttpMethod.GET, "/").hasRole("PROFESSOR")
+				//PERMISSÕES SECRETARIA
+				.antMatchers("/secretaria/**").hasRole("SECRETARIA")
 				.antMatchers("/resources/**").permitAll()
 				.anyRequest().authenticated()
 			.and()
